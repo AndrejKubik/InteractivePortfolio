@@ -105,7 +105,7 @@ namespace Snek.Utilities
         /// <summary>
         /// Use for getting component references through code
         /// </summary>
-        protected void FailValidation<T>() where T : MonoBehaviour
+        protected void FailValidation<T>() where T : Component
         {
             string componentName = typeof(T).Name.Nicify();
 
