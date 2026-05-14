@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Snek.Utilities
 {
@@ -101,9 +102,20 @@ namespace Snek.Utilities
 
         }
 
+        /// <summary>
+        /// Use for getting component references through code
+        /// </summary>
+        protected void FailValidation<T>() where T : MonoBehaviour
+        {
+            string componentName = typeof(T).Name.Nicify();
+
+            FailValidation($"Cannot find <b>[{componentName}]</b> component.");
+        }
+
         protected void FailValidation(string message)
         {
             _isValid = false;
+
             Debug.LogError(message);
         }
 
