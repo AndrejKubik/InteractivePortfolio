@@ -1,0 +1,3 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Creates a wrapper for the provided property which handles the change check and mixed values check,SnekPropertyFieldScope(),SerializedProperty property,Constructor
+,public,Checks if the provided property was changed in the current draw call,IsValueChanged(),,"Method, bool"

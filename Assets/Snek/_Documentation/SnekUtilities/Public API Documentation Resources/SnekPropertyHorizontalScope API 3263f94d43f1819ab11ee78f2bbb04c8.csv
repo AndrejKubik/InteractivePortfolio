@@ -1,0 +1,4 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns the Rect of the entire scope,GetScopeRect(),,"Method, bool"
+,public,Draws GUI elements inside of it from left to right and treats them like a part of the provided property,SnekPropertyHorizontalScope(),"SerializedProperty property,
+params SnekGUIScopeOption[] options",Constructor

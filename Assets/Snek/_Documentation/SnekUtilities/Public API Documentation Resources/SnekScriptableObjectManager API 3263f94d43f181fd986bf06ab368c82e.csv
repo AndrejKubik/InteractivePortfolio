@@ -1,0 +1,7 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static","Returns a reference to a SnekScriptableObject which uses [SnekAutoGenerateAsset] attribute
+
+Note: In-Editor use only, a different approach is needed for runtime.",GetAsset<T>(),,"Method, T"
+,"public, static","Returns a reference to a SnekScriptableObject which uses [SnekAutoGenerateAsset] attribute
+
+Note: In-Editor use only, a different approach is needed for runtime.",CallAfterInitialization(),Action action,"Method, void"

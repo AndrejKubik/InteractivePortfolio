@@ -1,0 +1,9 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Creates a new property field instance for the custom inspector/window,SnekAdjustableSlider(),"SerializedProperty sliderSetupDataProperty, 
+string label, 
+float fieldWidth = SnekGUILayout.DefaultFieldWidth, 
+float fieldHeight = SnekGUILayout.DefaultFieldHeight, 
+GUIStyle labelStyle = null, 
+GUIStyle fieldStyle = null, 
+params GUILayoutOption[] options","Constructor, SnekAdjustableSlider"
+,public,Draws the property field on the GUI,Draw(),,"Method, void"

@@ -1,0 +1,12 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,protected,"Exposed reference for SnekWindowGUILayoutSettings if needed in a child class to avoid multiple referencing. 
+
+Gets assigned inside OnEnable() method.",_layoutSettings,,"SnekWindowGUILayoutSettings, field"
+,"protected, virtual",Can be overridden to make the window use a custom Color value for the background.,GetBackgroundColor(),,"Color, Method"
+,"protected, virtual",Can be overridden to make the window use a custom Color value for the content tint.,GetContentColor(),,"Color, Method"
+,"protected, virtual",Can be overridden to make the window use a custom Color value for the borders.,GetBorderColor(),,"Color, Method"
+,"protected, virtual",Can be overridden to make the window use a custom float value for the border width.,GetBorderWidth(),,"Method, float"
+,"protected, virtual","Empty virtual callback which is called inside OnEnable(), override this for hooking serialized properties and things alike",OnCreateWindowInstance(),,"Method, void"
+,"protected, virtual","Override this method and put all GUI drawing logic inside of it.
+
+Internally called inside OnGUI() method.",DrawContent(),,"Method, void"

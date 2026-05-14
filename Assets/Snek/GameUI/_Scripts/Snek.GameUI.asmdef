@@ -1,0 +1,16 @@
+{
+    "name": "Snek.GameUI",
+    "rootNamespace": "Snek.GameUI",
+    "references": [
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

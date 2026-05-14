@@ -1,0 +1,10 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,"Draws every GUI element inside of it from left to right 
+with optional anchor and optional advanced GUI scope options",SnekGUIHorizontalScope(),"SnekGUIScopeAnchor anchor = SnekGUIScopeAnchor.NoAnchor, 
+params SnekGUIScopeOption[] options",Constructor
+,public,"Draws every GUI element inside of it from left to right 
+with optional anchor and optional basic GUI scope options",SnekGUIHorizontalScope(),"SnekGUIScopeAnchor? anchor, 
+params GUILayoutOption[] options",Constructor
+,public,"Draws every GUI element inside of it from left to right 
+with no anchor and optional basic GUI scope options",SnekGUIHorizontalScope(),params GUILayoutOption[] options,Constructor
+,public,Returns the Rect of the entire scope,GetRect(),,"Method, Rect"

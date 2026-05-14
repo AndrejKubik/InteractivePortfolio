@@ -1,0 +1,18 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Returns a copy of the provided GUIStyle with provided padding,GetStyleWithPadding(),"GUIStyle style, 
+RectOffset padding","GUIStyle, Method"
+,"public, static",Returns uniform padding data with provided value,GetUniformPadding(),int padding,"Method, RectOffset"
+,"public, static",Returns two-dimensional padding data with provided values,Get2DPadding(),"int horizontalPadding, 
+int verticalPadding","Method, RectOffset"
+,"public, static",Helper method in case you want to store the options into a variable before creating a GUI scope instance for reusability,CreateLayoutOptions(),params GUILayoutOption[] options,"GUILayoutOption, Method"
+,"public, static","Checks if a Rect is being hovered by the cursor.
+
+Note: For a Rect generated through GUILayoutUtility.GetLastRect(), 
+make sure to put this check under following:
+
+if (Event.current.type != EventType.Layout) { }",IsCursorOverRect(),Rect rect,"Method, bool"
+,"public, static","Displays a simple alert popup window in the main Unity Editor window which you can close by clicking the “Close” button or anywhere else in the main Unity Editor window. 
+
+Additionally, you can add a callback when the popup is closed.",ShowEditorAlert(),"string title, 
+string message, 
+Action onCloseCallback = null","Method, void"

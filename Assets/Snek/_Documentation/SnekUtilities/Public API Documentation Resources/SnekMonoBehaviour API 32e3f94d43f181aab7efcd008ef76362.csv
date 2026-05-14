@@ -1,0 +1,8 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Creates a new property field instance for the custom inspector/window,SnekObjectField<T>(),"SerializedProperty serializedProperty, 
+string label, 
+bool allowSceneObjects, 
+GUIStyle labelStyle = null, 
+params GUILayoutOption[] options","Constructor, SnekObjectField<T>"
+,public,Draws the property field on the GUI with the label on the left,DrawHorizontal(),,"Method, void"
+,public,Draws the property field on the GUI with the label at the top,DrawVertical(),,"Method, void"

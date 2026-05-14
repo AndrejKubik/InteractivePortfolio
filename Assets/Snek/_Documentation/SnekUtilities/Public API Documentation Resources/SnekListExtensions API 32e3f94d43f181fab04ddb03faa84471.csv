@@ -1,0 +1,5 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns the content color value assigned through the inspector.,GetContentColor(),,"Color, Method"
+,public,Returns the border width value assigned through the inspector.,GetBorderWidth(),,"Method, float"
+,public,Returns the border color value assigned through the inspector.,GetBorderColor(),,"Color, Method"
+,public,Returns the background color value assigned through the inspector.,GetBackgroundColor(),,"Color, Method"

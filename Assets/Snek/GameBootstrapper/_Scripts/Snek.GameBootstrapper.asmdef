@@ -1,0 +1,17 @@
+{
+    "name": "Snek.GameBootstrapper",
+    "rootNamespace": "Snek.GameBootstrapper",
+    "references": [
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:2fc58fc620e651c4d8ecd0db04be973f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

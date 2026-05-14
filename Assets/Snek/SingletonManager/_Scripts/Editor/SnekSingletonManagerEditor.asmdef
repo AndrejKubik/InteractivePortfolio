@@ -1,0 +1,20 @@
+{
+    "name": "SnekEditor.SingletonManager",
+    "rootNamespace": "SnekEditor.SingletonManager",
+    "references": [
+        "GUID:75222bbea4dcc734ca7339447f79a4e6",
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:25909fd648d6787488a91dcbbbf455b9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

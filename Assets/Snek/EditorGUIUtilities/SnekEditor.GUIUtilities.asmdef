@@ -1,0 +1,20 @@
+{
+    "name": "SnekEditor.GUIUtilities",
+    "rootNamespace": "SnekEditor.GUIUtilities",
+    "references": [
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:a702d4b1366c88d44afc2f1ff35e65fa",
+        "GUID:2fc58fc620e651c4d8ecd0db04be973f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

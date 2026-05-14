@@ -1,0 +1,22 @@
+{
+    "name": "SnekEditor.AudioManager",
+    "rootNamespace": "SnekEditor.AudioManager",
+    "references": [
+        "GUID:3f01bbb64a6519640ab5ce8210d1af07",
+        "GUID:75222bbea4dcc734ca7339447f79a4e6",
+        "GUID:25909fd648d6787488a91dcbbbf455b9",
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:a702d4b1366c88d44afc2f1ff35e65fa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

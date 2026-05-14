@@ -1,0 +1,4 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Encapsulates GUI controls as a user action which is supposed to mark the propertyHolder Object as dirty.,SnekDirectValueChangeScope(),Object propertyHolder,Constructor
+,public,Encapsulates GUI controls as a user action which is supposed to mark the propertyHolder Object as dirty and registers the changes as an Undo action.,SnekDirectValueChangeScope(),"Object propertyHolder,
+string undoActionName",Constructor

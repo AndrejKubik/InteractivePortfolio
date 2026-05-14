@@ -1,0 +1,6 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Redistributes list’s elements in an unbiased random order,Shuffle(),,"Method, void"
+,"public, static",Switches the positions of the two elements at provided index values,SwapListElements(),"int currentIndex, 
+int targetIndex","Method, void"
+,"public, static","Checks if the list contains the provided index, regardless of its value being null or not",HasIndex(),int index,"Method, bool"
+,"public, static",Returns a random index within list’s range,GetRandomIndex(),,"Method, void"

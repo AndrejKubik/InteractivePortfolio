@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d927697a84f4cd04e9fe87eb1051198a, type: 3}
+  m_Name: SnekEditorIconsContainer
+  m_EditorClassIdentifier: SnekEditor.GUIUtilities::SnekEditor.GUIUtilities.SnekEditorIconsContainer
+  _logoThin: {fileID: 2800000, guid: 46a6008a8092aa2469f79e235e9b57c0, type: 3}
+  _logoThick: {fileID: 2800000, guid: 2d0a14205e8f6424fa7018740793d63c, type: 3}
+  _favouriteOff: {fileID: 2800000, guid: 06b0a1c2b8a2db64d83ce630a6132d0e, type: 3}
+  _favouriteOn: {fileID: 2800000, guid: abd13df03452dc44d9de89d461dd1420, type: 3}
+  _foldoutExpanded: {fileID: 2800000, guid: b4877fc3428075a438a8746f04a541bb, type: 3}
+  _foldoutShrinked: {fileID: 2800000, guid: bce68445ae876694089da0c8eaa55bee, type: 3}

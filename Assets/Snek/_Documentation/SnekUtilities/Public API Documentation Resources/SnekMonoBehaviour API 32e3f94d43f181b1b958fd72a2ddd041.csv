@@ -1,0 +1,2 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,protected,Can be used in a foreach loop for easy iteration over all selected assets by type SnekScriptableObject,GetSelectedAssets(),,"IEnumerable<SnekScriptableObject>, Method"

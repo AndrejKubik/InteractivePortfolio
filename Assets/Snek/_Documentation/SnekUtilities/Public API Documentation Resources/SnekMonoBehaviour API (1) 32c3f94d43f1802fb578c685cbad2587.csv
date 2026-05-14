@@ -1,0 +1,3 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,protected,Can be used in a foreach loop for easy iteration over all selected components that are of the inspected type T,GetSelectedComponents(),,"IEnumerable<T>, Method"
+,protected,Returns the inspected component of type T at the specified index in the current selection,GetSelectedComponent(),int index = 0,"Method, T"

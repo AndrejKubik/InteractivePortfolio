@@ -1,0 +1,22 @@
+{
+    "name": "SnekEditor.GameUIPlus",
+    "rootNamespace": "SnekEditor.GameUIPlus",
+    "references": [
+        "GUID:2a76655708bb2a94cb41aea5341e7da4",
+        "GUID:75e9a42629c31c74396381e0b14ceec7",
+        "GUID:ce923bf2078953f49a474fb772892804",
+        "GUID:25909fd648d6787488a91dcbbbf455b9",
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

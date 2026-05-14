@@ -1,0 +1,10 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,protected,Can be used in a foreach loop for easy iteration over all selected components by type SnekMonoBehaviour,GetSelectedComponents(),,"IEnumerable<SnekMonoBehaviour>, Method"
+,"protected, virtual",Can be used to check the initialization result after the actual process,OnComponentToggle(),bool newState,"Method, void"
+,"protected, virtual",Returns true if at least one of the inspected components is enabled,IsAnySelectedComponentEnabled(),,"Method, bool"
+,"protected, virtual","Can be overridden to make the component’s border have a specific color.
+
+By default, this handles the Color switch depending on the component being enabled or disabled.",GetBorderColor(),,"Color, Method"
+,"protected, virtual","Can be overridden to make the component’s content have a specific color tint.
+
+By default, this handles the Color switch depending on the component being enabled or disabled.",GetContentColor(),,"Color, Method"

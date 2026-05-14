@@ -1,0 +1,14 @@
+{
+    "name": "Snek.PlayModeManager",
+    "rootNamespace": "Snek.PlayModeManager",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,103 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"const, protected",Width of the border for the element selection highlight,SelectionBorderWidth,,"field, float"
+,public,"Creates a new snek list instance for the custom inspector/window.
+
+Set useCustomPropertyDrawer to true only if the list is for a serializable class/struct which uses a custom property drawer.",SnekReorderableList(),"SerializedObject serializedObject, 
+SerializedProperty elements, 
+bool allowAdd = true, 
+bool allowRemove = true, 
+bool allowMultiSelect = true,
+bool useCustomPropertyDrawer = false","Constructor, SnekReorderableList"
+,"const, protected",Default width of the label for each element,DefaultElementLabelWidth,,"field, float"
+,"const, protected",Default height for each element,DefaultElementHeight,,"field, float"
+,"const, protected",Default height for the list header,DefaultHeaderHeight,,"field, float"
+,"const, protected",Default height for the list footer,DefaultFooterHeight,,"field, float"
+,"const, protected",Default vertical padding for the GUI of each element,DefaultElementContentVerticalPadding,,"field, float"
+,protected,Style of the entire list’s scope,_sectionStyle,,"GUIStyle, field"
+,protected,Style of the entire list’s header label,_headerStyle,,"GUIStyle, field"
+,protected,"Style for a regular label, mostly intended for element names",_labelStyle,,"GUIStyle, field"
+,protected,Style for alert boxes,_alertStyle,,"GUIStyle, field"
+,protected,Style for buttons,_buttonStyle,,"GUIStyle, field"
+,protected,A reference to the SnekInspectorGUILayoutSettings asset,_visualSettings,,"SnekInspectorGUILayoutSettings, field"
+,protected,A reference to the SnekEditorIconsContainer asset,_iconsContainer,,"SnekEditorIconsContainer, field"
+,"protected, readonly",Can be used to check if the “Add” button is enabled for the list,_isAddAllowed,,"bool, field"
+,"protected, readonly",Can be used to check if the “Remove” button is enabled for the list,_isRemoveAllowed,,"bool, field"
+,protected,Returns a collection containing indexes of the currently selected list elements,GetSelectedElements(),,"Method, ReadOnlyCollection<int>"
+,"protected, virtual",Override this for custom element GUI vertical padding,GetElementVerticalPadding(),,"Method, float"
+,"protected, virtual",Override this for custom header text,GetHeaderLabel(),,"Method, string"
+,"protected, virtual",Override this for custom header height,GetHeaderHeight(),,"Method, float"
+,"protected, virtual",Override this for custom footer height,GetFooterHeight(),,"Method, float"
+,"protected, virtual","Override this for custom list element height for primitive type properties which use a single line of the GUI. 
+(string, float, int …)",GetElementHeightDefault(),,"Method, float"
+,protected,Returns the default label text value for list elements,GetBaseElementLabel(),int index,"Method, string"
+,"protected, virtual","Override this for custom list element text width.
+
+Index allows different width values between elements, in case you want them to be uniform just ignore the parameter",GetElementLabelWidth(),int index,"Method, float"
+,protected,Returns true if the list element at the provided index is a part of the current selection,IsElementSelected(),int elementIndex,"Method, bool"
+,protected,Returns true if no list element is currently selected,IsSelectionEmpty(),,"Method, bool"
+,"protected, virtual","Override with a custom condition if the label should be drawn on all list elements or not, set to true by default.",IsElementLabelAllowed(),,"Method, bool"
+,"protected, virtual","Override with a custom condition if GUI interaction should be enabled or not on all list elements or not, set to true by default.",IsElementPropertyInteractionAllowed(),,"Method, bool"
+,"public, virtual",Handles the entire drawing logic of SnekReorderableList,Draw(),,"Method, void"
+,"protected, virtual",Handles the drawing of the header in the form of a button which toggles the foldout state of the list elements section,DrawHeader(),,"Method, void"
+,"protected, virtual","Callback for drawing GUI elements on the entire area of each list element.
+
+Called through an Action of ReorderableList class.",DrawElementBackground(),"Rect rect, 
+int index, 
+bool isActive, 
+bool isFocused","Method, void"
+,"protected, virtual","Callback for drawing GUI elements on the inner area of each list element.
+
+Called through an Action of ReorderableList class.",DrawElement(),"Rect rect, 
+int index, 
+bool isActive, 
+bool isFocused","Method, void"
+,"protected, virtual","Handles drawing of GUI for the label and property field of each list element and if that GUI should be enabled or not.
+
+Called inside DrawElement() unless that method was overridden.",DrawElementProperty(),"Rect rect, 
+int index, 
+bool isActive, 
+bool isFocused, 
+SerializedProperty property","Method, void"
+,"protected, virtual","Handles the drawing logic for the label of each list element.
+
+Called inside DrawPrimitiveElementProperty() unless that method was overridden.",DrawElementLabel(),"int index, 
+Rect labelRect","Method, void"
+,"protected, virtual","Handles the drawing logic for the property field of each list element.
+
+Called inside DrawElementProperty() unless that method was overridden.",DrawElementPropertyField(),"Rect elementContentRect, 
+Rect labelRect, 
+int index, 
+SerializedProperty property, 
+out Rect propertyContentRect","Method, void"
+,"protected, virtual",Callback for drawing of the list footer which contains “Add” and “Remove” buttons unless overridden.,DrawFooter(),Rect rect,"Method, void"
+,"protected, virtual",Override this if you need some custom logic to happen when an element is added through the “Add” button in the footer,OnAddElement(),,"Method, void"
+,"protected, virtual",Override this if you need some custom logic to happen when an element is removed through the “Remove” button in the footer,OnRemoveElement(),,"Method, void"
+,"protected, virtual","Override this if you need some custom logic to happen when the list element order is changed through the inspector.
+
+Called through an Action of ReorderableList class.",OnReorderElements(),"ReorderableList list, 
+int oldIndex, 
+int newIndex","Method, void"
+,"protected, virtual","Override this if you need some custom logic to happen when current selection is cleared in the inspector.
+
+Selection also gets cleared when the list GUI loses focus by clicking on something else in the editor.",OnDeselectElements(),,"Method, void"
+,"protected, virtual",Override this for custom list element height for serializable class/struct properties which contain visible child properties.,GetElementHeightExpanded(),SerializedProperty property,"Method, float"
+,"protected, virtual","Override this for custom list element text.
+
+Index allows different text values between elements, in case you want them to be uniform just ignore the parameter",GetElementLabel(),int index,"Method, string"
+,"protected, virtual","Handles the drawing logic for the foldout header of each list element.
+
+Called inside DrawComplexElementProperty() unless that method was overridden.",DrawElementFoldoutButton(),"int index, 
+SerializedProperty property,
+Rect labelRect","Method, void"
+,"protected, virtual","Handles drawing of GUI for the label and property field of each list element for primitive type properties.
+(string, float, int …)
+
+Called inside DrawElementProperty() unless that method was overridden.",DrawPrimitiveElementProperty(),"int index, 
+SerializedProperty property,
+Rect contentRect","Method, void"
+,"protected, virtual","Handles drawing of GUI for the label and property field of each list element for serializable class/struct properties
+
+Called inside DrawElementProperty() unless that method was overridden.",DrawComplexElementProperty(),"int index, 
+SerializedProperty property,
+Rect contentRect","Method, void"
+,"protected, readonly",Can be used to check if the list is using allowing custom property drawers for its elements,"_isUsingCustomPropertyDrawer ",,"bool, field"

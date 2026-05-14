@@ -1,0 +1,746 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Snek Utilities v1.0 - Getting Started</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+    body {
+        margin: 2em auto;
+        max-width: none;
+        padding: 20px;
+        color: rgb(55, 53, 47);
+    }
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="32f3f94d-43f1-8042-81a7-d6caedb3880b" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Getting%20Started%20Documentation%20Resources/SnekProductionLogo.png"/></div><h1 class="page-title" dir="auto">Snek Utilities v1.0 - Getting Started</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>General Overview</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8089-bb90-d112703668b2" class=""><strong>What this package does:</strong></p></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-8018-b5f6-cb7f0adc9a84" class="bulleted-list"><li style="list-style-type:disc">Provides a cleaner, less error-prone and a bit more advanced <mark class="highlight-blue"><strong>MonoBehaviour </strong></mark>workflow <br/>- <mark class="highlight-blue"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">MonoBehaviour </a></strong></mark><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">vs </a><mark class="highlight-blue"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">SnekMonoBehaviour</a></strong></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-8051-8416-efacfd7411d0" class="bulleted-list"><li style="list-style-type:disc">Allows a bit more modern visual style for default inspectors without any code <br/>- <strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">Modern Customizable Default Inspectors</a></strong></li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-8057-a6e9-d4a2469542ab" class="bulleted-list"><li style="list-style-type:disc">Adds the option to make a <mark class="highlight-blue"><strong>ScriptableObject </strong></mark>persistent, causing it to auto-generate if missing and allowing it to be very easily referenced for in-editor workflow - <strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">Auto-Generated Scriptable Objects</a></strong><br/>(Very useful for creating editor tools)</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-80c7-81ba-e3b45627b169" class="bulleted-list"><li style="list-style-type:disc">Provides advanced custom inspector classes for <mark class="highlight-blue"><strong>MonoBehaviour </strong></mark>and <mark class="highlight-blue"><strong>ScriptableObject <br/></strong></mark><mark class="highlight-default"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">- Advanced Custom Inspector</a></strong></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-808d-ab17-e1994a414a3b" class="bulleted-list"><li style="list-style-type:disc">Simplifies coding for custom inspectors and custom editor windows with reusable classes for common GUI elements -<strong> </strong><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">Advanced Property Drawers</a></strong><br/>(This prevent boilerplate code and allows you to focus on the actual logic instead of spending a lot of time GUI drawing)</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-806a-a4b2-c4623a90ccd2" class="bulleted-list"><li style="list-style-type:disc">Introduces a <mark class="highlight-blue"><strong>DropBox </strong></mark>GUI element and an advanced version of <mark class="highlight-blue"><strong>ReorderableList </strong></mark><mark class="highlight-default">- </mark><mark class="highlight-default"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">Drop Box</a></strong></mark><mark class="highlight-default">, <br/></mark><mark class="highlight-default"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">Advanced </a></strong></mark><mark class="highlight-blue"><strong><a href="Snek%20Utilities%20v1%200%20-%20Getting%20Started%2032f3f94d43f1804281a7d6caedb3880b.html">ReorderableList</a></strong></mark></li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-800a-9146-f6d1bf47c6f6" class="bulleted-list"><li style="list-style-type:disc">A few additional small editor utilities</li></ul></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-8013-a1f7-e94b4ccdf221"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8070-8eca-e8074721d79c" class="">This document contains only  a brief introduction to the package content. <br/>For more details and notes, you can check the <strong><a href="https://www.notion.so/Snek-Utilities-v1-0-Public-API-Documentation-3263f94d43f180058e3ce1218ac623fb?pvs=21">Public API Documentation</a></strong><strong>.</strong></p></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-80ee-a991-e49f573c5a09"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80a1-abe8-e9fab558ed96" class="">This package was originally intended as my own base for developing tools so it will be updated with new things every now and then. <br/><br/>If you have any improvement suggestions or issues while working with the package, please contact me through email and I will get back to you as soon as I can.<br/><br/><strong>Support email: andrejkk97@gmail.com</strong></p></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-80f6-befc-e321aad44dd0"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8045-9e99-cad26016e3f3" class="">
+</p></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>MonoBehaviour </strong></mark><mark class="highlight-default"><strong>vs</strong></mark><mark class="highlight-blue"><strong> SnekMonoBehaviour</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><div id="32f3f94d-43f1-80c7-98af-f42d9c8a4c9d" class="column-list"><div style="display:contents" dir="auto"><div id="32f3f94d-43f1-8065-a2cc-d7bd200f6c2d" style="width:31.25%" class="column"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8008-996b-e2dda38b1f6e" class=""><mark class="highlight-blue"><strong>MonoBehaviour</strong></mark></p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-805d-b24c-e0896e47d776" class="">Default <mark class="highlight-blue"><strong>GameObject </strong></mark>flow.</p></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-803c-8a47-c48111c84dd3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Awake</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-805f-aa40-f78d1a2d4043" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Start</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80e5-9ad1-fb28c23c0933" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="32f3f94d-43f1-80b5-85c9-e215acc3fd77" style="width:81.25%" class="column"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8058-904b-e0dcaf36dac1" class=""><mark class="highlight-blue"><strong>SnekMonoBehaviour </strong></mark></p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8014-90f0-f23fb8dd8fb9" class="">Contains initialization callbacks while still allowing the usage of <mark class="highlight-blue"><strong>Start</strong></mark>() and <mark class="highlight-blue"><strong>Awake</strong></mark>() through overrides.</p></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-805f-a1bc-d0957d6d8b13" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>Initialize</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-80a3-82ee-d9a912dbbbb8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>IsInitializedInStart</strong></mark>() - you choose whether <mark class="highlight-yellow"><strong>Initialize</strong></mark>() is called in <mark class="highlight-blue"><strong>Start</strong></mark>() or <mark class="highlight-blue"><strong>Awake</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-80aa-a184-fcb2b4730731" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>Validate</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-80f4-814a-ca318059ddfa" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>OnFailValidation</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-8077-9c53-d9a8fa33aa84" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>OnInitializationSuccess</strong></mark>()</li></ul></div><div style="display:contents" dir="auto"><ul id="32f3f94d-43f1-80de-b61d-e547d95975f6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow"><strong>FailValidation</strong></mark>(<mark class="highlight-blue"><strong>string </strong></mark><strong>message</strong>) - your message so you know exactly what caused the validation to fail, eg. if some required reference is null or a value is incorrect.</li></ul></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-803b-9990-dc3c5b6c3ffb"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Modern Customizable Default Inspectors</strong></summary><div class="indented"><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">How to apply</summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80f6-864c-ec39314f86d8" class="">Simple add the <strong>[</strong><mark class="highlight-teal"><strong>UseSnekInspector</strong></mark><strong>]</strong> attribute on a <mark class="highlight-blue"><strong>SnekMonoBehaviour </strong></mark><mark class="highlight-default">or a</mark> <mark class="highlight-blue"><strong>SnekScriptableObject </strong></mark>class</p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-8057-9031-f0e69f272fbf" class="image"><a href="Getting%20Started%20Documentation%20Resources/image.png"><img style="width:912px" src="Getting%20Started%20Documentation%20Resources/image.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-804b-82e2-fce12353062f" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%201.png"><img style="width:624px" src="Getting%20Started%20Documentation%20Resources/image%201.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-8036-8100-f1d0b07d2ef4" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%202.png"><img style="width:768px" src="Getting%20Started%20Documentation%20Resources/image%202.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-801f-bfa2-cf13c6bf3eda"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Additional options</summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-801f-8ff6-c28b3fac80ff" class="">You can disable the entire inspector interaction by using the<strong> [</strong><mark class="highlight-teal"><strong>UseSnekInspector</strong></mark><strong>(</strong><mark class="highlight-blue"><strong>true</strong></mark><strong>)]</strong> attribute overload or disable specific simple serialized variables by adding<strong> [</strong><mark class="highlight-teal"><strong>SnekInspectOnly</strong></mark><strong>]</strong> attribute to them instead.</p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80df-8823-e419e218544b" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%203.png"><img style="width:816px" src="Getting%20Started%20Documentation%20Resources/image%203.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-8027-aed7-d46e28102c10"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8030-b572-db7d4be9c523" class="">
+</p></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Color scheme modifications</summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8072-8097-d6d81aa7b937" class="">If you don’t like the default colors, you can use your own. Just change the values in <mark class="highlight-blue"><strong>SnekInspectorGUILayoutSettings</strong></mark> asset.</p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80b9-96e8-cb048aacf541" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%204.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%204.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-80f0-b0ff-de3c92f45d27"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8077-a2a4-e3486c7ae7b2" class="">
+</p></div></div></details></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Auto-Generated Scriptable Objects</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-804d-9cfe-e7a47b390973" class="">To create an auto-generated <mark class="highlight-blue"><strong>ScriptableObject</strong></mark>, simply add the<strong> [</strong><mark class="highlight-teal"><strong>SnekAutoGenerateAsset</strong></mark><strong>]</strong> attribute to a <mark class="highlight-blue"><strong>SnekScriptableObject</strong></mark>. </p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8058-a0f5-c9789f3c9b69" class="">There are two overloads to choose from:</p></div><div style="display:contents" dir="auto"><ol type="1" id="32f3f94d-43f1-8034-8fc2-ed1d50c2e784" class="numbered-list" start="1"><li><strong>[</strong><mark class="highlight-teal"><strong>SnekAutoGenerateAsset</strong></mark><mark class="highlight-default"><strong>(</strong></mark><mark class="highlight-blue"><strong>string </strong></mark><mark class="highlight-default"><strong>folderPath, </strong></mark><mark class="highlight-blue"><strong>string </strong></mark><mark class="highlight-default"><strong>fileName)</strong></mark><strong>] </strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32f3f94d-43f1-80d5-8ee5-e1d9f06e16c1" class="numbered-list" start="2"><li><strong>[</strong><mark class="highlight-teal"><strong>SnekAutoGenerateAsset</strong></mark><mark class="highlight-default"><strong>(</strong></mark><mark class="highlight-blue"><strong>string </strong></mark><mark class="highlight-default"><strong>targetAssetPath)</strong></mark><strong>] - </strong>make sure to add <mark class="highlight-orange"><strong>“.asset”</strong></mark><strong> </strong>at the end for this one </li></ol></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80bf-a5f9-fe63fcfbebfb" class="">Such auto-generated assets can be easily referenced through a singleton-like pattern for in-editor workflow which is very useful for creating editor tools for which you need some data stored in the project.<br/><br/>To get a reference to an auto-generated asset, use <mark class="highlight-blue"><strong>ScriptableObjectManager</strong></mark><strong>.</strong><mark class="highlight-yellow"><strong>GetAsset</strong></mark><strong>&lt;</strong><mark class="highlight-teal"><strong>T</strong></mark><strong>&gt;();</strong></p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-8023-bce4-ee76cf6d6b63" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%205.png"><img style="width:1104px" src="Getting%20Started%20Documentation%20Resources/image%205.png"/></a></figure></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Advanced Custom Inspector</strong></summary><div class="indented"><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">How to </summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8034-a80c-f26d132bf149" class="">There are two base classes when creating a custom inspector:</p></div><div style="display:contents" dir="auto"><ol type="1" id="32f3f94d-43f1-80c3-a581-e9d0a50ec558" class="numbered-list" start="1"><li><mark class="highlight-blue"><strong>SnekMonobehaviourInspectorCustom</strong></mark><strong>&lt;</strong><mark class="highlight-teal"><strong>T</strong></mark><strong>&gt;</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32f3f94d-43f1-80a2-9131-e8cfbaa34d3f" class="numbered-list" start="2"><li><mark class="highlight-blue"><strong>SnekScriptableObjectInspectorCustom</strong></mark><strong>&lt;</strong><mark class="highlight-teal"><strong>T</strong></mark><strong>&gt;</strong></li></ol></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80c6-9395-ed769e9417f7" class="">Both of them come with additional callbacks which you can override, also updating the property values of the inspected <mark class="highlight-blue"><strong>SerializedObject </strong></mark>is done internally so you dont need to write <strong>serializedObject.</strong><mark class="highlight-yellow"><strong>Update</strong></mark><strong>();</strong> and <strong>serializedObject.</strong><mark class="highlight-yellow"><strong>ApplyModifiedProperties</strong></mark><strong>();</strong> every time.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80ae-a8ab-eb80154f30a6" class="">To use either of those base inspectors, you simply inherit from the correct one based on the inspected object type instead of inheriting from <mark class="highlight-blue"><strong>Editor </strong></mark>class.</p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-8098-9925-c4b164a6dab7" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%206.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%206.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80ec-aaa5-d35a85969769" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%207.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%207.png"/></a></figure></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Modular base property drawing</summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8005-816a-cc30514e30a9" class="">You can mix the base inspector with the custom inspector by hiding properties from the base inspector instead of forcing one or the other.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-807f-a86a-c454070bef2d" class="">You can show/hide properties in the base inspector logic by using <mark class="highlight-yellow"><strong>HideProperty</strong></mark>() to hide a property and <mark class="highlight-yellow"><strong>ShowProperty</strong></mark>() to show a previously hidden property again. <br/>You can also simultaneously get a reference to a <mark class="highlight-blue"><strong>SerializedProperty </strong></mark>of the inspected object and hide it by using <mark class="highlight-yellow"><strong>GetProperty</strong></mark><strong>(</strong><mark class="highlight-blue"><strong>string </strong></mark><strong>propertyName, </strong><mark class="highlight-blue"><strong>bool </strong></mark><strong>hideFromBaseProperties)</strong> overload.</p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-809a-954c-c1c7fb8de18f" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%208.png"><img style="width:1296px" src="Getting%20Started%20Documentation%20Resources/image%208.png"/></a></figure></div></div></details></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Advanced Property Drawers</strong></summary><div class="indented"><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>SnekBoolField</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8056-82b5-fe1c2a19e97d" class="">Draws a <mark class="highlight-blue"><strong>bool </strong></mark>property field to which you can assign a custom label and it’s <mark class="highlight-blue"><strong>GUIStyle</strong></mark>.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-800b-91b9-f862e53c1efd" class=""><mark class="highlight-blue"><strong>GUIStyle </strong></mark>parameter is optional, a default preset from <mark class="highlight-blue"><strong>SnekGUIStyles </strong></mark>is applied by default.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80f7-a130-c0ad39cd36b3" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-80b2-9fc5-ff968468f357" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%209.png"><img style="width:432px" src="Getting%20Started%20Documentation%20Resources/image%209.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-802b-839c-f798ab8ad3f2" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2010.png"><img style="width:768px" src="Getting%20Started%20Documentation%20Resources/image%2010.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80ae-bb12-da1507ca07a6" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80c2-bcce-df47a5309606" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2011.png"><img style="width:768px" src="Getting%20Started%20Documentation%20Resources/image%2011.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8094-80fb-d3a69d7a7c3d" class=""><strong>Note: </strong>Checkbox is always on the center height-wise.</p></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-80ed-8626-ff1c98019911"/></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-809b-a116-cb89f927df90" class="">
+</p></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>SnekEnumField</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-805c-9862-f87b1b96c3b1" class="">Draws an <mark class="highlight-teal"><strong>Enum</strong></mark><mark class="highlight-blue"><strong> </strong></mark>property field to which you can assign a custom label and it’s <mark class="highlight-blue"><strong>GUIStyle</strong></mark>.<br/><mark class="highlight-blue"><strong>GUIStyle </strong></mark>parameter is optional, a default preset from <mark class="highlight-blue"><strong>SnekGUIStyles </strong></mark>is applied by default.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80c0-a7a7-f3564eb821eb" class="">You can draw the label either on the left or above the dropdown.</p></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-80e1-bc43-e391be6d5b36" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-8071-9918-e3a0bf5a1412" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2012.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2012.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80c3-af07-db4aef815e44" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2013.png"><img style="width:768px" src="Getting%20Started%20Documentation%20Resources/image%2013.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8059-a43a-ca719ce6721b" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="32f3f94d-43f1-80f5-a6e6-ddfbb3cf2dbc" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2014.png"><img style="width:576px" src="Getting%20Started%20Documentation%20Resources/image%2014.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="32f3f94d-43f1-8067-a774-d10dba2d9920" class=""><strong>Note: </strong>Avoid drawing the same property field multiple times like in the example to avoid potential issues and inconsistencies, especially with different <mark class="highlight-blue"><strong>GUIStyles</strong></mark>. Here it was only intended for simpler demonstration.</p></div><div style="display:contents" dir="auto"><hr id="32f3f94d-43f1-805f-9a9a-e377cb910567"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>SnekInputField</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80bc-8c67-fe34b030934b" class="">Draws an input property field to which you can assign a custom label and a custom <mark class="highlight-blue"><strong>GUIStyle</strong></mark> to both the label and the input field. You can also adjust the size of the input field.<br/></p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80cd-90e8-ead105b1ba10" class=""><mark class="highlight-blue"><strong>GUIStyle </strong></mark>parameters are optional, default presets from <mark class="highlight-blue"><strong>SnekGUIStyles </strong></mark><mark class="highlight-default">are</mark> applied by default.<br/>Input field size parameters are also optional, default value are applied by default.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80e3-bf2b-d844b971ff8d" class="">You can draw the label either on the left or above the input field.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-801a-8840-f31b5f692526" class="">This property field works for <mark class="highlight-blue"><strong>string</strong></mark>, <mark class="highlight-blue"><strong>float </strong></mark>and <mark class="highlight-blue"><strong>int </strong></mark>properties.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80dc-93b0-eec27908f6a1" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-803f-9183-f953c53e8839" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2015.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2015.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-807c-82b3-c2cfb07073a8" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2016.png"><img style="width:816px" src="Getting%20Started%20Documentation%20Resources/image%2016.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-803f-9756-c38ad64ef4e2" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-80f4-ae47-e098c23f2ee9" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2017.png"><img style="width:480px" src="Getting%20Started%20Documentation%20Resources/image%2017.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80ea-88f1-edc7bc77910f" class=""><strong>Note: </strong>Avoid drawing the same property field multiple times like in the example to avoid potential issues and inconsistencies, especially with different <mark class="highlight-blue"><strong>GUIStyles</strong></mark>. Here it was only intended for simpler demonstration.</p></div><div style="display:contents" dir="auto"><hr id="3313f94d-43f1-8067-9f82-cae6dd7873a1"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>SnekObjectField</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="3313f94d-43f1-809d-9e1a-e2a941433949" class="">Draws an <mark class="highlight-blue"><strong>Object</strong></mark> property field to which you can assign a custom label and a custom <mark class="highlight-blue"><strong>GUIStyle</strong></mark> to it.<br/><mark class="highlight-blue"><strong>GUIStyle </strong></mark>parameter is optional, a default preset from <mark class="highlight-blue"><strong>SnekGUIStyles </strong></mark><mark class="highlight-default">is</mark> applied by default.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-8093-a25e-ee2a3e144eb2" class="">You can draw the label either on the left or above the input field.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-8023-b8f4-f743a87fde4b" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-80ae-93f1-cb1ad21aa543" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2018.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2018.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-80a8-a1be-fac30c92ffab" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2019.png"><img style="width:960px" src="Getting%20Started%20Documentation%20Resources/image%2019.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-8085-9d6c-f72f3fe9d513" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3313f94d-43f1-80b9-8636-d3daa9d99405" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2020.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2020.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-808c-bbf8-cb79027d8b89" class=""><strong>Note: </strong><mark class="highlight-blue"><strong>ObjectFieldTesterObject </strong></mark>is just a random <mark class="highlight-default">type </mark>created for this demo, you can use whichever <mark class="highlight-default">type </mark>you need if it derives from <mark class="highlight-blue"><strong>Object </strong></mark>type.</p></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-803e-bfd7-cb687ae3cd78" class=""><strong>Note: </strong>Avoid drawing the same property field multiple times like in the example to avoid potential issues and inconsistencies, especially with different <mark class="highlight-blue"><strong>GUIStyles</strong></mark>. Here it was only intended for simpler demonstration.</p></div><div style="display:contents" dir="auto"><hr id="3313f94d-43f1-8028-9387-f8e080784e8e"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><mark class="highlight-blue"><strong>SnekAdjustableSlider</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80a1-a248-c20476961ec6" class="">Draws a horizontal slider on the GUI with <mark class="highlight-blue"><strong>float </strong></mark>fields for <strong>current value, min value and max value</strong> which all can be adjusted, just like using <strong>[</strong><mark class="highlight-blue"><strong>Range</strong></mark><strong>(minValue, maxValue)]</strong> on a <mark class="highlight-blue"><strong>float </strong></mark>variable, but you can change the range values in the inspector instead of code making it more designer-friendly. <br/>In addition to those 3 mentioned <mark class="highlight-blue"><strong>float </strong></mark>fields, there is a checkbox whether to use whole numbers or not.</p></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80d0-9e4c-d8ce9f4ec532" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-800b-becd-de7971c76dda" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2021.png"><img style="width:576px" src="Getting%20Started%20Documentation%20Resources/image%2021.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-805d-879e-e7e0d9f587bb" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2022.png"><img style="width:912px" src="Getting%20Started%20Documentation%20Resources/image%2022.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-809d-ba0f-eed8fab976a2" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-8047-b5dd-d7cd05066f30" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2023.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2023.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3313f94d-43f1-80ec-9579-db89e29d1a2e" class=""><strong>Note: </strong><mark class="highlight-teal"><strong>SnekSliderData</strong></mark><strong>.CurrentValue</strong> variable represents the user-chosen value on the slider property, so for the example above, we would do: <mark class="highlight-blue"><strong>float </strong></mark><strong>sliderValue = Slider.CurrentValue;</strong></p></div><div style="display:contents" dir="auto"><hr id="3313f94d-43f1-8005-b6a4-ffcc88212e32"/></div></div></details></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Drop Box</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8076-8d10-e4c8fc7a1749" class="">Usually, when you have a regular <mark class="highlight-blue"><strong>List</strong></mark><mark class="highlight-default"><strong>&lt;</strong></mark><mark class="highlight-teal"><strong>T</strong></mark><mark class="highlight-default"><strong>&gt;</strong></mark><mark class="highlight-blue"><strong> </strong></mark>or <mark class="highlight-blue"><strong>Array </strong></mark>in the inspector, you can do the Drag &amp; Drop to add new elements, but you need to aim at the property label which can be quite annoying, especially on bigger screen resolutions since everything is smaller. <br/><mark class="highlight-blue"><strong>SnekDropBox</strong></mark> GUI element takes away that problem by allowing you to choose where you need to drop things, making it easier to work with.</p></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-800c-b6c5-c1d8a8eac542" class=""><mark class="highlight-blue"><strong>SnekDropBox </strong></mark>can be drawn over a provided Rect, or as a standalone <mark class="highlight-blue"><strong>GUILayout </strong></mark>element:</p></div><div style="display:contents" dir="auto"><ul id="3333f94d-43f1-802b-98f7-d2c07181b7d9" class="bulleted-list"><li style="list-style-type:disc">Rect approach example : <strong>_dropBox.</strong><mark class="highlight-yellow"><strong>Draw</strong></mark><strong>(</strong><mark class="highlight-teal"><strong>Rect </strong></mark><strong>rect)</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="3333f94d-43f1-807e-90d9-ebfd6b99a794" class="bulleted-list"><li style="list-style-type:disc">Standalone approach example :  <strong>_dropBox.</strong><mark class="highlight-yellow"><strong>DrawStandalone</strong></mark><strong>(</strong><mark class="highlight-blue"><strong>string </strong></mark><strong>label)</strong></li></ul></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8030-98d4-ce7ab3733ea2" class=""><strong>How to use:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-8032-97c4-fab08b9d3498" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2024.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2024.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-809e-b0e7-c3f00050f8b7" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2025.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%2025.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-800f-ba6f-f8bb62a835d1" class=""><strong>How it looks:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-8080-906c-c8ba156ad506" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2026.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%2026.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-8056-bf13-c50ad1256c7e" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2027.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%2027.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-806b-b80b-cfeb60c29988" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2028.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%2028.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8094-9297-ceccf2a89e07" class=""><strong>Video demo:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3333f94d-43f1-8080-a5d2-e47c827b2154"><div class="source"><a href="https://i.gyazo.com/2868e04c441a44ec2480c99e01d2de93.mp4">https://i.gyazo.com/2868e04c441a44ec2480c99e01d2de93.mp4</a></div></figure></div><div style="display:contents" dir="auto"><hr id="3363f94d-43f1-802c-af2a-dddab83bd913"/></div></div></details></div><div style="display:contents" dir="auto"><details><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Advanced </strong><mark class="highlight-blue"><strong>ReorderableList</strong></mark></summary><div class="indented"><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8063-9663-f96ae4d68358" class=""><mark class="highlight-blue"><strong>SnekReorderableList </strong></mark>is a more advanced version of <mark class="highlight-blue"><strong>ReorderableList </strong></mark>class which was originally intended to be used as the <mark class="highlight-blue"><strong>base </strong></mark>class for your custom list classes, but can be used as-is to draw a <mark class="highlight-blue"><strong>List</strong></mark><strong>&lt;</strong><mark class="highlight-teal"><strong>T</strong></mark><strong>&gt;</strong> or <mark class="highlight-teal"><strong>Array</strong></mark><mark class="highlight-teal"> </mark>in a nicer style easily.</p></div><div style="display:contents" dir="auto"><p id="3343f94d-43f1-80b2-b2c0-d27d68e9bbb2" class="">Using <mark class="highlight-blue"><strong>SnekReorderableList </strong></mark>as the <mark class="highlight-blue"><strong>base </strong></mark>class instead, makes drawing custom lists in inspectors/windows more intuitive, provides more options through new additional callbacks, and allows custom GUI styles to be used for most parts. <br/>For more details on this approach, check the <strong><a href="https://www.notion.so/Snek-Utilities-v1-0-Public-API-Documentation-3263f94d43f180058e3ce1218ac623fb?pvs=21">Public API Documentation</a></strong>.</p></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-805a-a8e8-c3dbaf4ecb28" class="">
+</p></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8030-9e6d-e39029db7d44" class=""><strong>How to use (as-is), example 1:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-8099-91b3-f9368db86f42" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2029.png"><img style="width:672px" src="Getting%20Started%20Documentation%20Resources/image%2029.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-8027-a0b3-d5d0e508d885" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2030.png"><img style="width:864px" src="Getting%20Started%20Documentation%20Resources/image%2030.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="3353f94d-43f1-8035-8d93-f06521e115f8" class="column-list"><div style="display:contents" dir="auto"><div id="3353f94d-43f1-8094-b80f-e63dd423fba5" style="width:62.5%" class="column"><div style="display:contents" dir="auto"><p id="3333f94d-43f1-80d9-9955-f897926b99fb" class=""><strong>How it looks, example 1:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-8040-ac22-c6240d820fc2" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2031.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2031.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="3353f94d-43f1-80ea-a9b0-e60df4d32ffc" style="width:106.25%" class="column"><div style="display:contents" dir="auto"><p id="3353f94d-43f1-8066-83cc-ce514d94c436" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-8068-8e7a-f9fb6dca2521" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2032.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2032.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="3353f94d-43f1-8067-b932-df5d853816f7" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="3353f94d-43f1-8028-9a14-f214446dc0ea"/></div><div style="display:contents" dir="auto"><p id="3353f94d-43f1-8017-a0ac-d7bb7de3cb32" class=""><strong>How to use (as-is), example 2:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-80ff-a52f-dd8c66259098" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2033.png"><img style="width:528px" src="Getting%20Started%20Documentation%20Resources/image%2033.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-8094-9c4e-c1c9e68c12d9" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2034.png"><img style="width:912px" src="Getting%20Started%20Documentation%20Resources/image%2034.png"/></a></figure></div><div style="display:contents" dir="auto"><div id="3353f94d-43f1-80e5-9999-f363d6167749" class="column-list"><div style="display:contents" dir="auto"><div id="3353f94d-43f1-80bf-b8f7-e83418ae18e6" style="width:43.75%" class="column"><div style="display:contents" dir="auto"><p id="3353f94d-43f1-8034-b36d-fc1340561c1b" class=""><strong>How it looks, example 2:</strong></p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-806c-8351-cf5a94da6a20" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2035.png"><img style="width:432px" src="Getting%20Started%20Documentation%20Resources/image%2035.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="3353f94d-43f1-8007-81de-d55e4f92a6a7" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="3353f94d-43f1-8051-9050-cdd5a739117d" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="3353f94d-43f1-807e-a21d-c866de6c4ce8" class="image"><a href="Getting%20Started%20Documentation%20Resources/image%2036.png"><img style="width:480px" src="Getting%20Started%20Documentation%20Resources/image%2036.png"/></a></figure></div></div></div></div></div></div></details></div><div style="display:contents" dir="auto"><p id="3333f94d-43f1-8042-875c-f1092eff517f" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

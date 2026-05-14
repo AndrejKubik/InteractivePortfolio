@@ -1,0 +1,45 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Draws an enum property field in the form of a dropdown using the GUILayout library,DrawEnumField(),"SerializedProperty property, 
+string[] valueNames, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws a bool property field in the form of a check box using the GUILayout library,DrawBoolField(),"SerializedProperty property, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws an int property field in the form of a text box using the GUILayout library,DrawIntField(),"SerializedProperty property, 
+GUIStyle style = null, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws an float property field in the form of a text box using the GUILayout library,DrawFloatField(),"SerializedProperty property, 
+GUIStyle style = null, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws an string property field in the form of a text box using the GUILayout library,DrawStringField(),"SerializedProperty property, 
+GUIStyle style = null, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws a float property field in a form of a horizontal slider using the GUILayout library,DrawHorizontalSlider(),"SerializedProperty currentValueProperty, 
+float minValue, 
+float maxValue","Method, void"
+,"public, static",Draws an Object property field for references of type T using GUILayout library,DrawObjectField<T>(),"SerializedProperty property, 
+bool allowSceneObjects, 
+params GUILayoutOption[] options","Method, void"
+,"public, static",Draws a colored overlay over a provided Rect with customizable alpha,DrawRectTransparent(),"Rect rect, 
+Color color, 
+float alpha = 0.25f","Method, void"
+,"public, static",Draws a colored overlay over a given Rect with full alpha,DrawRect(),"Rect rect, 
+Color color","Method, void"
+,"public, static","Draws colored borders over the given Rect.
+Note: width grows inward, not outward",DrawColoredBorder(),"Rect rect, 
+Color borderColor, 
+float borderWidth","Method, void"
+,"public, static","Draws a Texture with full alpha inside the given Rect with possible color tint, with Scale-To-Fit mode",DrawTexture(),"Rect rect, 
+Texture texture, 
+Color? color = null","Method, void"
+,"public, static","Draws a Texture with customizable alpha inside the given Rect with possible color tint, 
+with Scale-To-Fit mode",DrawTextureTransparent(),"Rect rect, 
+Texture texture, 
+Color? color = null, 
+float alpha = 0.25f","Method, void"
+,"public, static",Draws a helpbox with the given text using the GUILayout library,DrawAlertMessage(),"string message, 
+GUIStyle textStyle = null, 
+Color? color = null","Method, void"
+,"public, static","Draws all child properties of the provided SerializedProperty vertically.
+
+Use this instead EditorGUI.PropertyField() when you want to draw a custom serializable class/struct in the inspector without the built-in label and foldout.",DrawInlineProperty(),"Rect position, 
+SerializedProperty property","Method, void"

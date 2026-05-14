@@ -1,0 +1,12 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns the Rect of the entire scope,GetRect(),,"Method, Rect"
+,public,"Creates an area for GUI elements with a provided header, optional styling and optional basic GUI scope options",SnekGUISectionScope(),"string headerText, 
+GUIStyle headerStyle = null, 
+GUIStyle scopeStyle = null, 
+params GUILayoutOption[] options",Constructor
+,public,"Creates an area for GUI elements with a provided header, optional styling and optional basic GUI scope options
+
+GUIContent can contain a tooltip and a texture alongside the text",SnekGUISectionScope(),"GUIContent header,
+GUIStyle headerStyle = null, 
+GUIStyle scopeStyle = null, 
+params GUILayoutOption[] options",Constructor

@@ -1,0 +1,7 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Takes a prefab at the provided path and unpacks a new instance of it inside the active scene’s hierarchy,InstantiatePrefabByPath(),"string assetPath, 
+MenuCommand menuCommand, 
+bool needsCanvas = false","Method, void"
+,"public, static",Unpacks a new instance of the provided prefab inside the active scene’s hierarchy,InstantiatePrefabByReference(),"GameObject prefab, 
+MenuCommand menuCommand, 
+bool needsCanvas = false","Method, void"

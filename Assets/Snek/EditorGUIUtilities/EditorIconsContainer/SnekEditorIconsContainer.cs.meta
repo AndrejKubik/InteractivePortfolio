@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d927697a84f4cd04e9fe87eb1051198a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _logoThin: {fileID: 2800000, guid: 46a6008a8092aa2469f79e235e9b57c0, type: 3}
+  - _logoThick: {fileID: 2800000, guid: 2d0a14205e8f6424fa7018740793d63c, type: 3}
+  - _favouriteOff: {fileID: 2800000, guid: 06b0a1c2b8a2db64d83ce630a6132d0e, type: 3}
+  - _favouriteOn: {fileID: 2800000, guid: abd13df03452dc44d9de89d461dd1420, type: 3}
+  - _foldoutExpanded: {fileID: 2800000, guid: b4877fc3428075a438a8746f04a541bb, type: 3}
+  - _foldoutShrinked: {fileID: 2800000, guid: bce68445ae876694089da0c8eaa55bee, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

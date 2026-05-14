@@ -1,0 +1,11 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns the thin Snek logo texture assigned through the inspector,GetLogoThin(),,"Method, Texture2D"
+,public,Returns the thick Snek logo texture assigned through the inspector,GetLogoThick(),,"Method, Texture2D"
+,public,"Returns the favourite state texture assigned through the inspector.
+
+true - favourited
+false - unfavourited",GetFavourite(),bool state,"Method, Texture2D"
+,public,"Returns the foldout state texture assigned through the inspector.
+
+true - expanded
+false - shrinked",GetFoldout(),bool state,"Method, Texture2D"

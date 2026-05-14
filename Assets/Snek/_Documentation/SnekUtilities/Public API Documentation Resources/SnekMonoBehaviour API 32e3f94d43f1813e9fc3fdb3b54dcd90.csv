@@ -1,0 +1,11 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Creates a new drop box instance for the custom inspector/window,SnekDropBox(),"DragAndDropCallback onDropCallback, 
+string dropMessage = ""Drop it like it's hot!"", 
+Color? backgroundOverlayColor = null, 
+Color? backgroundOverlayHighlightColor = null, 
+Color? borderColor = null, 
+Color? dropHighlightOverlayColor = null, 
+GUIStyle dropMessageStyle = null","Constructor, SnekDropBox"
+,public,Draws the drop box over the given Rect,Draw(),Rect rect,"Method, void"
+,public,Draws the drop box as a standalone GUI element with a header label,DrawStandalone(),"string label, 
+params GUILayoutOption[] options","Method, void"

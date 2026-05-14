@@ -1,0 +1,20 @@
+{
+    "name": "Snek.GameUIPlus",
+    "rootNamespace": "Snek.GameUIPlus",
+    "references": [
+        "GUID:2a76655708bb2a94cb41aea5341e7da4",
+        "GUID:75222bbea4dcc734ca7339447f79a4e6",
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:3f01bbb64a6519640ab5ce8210d1af07",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

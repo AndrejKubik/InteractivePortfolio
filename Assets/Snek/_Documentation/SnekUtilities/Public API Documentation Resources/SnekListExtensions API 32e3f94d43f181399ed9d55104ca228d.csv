@@ -1,0 +1,12 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns the border width value assigned through the inspector.,GetBorderWidth(),,"Method, float"
+,public,Returns the component padding value assigned through the inspector.,GetComponentPadding(),,"Method, RectOffset"
+,public,Returns the section padding value assigned through the inspector.,GetSectionPadding(),,"Method, RectOffset"
+,public,Returns the border color value assigned through the inspector.,GetBorderColor(),,"Color, Method"
+,public,Returns the disabled border color value assigned through the inspector.,GetDisabledBorderColor(),,"Color, Method"
+,public,Returns the content color value assigned through the inspector.,GetContentColor(),,"Color, Method"
+,public,Returns the disabled content color value assigned through the inspector.,GetDisabledContentColor(),,"Color, Method"
+,public,Returns the background size offset value assigned through the inspector.,GetBackgroundSizeOffset(),,"Method, Vector2"
+,public,Returns the background position offset value assigned through the inspector.,GetBackgroundPositionOffset(),,"Method, Vector2"
+,public,Returns the background border color value assigned through the inspector.,GetBackgroundColor(),,"Color, Method"
+,public,Returns the list of list element colors assigned through the inspector.,GetListElementColors(),,"List<Color>, Method"

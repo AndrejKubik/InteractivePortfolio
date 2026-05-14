@@ -1,0 +1,16 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,public,Returns a Rect with remaining unconsumed space of the original Rect,GetRemainingRect(),,"Method, Rect"
+,public,Returns a Rect with remaining height and requested percentage of remaining/original width from the left and consumes the taken space from the remaining Rect,TakeLeftPercentage(),"float percent, 
+bool useOriginalSize = false","Method, Rect"
+,public,Returns a Rect with remaining width and requested percentage of remaining/original height from the bottom and consumes the taken space from the remaining Rect,TakeBottomPercentage(),"float percent, 
+bool useOriginalSize = false","Method, Rect"
+,public,Returns a Rect with remaining height and requested width from the left and consumes the taken space from the remaining Rect,TakeLeft(),float width,"Method, Rect"
+,public,Returns a Rect with remaining unconsumed space of the original Rect and consumes all remaining space,TakeRemaining(),,"Method, Rect"
+,public,Returns a Rect with remaining width and requested percentage of remaining/original height from the top and consumes the taken space from the remaining Rect,TakeTopPercentage(),"float percent, 
+bool useOriginalSize = false","Method, Rect"
+,public,Returns a Rect with remaining width and requested height from the top and consumes the taken space from the remaining Rect,TakeTop(),float height,"Method, Rect"
+,public,Returns a Rect with remaining height and requested width from the right and consumes the taken space from the remaining Rect,TakeRight(),float width,"Method, Rect"
+,public,Returns a Rect with remaining height and requested percentage of remaining/original width from the right and consumes the taken space from the remaining Rect,TakeRightPercentage(),"float percent, 
+bool useOriginalSize = false","Method, Rect"
+,public,Returns a Rect with remaining width and requested height from the bottom and consumes the taken space from the remaining Rect,TakeBottom(),float height,"Method, Rect"
+,public,Creates an instance of the Rect splitter utility for the provided Rect,SnekRectSplitter(),Rect rect,"Constructor, Rect"

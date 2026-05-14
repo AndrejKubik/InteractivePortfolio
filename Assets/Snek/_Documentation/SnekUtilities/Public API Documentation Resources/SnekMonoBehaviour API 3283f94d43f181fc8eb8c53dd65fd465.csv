@@ -1,0 +1,38 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"const, protected","""m_Script”, property name of the field that shows the reference to the component’s script in basic inspector",ScriptPropertyName,,"field, string"
+,protected,Contains names of properties which are hidden by using the HideProperty() method or through the GetProperty() method,_hiddenPropertyNames,,"HashSet<string>, field"
+,protected,Contains the data of the [UseSnekInspector] attribute of the inspected component,_attributeData,,"UseSnekInspectorAttribute, field"
+,protected,"A reference to the SnekInspectorGUILayoutSettings scriptable object, exposed to child classes to avoid getting it multiple times if needed for anything",_layoutSettings,,"SnekInspectorGUILayoutSettings, field"
+,protected,"A reference to the GUIStyle meant for a scope which looks like a helpbox, exposed to child classes to avoid getting it multiple times if needed for anything",_sectionStyle,,"GUIStyle, field"
+,protected,"A reference to the GUIStyle meant for the header of a scope which looks like a helpbox, exposed to child classes to avoid getting it multiple times if needed for anything",_sectionHeaderStyle,,"GUIStyle, field"
+,protected,This is true while the mouse cursor is hovering over the inspected component in the inspector,_isMouseOverComponent,,"Property, bool"
+,"protected, virtual","Empty virtual callback which is called inside OnEnable(), override this for hooking serialized properties and things alike",OnCreateInspectorInstance(),,"Method, void"
+,"public, virtual","Method where all drawing logic is located. Also handles incorrect initialization of the inspector and value update logic of the target SerializedObject.
+
+Can be overriden if you are making another base type of child class for your inspector, but unless you call the base.OnInspectorGUI() in the override, you will lose all prepared drawing logic for Snek GUI so use with caution.",OnInspectorGUI(),,"Method, void"
+,"protected, virtual","Similarly to the OnCreateInspectorInstance(), this method can be overriddenfor initialization which is called at the start of OnInspectorGUI() before drawing logic happens. 
+
+Make sure to include the base.Initialize() in the override unless you absolutely think it’s unnecessary.
+
+If this returns false, the basic inspector will be drawn to prevent issues.
+
+Recommended for hooking GUIStyle references from static helpers like SnekGUIStyles class, since it will prevent possible null reference exceptions when recompiling while an inspector of this kind is shown in Unity Editor.",Initialize(),,"Method, bool"
+,"protected, virtual","Empty virtual callback which is called inside OnEnable(), override this for logic that you want to happen when any of the values get changed while the inspector is visible.
+
+Recommended for value validation logic, eg. keeping some property value within a specific range.",OnPropertiesChange(),,"Method, void"
+,"protected, virtual",Can be overridden to make the inspector use a custom Color value for the component borders.,GetBorderColor(),,"Color, Method"
+,"protected, virtual",Can be overridden to make the inspector use a custom Color value for the component content tint.,GetContentColor(),,"Color, Method"
+,"protected, virtual","Override this method for all GUI drawing logic of yours. 
+
+Called inside OnInspectorGUI() and calls DrawBaseProperties() if not overridden.",DrawContent(),,"Method, void"
+,protected,"Draws all component properties like base.OnInspectorGUI() would, but hides the properties hidden through HideProperty() or GetProperty() methods.",DrawBaseProperties(),,"Method, void"
+,protected,Returns the array of property names that were hidden through HideProperty() or GetProperty() methods.,GetHiddenPropertyNames(),,"Method, string[]"
+,protected,Adds the name of the property to the collection of the names for properties that should be hidden when drawing the GUI using DrawBaseProperties() method.,HideProperty(),SerializedProperty property,"Method, void"
+,protected,Removes the name of the property to the collection of the names for properties that should be hidden when drawing the GUI using DrawBaseProperties() method.,ShowProperty(),SerializedProperty property,"Method, void"
+,protected,"Searches the target SerializedObject for a property that goes by the provided name and returns it if found.
+
+Can hide the property from default properties as well if you don’t want to bother writing the drawing logic for the rest of the inspector just because of this property and just use the DrawBaseProperties() with drawing logic of this property.",GetProperty(),"string propertyName, 
+bool hideFromBaseProperties = false","Method, SerializedProperty"
+,"protected, virtual",Can be overridden to make the inspector use a custom Color value for the component background.,GetBackgroundColor(),,"Color, Method"
+,"protected, virtual",Can be overridden to make the inspector use a custom float value for the component border width.,GetBorderWidth(),,"Method, float"
+,protected,Returns the Rect data of the entire inspector view,"_inspectorRect ",,"Property, Rect"

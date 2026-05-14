@@ -1,0 +1,4 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Applies the GUIStyle of the SnekGUIScope it was assigned to as an option,SetStyle(),GUIStyle style,"Method, void"
+,"public, static",Applies padding to the SnekGUIScope it was assigned to as an option,SetPadding(),RectOffset padding,"Method, void"
+,"public, static",Applies the GUILayoutOption type options to the SnekGUIScope it was assigned to as an option,SetGUILayoutOptions(),params GUILayoutOption[] options,"Method, void"

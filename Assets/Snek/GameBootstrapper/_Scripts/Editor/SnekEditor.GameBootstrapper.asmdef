@@ -1,0 +1,21 @@
+{
+    "name": "SnekEditor.GameBootstrapper",
+    "rootNamespace": "SnekEditor.GameBootstrapper",
+    "references": [
+        "GUID:c3868b98e860f5d48889816b65720808",
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:25909fd648d6787488a91dcbbbf455b9",
+        "GUID:2fc58fc620e651c4d8ecd0db04be973f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

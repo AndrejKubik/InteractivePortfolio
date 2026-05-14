@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9690044ac716c2d4ca6eac8ce73c39f8, type: 3}
+  m_Name: SnekScriptableObjectManagerCache
+  m_EditorClassIdentifier: SnekEditor.ScriptableObjectManager::SnekEditor.ScriptableObjectManager.SnekScriptableObjectManagerCache
+  GeneratedAssets:
+  - {fileID: 11400000, guid: 2189b2dd46dc4c84eb14224eb60b9f29, type: 2}
+  - {fileID: 11400000, guid: 37dd3c9f768d9db45b7838cb81de0654, type: 2}
+  - {fileID: 11400000, guid: bcbaf1a0d54c6ff4a96f35eeadc5e47b, type: 2}
+  - {fileID: 11400000, guid: 74851cfe27fe5b2418d3b76d5f9bd1fe, type: 2}
+  - {fileID: 11400000, guid: b990ef87a0245584da846a2555025d51, type: 2}
+  - {fileID: 11400000, guid: 8f35f62f2a645a04c97e27152b7f10b2, type: 2}

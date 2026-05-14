@@ -1,0 +1,10 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,protected,Can be used to check the initialization result after the actual process,_isValid,,"bool, field"
+,"protected, virtual",Override this to return true in case you would like the initialization to happen within Start() instead of Awake(),"IsInitializedInStart() ",,"Method, bool"
+,"protected, virtual","Use this for getting components and things alike, called in Awake() or Start() right before Validate()",Initialize(),,"Method, void"
+,"protected, virtual","Use this for checking if component setup is correct, called in Awake() or Start() right after Initialize()",Validate(),,"Method, void"
+,protected,"Use this inside Validate() if the validation should fail, this adds the error message to a list and makes sure the GameObject gets disabled after the Validate() method
+
+Note: All stored messages will be printed in the console individually like this",FailValidation(),string message,"Method, void"
+,"protected, virtual",Callback for additional custom logic after validation fails,OnFailValidation(),,"Method, void"
+,"protected, virtual",Callback for component starting logic right after the validation succeeds,OnInitializationSuccess(),,"Method, void"

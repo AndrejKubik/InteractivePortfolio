@@ -1,0 +1,4 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Checks if user is currently dragging selected objects in the Unity Editor,IsDragAndDropActive(),,"Method, bool"
+,"public, static","Toggles the lock on all currently open Inspector windows.
+Already hooked to a shortcut [Alt + Q] from within SnekEditorShortcuts.cs ",ToggleInspectorWindowLock(),,"Method, void"

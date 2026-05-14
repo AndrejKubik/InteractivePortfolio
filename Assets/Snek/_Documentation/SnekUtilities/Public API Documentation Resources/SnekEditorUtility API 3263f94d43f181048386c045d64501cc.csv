@@ -1,0 +1,8 @@
+﻿#,Accessor,Description,Name,Parameters,Type
+,"public, static",Checks if a type is using the provided attribute or not,IsAttributeAssignedToType<T>(),"Type targetType, 
+out T attribute, 
+bool checkParentTypes = false","Method, bool"
+,"public, static",Can be used for lazy iteration over multiple objects and cast each of them into a provided type T through a foreach loop,CastObjectsToType<T>(),Object[] targets,"IEnumerable<T>, Method"
+,"public, static","Checks if an Array or List contains an element by Object reference.
+Similar to List.Contains() but for SerializedProperty type",IsObjectInArray(),"Object target, 
+SerializedProperty arrayProperty","Method, bool"

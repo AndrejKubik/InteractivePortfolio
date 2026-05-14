@@ -1,0 +1,17 @@
+{
+    "name": "Snek.AudioManager",
+    "rootNamespace": "Snek.AudioManager",
+    "references": [
+        "GUID:aa90dec6dc4b5b241923ac69c87ee348",
+        "GUID:75222bbea4dcc734ca7339447f79a4e6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
