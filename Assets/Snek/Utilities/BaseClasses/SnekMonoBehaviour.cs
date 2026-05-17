@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Snek.Utilities
@@ -12,15 +12,17 @@ namespace Snek.Utilities
     {
         protected bool _isValid;
 
-        protected virtual void Awake()
-        {
-            if (IsManuallyInitialized() || IsInitializedInStart())
-                return;
+        private List<SnekEssentialComponentReference> _essentialComponents = new List<SnekEssentialComponentReference>();
 
+        public void RunInitialization()
+        {
             _isValid = true;
 
             Initialize();
-            Validate();
+            ValidateEssentialComponents();
+
+            if (_isValid)
+                Validate();
 
             if (!_isValid)
             {
@@ -34,26 +36,16 @@ namespace Snek.Utilities
                 OnInitializationSuccess();
         }
 
+        protected virtual void Awake()
+        {
+            if (!IsManuallyInitialized() && !IsInitializedInStart())
+                RunInitialization();
+        }
+
         protected virtual void Start()
         {
-            if (IsManuallyInitialized() || !IsInitializedInStart())
-                return;
-
-            _isValid = true;
-
-            Initialize();
-            Validate();
-
-            if (!_isValid)
-            {
-                Debug.LogError(InvalidSetupMessage(name), this);
-
-                OnFailValidation();
-
-                gameObject.SetActive(false);
-            }
-            else
-                OnInitializationSuccess();
+            if (!IsManuallyInitialized() && IsInitializedInStart())
+                RunInitialization();
         }
 
         /// <summary>
@@ -76,6 +68,17 @@ namespace Snek.Utilities
         protected virtual void Initialize()
         {
 
+        }
+
+        private void ValidateEssentialComponents()
+        {
+            foreach (SnekEssentialComponentReference essentialComponent in _essentialComponents)
+                if (essentialComponent.Reference == null)
+                {
+                    string componentName = essentialComponent.Type.Name.Nicify();
+
+                    FailValidation($"Cannot find <b>[{componentName}]</b> component.");
+                }
         }
 
         /// <summary>
@@ -102,14 +105,19 @@ namespace Snek.Utilities
 
         }
 
-        /// <summary>
-        /// Use for getting component references through code
-        /// </summary>
-        protected void FailValidation<T>() where T : Component
+        protected void GetEssentialComponent<T>(out T componentReference, SnekGetComponentContext searchContext = SnekGetComponentContext.Self) where T : Component
         {
-            string componentName = typeof(T).Name.Nicify();
+            componentReference = searchContext switch
+            {
+                SnekGetComponentContext.Self => GetComponent<T>(),
+                SnekGetComponentContext.Children => GetComponentInChildren<T>(),
+                SnekGetComponentContext.Parents => GetComponentInParent<T>(),
+                _ => GetComponent<T>(),
+            };
 
-            FailValidation($"Cannot find <b>[{componentName}]</b> component.");
+            var essentialReference = new SnekEssentialComponentReference(typeof(T), componentReference);
+
+            _essentialComponents.Add(essentialReference);
         }
 
         protected void FailValidation(string message)
