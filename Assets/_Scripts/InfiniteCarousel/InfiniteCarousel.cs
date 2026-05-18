@@ -119,51 +119,80 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
 
     private void MoveElementsHorizontally(float positionOffset)
     {
-        //float totalWidth = _rectTransform.sizeDelta.x;
+        if (Mathf.Approximately(positionOffset, 0f))
+            return;
 
-        //bool loopTriggeredLeft = false;
-        //bool loopTriggeredRight = false;
-        //IInfiniteCarouselElement loopInitiatorElement = null;
+        float totalWidth = _rectTransform.rect.width;
+        float loopBoundOffset = _elementSize.x / 2f - _elementSpacing.x;
+        
+        bool loopTriggeredLeft = false;
+        bool loopTriggeredRight = false;
+        IInfiniteCarouselElement loopInitiatorElement = null;
 
         foreach (IInfiniteCarouselElement element in _elements)
         {
             RectTransform rectTransform = element.GetRectTransform();
 
-            Vector2 targetPosition = rectTransform.anchoredPosition;
+            Vector2 currentPosition = rectTransform.anchoredPosition;
+
+            Vector2 targetPosition = currentPosition;
             targetPosition.x += positionOffset;
 
-            //if (targetPosition.x < 0f)
-            //{
-            //    RectTransform lastElementTransform = _elements[^1].GetRectTransform();
+            if (loopInitiatorElement != null)
+            {
+                rectTransform.anchoredPosition = targetPosition;
 
-            //    targetPosition = lastElementTransform.anchoredPosition;
-            //    targetPosition.x += _elementSize.x + _elementSpacing.x;
+                continue;
+            }
 
-            //    loopTriggeredLeft = true;
-            //    loopInitiatorElement = element;
-            //}
-            //else if (targetPosition.x > totalWidth)
-            //{
-            //    RectTransform firstElementTransform = _elements[0].GetRectTransform();
-
-            //    targetPosition = firstElementTransform.anchoredPosition;
-            //    targetPosition.x -= _elementSize.x + _elementSpacing.x;
-
-            //    loopTriggeredRight = true;
-            //    loopInitiatorElement = element;
-            //}
+            if (positionOffset < 0f && targetPosition.x < -loopBoundOffset)
+            {
+                loopTriggeredLeft = true;
+                loopInitiatorElement = element;
+            }
+            else if (positionOffset > 0f && targetPosition.x > totalWidth + loopBoundOffset)
+            {
+                loopTriggeredRight = true;
+                loopInitiatorElement = element;
+            }
 
             rectTransform.anchoredPosition = targetPosition;
         }
 
-        //if (loopInitiatorElement == null)
-        //    return;
+        if (loopInitiatorElement == null)
+            return;
 
-        //_elements.Remove(loopInitiatorElement);
+        if (loopTriggeredLeft)
+            LoopElementLeft(loopInitiatorElement);
+        else if (loopTriggeredRight)
+            LoopElementRight(loopInitiatorElement);
+    }
 
-        //if (loopTriggeredLeft)
-        //    _elements.Add(loopInitiatorElement);
-        //else if (loopTriggeredRight)
-        //    _elements.Insert(0, loopInitiatorElement);
+    private void LoopElementLeft(IInfiniteCarouselElement element)
+    {
+        RectTransform rectTransform = element.GetRectTransform();
+        RectTransform rightMostTransform = _elements[^1].GetRectTransform();
+
+        Vector2 targetPosition = rightMostTransform.anchoredPosition;
+        targetPosition.x += _elementSize.x + _elementSpacing.x;
+
+        rectTransform.anchoredPosition = targetPosition;
+
+        _elements.Remove(element);
+        _elements.Add(element);
+    }
+
+    private void LoopElementRight(IInfiniteCarouselElement element)
+    {
+        RectTransform rectTransform = element.GetRectTransform();
+        RectTransform leftMostTransform = _elements[0].GetRectTransform();
+
+        Vector2 targetPosition = leftMostTransform.anchoredPosition;
+        targetPosition.x -= _elementSize.x + _elementSpacing.x;
+
+        rectTransform.anchoredPosition = targetPosition;
+
+        _elements.Remove(element);
+        _elements.Insert(0, element);
     }
 }
