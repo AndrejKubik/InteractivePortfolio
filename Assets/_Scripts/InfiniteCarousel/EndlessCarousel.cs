@@ -100,11 +100,6 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         return _elements == null || _elements.Count < 1;
     }
 
-    private bool IsStationary()
-    {
-        return Mathf.Approximately(_velocity, 0f);
-    }
-
     private bool IsMovingAllowed()
     {
         float perElementRequiredSpace = ElementWidth + ElementSpacing;
