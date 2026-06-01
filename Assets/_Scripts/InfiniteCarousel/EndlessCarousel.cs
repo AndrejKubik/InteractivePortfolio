@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 [UseSnekInspector]
 [RequireComponent(typeof(RectTransform), typeof(GridLayoutGroup), typeof(ContentSizeFitter))]
-public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform _rectTransform;
     private GridLayoutGroup _gridLayoutGroup;
@@ -17,7 +17,7 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
     private Vector2 _lastPointerPosition;
     private float _velocity = 0f;
 
-    private List<IInfiniteCarouselElement> _elements;
+    private List<IEndlessCarouselElement> _elements;
 
     private Vector2 _elementSize = new Vector2(0f, 0f);
     private Vector2 _elementSpacing = new Vector2(0f, 0f);
@@ -92,9 +92,9 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
 
     private void FindAllElements()
     {
-        IInfiniteCarouselElement[] elements = GetComponentsInChildren<IInfiniteCarouselElement>(true);
+        IEndlessCarouselElement[] elements = GetComponentsInChildren<IEndlessCarouselElement>(true);
 
-        _elements = new List<IInfiniteCarouselElement>(elements);
+        _elements = new List<IEndlessCarouselElement>(elements);
     }
 
     private bool IsEmpty()
@@ -127,9 +127,9 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
         
         bool loopTriggeredLeft = false;
         bool loopTriggeredRight = false;
-        IInfiniteCarouselElement loopInitiatorElement = null;
+        IEndlessCarouselElement loopInitiatorElement = null;
 
-        foreach (IInfiniteCarouselElement element in _elements)
+        foreach (IEndlessCarouselElement element in _elements)
         {
             RectTransform rectTransform = element.GetRectTransform();
 
@@ -168,7 +168,7 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
             LoopElementRight(loopInitiatorElement);
     }
 
-    private void LoopElementLeft(IInfiniteCarouselElement element)
+    private void LoopElementLeft(IEndlessCarouselElement element)
     {
         RectTransform rectTransform = element.GetRectTransform();
         RectTransform rightMostTransform = _elements[^1].GetRectTransform();
@@ -182,7 +182,7 @@ public class InfiniteCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandl
         _elements.Add(element);
     }
 
-    private void LoopElementRight(IInfiniteCarouselElement element)
+    private void LoopElementRight(IEndlessCarouselElement element)
     {
         RectTransform rectTransform = element.GetRectTransform();
         RectTransform leftMostTransform = _elements[0].GetRectTransform();

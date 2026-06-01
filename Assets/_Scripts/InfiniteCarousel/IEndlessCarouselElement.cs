@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IInfiniteCarouselElement
+public interface IEndlessCarouselElement
 {
     public RectTransform GetRectTransform();
 }
