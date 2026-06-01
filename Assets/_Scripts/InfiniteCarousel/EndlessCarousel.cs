@@ -28,10 +28,17 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         GetEssentialComponent(out _rectTransform);
         GetEssentialComponent(out _gridLayoutGroup);
         GetEssentialComponent(out _contentSizeFitter);
+
+        FindAllElements();
     }
 
     protected override void Validate()
     {
+        if (!IsEveryElementValid())
+            FailValidation(
+                $"Some endless carousel elements do not have a RectTransform component,\n" +
+                $"Make sure all elements and Canvas-based GameObjects!");
+
         if (_gridLayoutGroup.enabled == false)
             FailValidation("Grid Layout Group is disabled, it must be enabled by default for correct item distribution.");
 
@@ -45,8 +52,6 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
         _gridLayoutGroup.enabled = false;
         _contentSizeFitter.enabled = false;
-
-        FindAllElements();
     }
 
     private void Update()
@@ -93,6 +98,15 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         IEndlessCarouselElement[] elements = GetComponentsInChildren<IEndlessCarouselElement>(true);
 
         _elements = new List<IEndlessCarouselElement>(elements);
+    }
+
+    private bool IsEveryElementValid()
+    {
+        foreach (IEndlessCarouselElement element in _elements)
+            if (element.GetRectTransform() == null)
+                return false;
+
+        return true;
     }
 
     private bool IsEmpty()
