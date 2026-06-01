@@ -12,19 +12,16 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
     private GridLayoutGroup _gridLayoutGroup;
     private ContentSizeFitter _contentSizeFitter;
 
+    public float ElementWidth = 200f;
+    public float ElementHeight = 200f;
+    public float ElementSpacing = 10f;
+
     private bool _isDragging = false;
     private Vector2 _currentPointerPosition;
     private Vector2 _lastPointerPosition;
     private float _velocity = 0f;
 
     private List<IEndlessCarouselElement> _elements;
-
-    public float ElementWidth = 200f;
-    public float ElementHeight = 200f;
-    public float ElementSpacing = 10f;
-
-    private Vector2 _elementSize = new Vector2(0f, 0f);
-    private Vector2 _elementSpacing = new Vector2(0f, 0f);
 
     protected override void Initialize()
     {
@@ -44,12 +41,6 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     protected override void OnInitializationSuccess()
     {
-        _elementSize = _gridLayoutGroup.cellSize;
-        _elementSpacing = _gridLayoutGroup.spacing;
-
-        _gridLayoutGroup.padding.left = Mathf.RoundToInt(_elementSpacing.x);
-        _gridLayoutGroup.padding.right = Mathf.RoundToInt(_elementSpacing.x);
-
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); //enforces element position distribution before disabling the layout group
 
         _gridLayoutGroup.enabled = false;
@@ -116,11 +107,11 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     private bool IsMovingAllowed()
     {
-        float perElementRequiredSpace = _elementSize.x + _elementSpacing.x;
+        float perElementRequiredSpace = ElementWidth + ElementSpacing;
         float totalPadding = _gridLayoutGroup.padding.left + _gridLayoutGroup.padding.right;
 
         float totalRequiredSpace = _elements.Count * perElementRequiredSpace + totalPadding;
-        totalRequiredSpace -= _elementSpacing.x; //spacing is only in-between elements, so its not needed after the last element
+        totalRequiredSpace -= ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
 
         return _rectTransform.rect.width - totalRequiredSpace < 0f;
     }
@@ -141,7 +132,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
             return;
 
         float totalWidth = _rectTransform.rect.width;
-        float loopBoundOffset = _elementSize.x / 2f + _elementSpacing.x;
+        float loopBoundOffset = ElementWidth / 2f + ElementSpacing;
 
         if (positionOffset > 0f)
             MoveElementsRight(positionOffset, totalWidth + loopBoundOffset);
@@ -217,7 +208,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         RectTransform rightMostTransform = _elements[^1].GetRectTransform();
 
         Vector2 targetPosition = rightMostTransform.anchoredPosition;
-        targetPosition.x += _elementSize.x + _elementSpacing.x;
+        targetPosition.x += ElementWidth + ElementSpacing;
 
         rectTransform.anchoredPosition = targetPosition;
 
@@ -231,7 +222,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         RectTransform leftMostTransform = _elements[0].GetRectTransform();
 
         Vector2 targetPosition = leftMostTransform.anchoredPosition;
-        targetPosition.x -= _elementSize.x + _elementSpacing.x;
+        targetPosition.x -= ElementWidth + ElementSpacing;
 
         rectTransform.anchoredPosition = targetPosition;
 
