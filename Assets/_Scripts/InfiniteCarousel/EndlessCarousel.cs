@@ -141,14 +141,21 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
             return;
 
         float totalWidth = _rectTransform.rect.width;
-        float loopBoundOffset = _elementSize.x / 2f - _elementSpacing.x;
+        float loopBoundOffset = _elementSize.x / 2f + _elementSpacing.x;
 
-        bool loopTriggeredLeft = false;
-        bool loopTriggeredRight = false;
+        if (positionOffset > 0f)
+            MoveElementsRight(positionOffset, totalWidth + loopBoundOffset);
+        else if (positionOffset < 0f)
+            MoveElementsLeft(positionOffset, -loopBoundOffset);
+    }
+
+    private void MoveElementsRight(float positionOffset, float loopTriggerPositionX)
+    {
         IEndlessCarouselElement loopInitiatorElement = null;
 
-        foreach (IEndlessCarouselElement element in _elements)
+        for (int i = _elements.Count - 1; i >= 0; i--)
         {
+            IEndlessCarouselElement element = _elements[i];
             RectTransform rectTransform = element.GetRectTransform();
 
             Vector2 currentPosition = rectTransform.anchoredPosition;
@@ -163,27 +170,45 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
                 continue;
             }
 
-            if (positionOffset < 0f && targetPosition.x < -loopBoundOffset)
-            {
-                loopTriggeredLeft = true;
+            if (targetPosition.x > loopTriggerPositionX)
                 loopInitiatorElement = element;
-            }
-            else if (positionOffset > 0f && targetPosition.x > totalWidth + loopBoundOffset)
-            {
-                loopTriggeredRight = true;
-                loopInitiatorElement = element;
-            }
 
             rectTransform.anchoredPosition = targetPosition;
         }
 
-        if (loopInitiatorElement == null)
-            return;
-
-        if (loopTriggeredLeft)
-            LoopElementLeft(loopInitiatorElement);
-        else if (loopTriggeredRight)
+        if (loopInitiatorElement != null)
             LoopElementRight(loopInitiatorElement);
+    }
+
+    private void MoveElementsLeft(float positionOffset, float loopTriggerPositionX)
+    {
+        IEndlessCarouselElement loopInitiatorElement = null;
+
+        for (int i = 0; i < _elements.Count; i++)
+        {
+            IEndlessCarouselElement element = _elements[i];
+            RectTransform rectTransform = element.GetRectTransform();
+
+            Vector2 currentPosition = rectTransform.anchoredPosition;
+            Vector2 targetPosition = currentPosition;
+
+            targetPosition.x += positionOffset;
+
+            if (loopInitiatorElement != null)
+            {
+                rectTransform.anchoredPosition = targetPosition;
+
+                continue;
+            }
+
+            if (targetPosition.x < loopTriggerPositionX)
+                loopInitiatorElement = element;
+
+            rectTransform.anchoredPosition = targetPosition;
+        }
+
+        if (loopInitiatorElement != null)
+            LoopElementLeft(loopInitiatorElement);
     }
 
     private void LoopElementLeft(IEndlessCarouselElement element)

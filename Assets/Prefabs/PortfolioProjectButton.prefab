@@ -65,7 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: '1
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -92,8 +94,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -271,5 +273,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26e4e81b3760b94b99a63dcac3e8d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectButton
-  _buttonSFX: {fileID: 8300000, guid: 3c79227500c505d419b29420c5ab5724, type: 3}
-  _useUnmutableAudioSource: 0
