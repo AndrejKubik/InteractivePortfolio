@@ -21,13 +21,13 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
     protected override void OnCreateInspectorInstance()
     {
-        _endlessCarousel = GetSelectedComponent();
+        InitializeDependencies();
 
-        if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
-            _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
+        if (!IsEveryDependencyInitialized())
+            return;
 
-        if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
-            _contentSizeFitter.hideFlags = HideFlags.NotEditable;
+        SyncGridLayoutGroupValues();
+        EnforceContentSizeFitterValues();
 
         sp_ElementWidth = GetProperty(nameof(_endlessCarousel.ElementWidth));
         sp_ElementHeight = GetProperty(nameof(_endlessCarousel.ElementHeight));
@@ -40,9 +40,7 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
     protected override bool Initialize()
     {
-        return base.Initialize()
-            && _gridLayoutGroup != null
-            && _contentSizeFitter != null;
+        return base.Initialize() && IsEveryDependencyInitialized();
     }
 
     protected override void DrawContent()
@@ -60,6 +58,38 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
     protected override void OnPropertiesChange()
     {
+        SyncGridLayoutGroupValues();
+    }
+
+    private void OnDisable()
+    {
+        if (!IsEveryDependencyInitialized())
+            return;
+
+        _gridLayoutGroup.hideFlags = HideFlags.None;
+        _contentSizeFitter.hideFlags = HideFlags.None;
+    }
+
+    private void InitializeDependencies()
+    {
+        _endlessCarousel = GetSelectedComponent();
+
+        if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
+            _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
+
+        if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
+            _contentSizeFitter.hideFlags = HideFlags.NotEditable;
+    }
+
+    private bool IsEveryDependencyInitialized()
+    {
+        return _gridLayoutGroup != null 
+            && _contentSizeFitter != null
+            && _endlessCarousel != null;
+    }
+
+    private void SyncGridLayoutGroupValues()
+    {
         _gridLayoutGroup.cellSize = new Vector2(
             _endlessCarousel.ElementWidth,
             _endlessCarousel.ElementHeight);
@@ -72,12 +102,9 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         EditorUtility.SetDirty(_gridLayoutGroup);
     }
 
-    private void OnDisable()
+    private void EnforceContentSizeFitterValues()
     {
-        if (_gridLayoutGroup)
-            _gridLayoutGroup.hideFlags = HideFlags.None;
-
-        if (_contentSizeFitter)
-            _contentSizeFitter.hideFlags = HideFlags.None;
+        _contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        _contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
     }
 }
