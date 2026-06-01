@@ -120,7 +120,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         float totalPadding = _gridLayoutGroup.padding.left + _gridLayoutGroup.padding.right;
 
         float totalRequiredSpace = _elements.Count * perElementRequiredSpace + totalPadding;
-        totalRequiredSpace -= _elementSize.x; //spacing is only in-between elements, so its not needed after the last element
+        totalRequiredSpace -= _elementSpacing.x; //spacing is only in-between elements, so its not needed after the last element
 
         return _rectTransform.rect.width - totalRequiredSpace < 0f;
     }
