@@ -135,7 +135,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         float loopBoundOffset = ElementWidth / 2f + ElementSpacing;
 
         if (positionOffset > 0f)
-            MoveElementsRight(positionOffset, totalWidth + loopBoundOffset);
+            MoveElementsRight(positionOffset, totalWidth - loopBoundOffset);
         else if (positionOffset < 0f)
             MoveElementsLeft(positionOffset, -loopBoundOffset);
     }

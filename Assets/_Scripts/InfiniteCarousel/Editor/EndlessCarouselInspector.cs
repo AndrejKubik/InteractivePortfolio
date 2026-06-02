@@ -151,7 +151,6 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         _gridLayoutGroup.padding = SnekGUIUtility.Get2DPadding(_endlessCarousel.ElementSpacing, 0);
 
         EditorUtility.SetDirty(_gridLayoutGroup);
-        Debug.Log("sync spacing");
     }
 
     private void SyncCellSize()
@@ -161,7 +160,6 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
             _endlessCarousel.ElementHeight);
 
         EditorUtility.SetDirty(_gridLayoutGroup);
-        Debug.Log("sync size");
     }
 
     private void EnforceContentSizeFitterValues()
