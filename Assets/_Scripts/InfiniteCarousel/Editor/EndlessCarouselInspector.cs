@@ -8,14 +8,17 @@ using UnityEngine.UI;
 public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<EndlessCarousel>
 {
     private EndlessCarousel _endlessCarousel;
+    private EndlessCarouselElementContainer _elementContainer;
 
     private GridLayoutGroup _gridLayoutGroup;
     private ContentSizeFitter _contentSizeFitter;
 
+    private SerializedProperty sp_ElementContainer;
     private SerializedProperty sp_ElementWidth;
     private SerializedProperty sp_ElementHeight;
     private SerializedProperty sp_ElementSpacing;
 
+    private SnekObjectField<EndlessCarouselElementContainer> _elementContainerField;
     private SnekInputField _elementWidthField;
     private SnekInputField _elementHeightField;
     private SnekInputField _elementSpacingField;
@@ -26,9 +29,19 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
     {
         _endlessCarousel = GetSelectedComponent();
 
+        sp_ElementContainer = GetProperty(nameof(_endlessCarousel.ElementContainer));
+        sp_ElementWidth = GetProperty(nameof(_endlessCarousel.ElementWidth));
+        sp_ElementHeight = GetProperty(nameof(_endlessCarousel.ElementHeight));
+        sp_ElementSpacing = GetProperty(nameof(_endlessCarousel.ElementSpacing));
+
+        _elementContainerField = new SnekObjectField<EndlessCarouselElementContainer>(sp_ElementContainer, "Element Container", true);
+        _elementWidthField = new SnekInputField(sp_ElementWidth, "Width", 0f);
+        _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", 0f);
+        _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", 0f);
+
         InitializeDependencies();
 
-        if (!IsEveryDependencyInitialized())
+        if (!_elementContainer)
             return;
 
         if (!IsContentSizeFitterDataSynced())
@@ -38,24 +51,22 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
             EnforceBaseGridLayoutGroupValues();
 
         SyncGridLayoutGroupValues();
-
-        sp_ElementWidth = GetProperty(nameof(_endlessCarousel.ElementWidth));
-        sp_ElementHeight = GetProperty(nameof(_endlessCarousel.ElementHeight));
-        sp_ElementSpacing = GetProperty(nameof(_endlessCarousel.ElementSpacing));
-
-        _elementWidthField = new SnekInputField(sp_ElementWidth, "Width", 0f);
-        _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", 0f);
-        _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", 0f);
-    }
-
-    protected override bool Initialize()
-    {
-        return base.Initialize() && IsEveryDependencyInitialized();
     }
 
     protected override void DrawContent()
     {
-        using(new SnekGUISectionScope("Layout Settings", _sectionHeaderStyle, _sectionStyle))
+        DrawElementContainerField();
+
+        GUILayout.Space(10f);
+
+        if (!_elementContainer)
+        {
+            SnekGUILayout.DrawAlertMessage("No element container assigned.");
+
+            return;
+        }
+
+        using (new SnekGUISectionScope("Layout Settings", _sectionHeaderStyle, _sectionStyle))
         {
             using (new SnekGUIHorizontalScope())
             {
@@ -66,19 +77,21 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         }
     }
 
-    private void OnDisable()
-    {
-        if (!IsEveryDependencyInitialized())
-            return;
-
-        _gridLayoutGroup.hideFlags = HideFlags.None;
-        _contentSizeFitter.hideFlags = HideFlags.None;
-    }
-
     protected override void OnPropertiesChange()
     {
         _onPropertiesChanged?.Invoke();
         _onPropertiesChanged = null;
+    }
+
+    private void DrawElementContainerField()
+    {
+        using (var propertyScope = new SnekPropertyFieldScope(sp_ElementContainer))
+        {
+            _elementContainerField.DrawHorizontal();
+
+            if (propertyScope.IsValueChanged())
+                _onPropertiesChanged += InitializeDependencies;
+        }
     }
 
     private void DrawElementWidthField()
@@ -116,17 +129,13 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
     private void InitializeDependencies()
     {
-        if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
-            _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
+        _elementContainer = _endlessCarousel.ElementContainer;
 
-        if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
-            _contentSizeFitter.hideFlags = HideFlags.NotEditable;
-    }
+        if (!_elementContainer)
+            return;
 
-    private bool IsEveryDependencyInitialized()
-    {
-        return _gridLayoutGroup != null
-            && _contentSizeFitter != null;
+        _elementContainer.TryGetComponent(out _gridLayoutGroup);
+        _elementContainer.TryGetComponent(out _contentSizeFitter);
     }
 
     private void SyncGridLayoutGroupValues()

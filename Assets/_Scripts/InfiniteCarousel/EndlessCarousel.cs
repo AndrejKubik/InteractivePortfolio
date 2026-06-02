@@ -5,13 +5,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-[RequireComponent(typeof(RectTransform), typeof(GridLayoutGroup), typeof(ContentSizeFitter))]
+[RequireComponent(typeof(RectTransform))]
 public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private RectTransform _rectTransform;
-    private GridLayoutGroup _gridLayoutGroup;
-    private ContentSizeFitter _contentSizeFitter;
-
+    public EndlessCarouselElementContainer ElementContainer;
     public float ElementWidth = 200f;
     public float ElementHeight = 200f;
     public int ElementSpacing = 10;
@@ -23,34 +20,14 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     private List<IEndlessCarouselElement> _elements;
 
-    protected override bool IsInitializedInStart()
-    {
-        return true;
-    }
-
-    protected override void Initialize()
-    {
-        GetEssentialComponent(out _rectTransform);
-        GetEssentialComponent(out _gridLayoutGroup);
-        GetEssentialComponent(out _contentSizeFitter);
-    }
-
     protected override void Validate()
     {
-        if (_gridLayoutGroup.enabled == false)
-            FailValidation("Grid Layout Group is disabled, it must be enabled by default for correct item distribution.");
-
-        if (_contentSizeFitter.enabled == false)
-            FailValidation("Content size fitter is disabled, it must be enabled by default for correct item distribution.");
+        if (!ElementContainer)
+            FailValidation("Element Container is not assigned.");
     }
 
     protected override void OnInitializationSuccess()
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); //enforces element position distribution before disabling the layout group
-
-        _gridLayoutGroup.enabled = false;
-        _contentSizeFitter.enabled = false;
-
         FindAllElements();
     }
 
@@ -95,7 +72,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     private void FindAllElements()
     {
-        IEndlessCarouselElement[] elements = GetComponentsInChildren<IEndlessCarouselElement>(true);
+        IEndlessCarouselElement[] elements = ElementContainer.GetComponentsInChildren<IEndlessCarouselElement>(true);
 
         _elements = new List<IEndlessCarouselElement>(elements);
     }
@@ -105,15 +82,21 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         return _elements == null || _elements.Count < 1;
     }
 
-    private bool IsMovingAllowed()
+    private bool IsMovingAllowed() //incorrect calculation, needs fixing
     {
-        float perElementRequiredSpace = ElementWidth + ElementSpacing;
-        float totalPadding = _gridLayoutGroup.padding.left + _gridLayoutGroup.padding.right;
+        float totalRequiredElementWidth = _elements.Count * ElementWidth;
+        float totalRequiredElementSpacing = (_elements.Count - 1) * ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
+        float totalPadding = ElementSpacing * 2f;
 
-        float totalRequiredSpace = _elements.Count * perElementRequiredSpace + totalPadding;
-        totalRequiredSpace -= ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
+        float totalRequiredWidth = totalRequiredElementWidth + totalRequiredElementSpacing + totalPadding;
 
-        return _rectTransform.rect.width - totalRequiredSpace < 0f;
+        //float perElementRequiredSpace = ElementWidth + ElementSpacing;
+        //float totalPadding = ElementSpacing * 2f;
+
+        //float totalRequiredSpace = _elements.Count * perElementRequiredSpace + totalPadding;
+        //totalRequiredWidth -= ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
+
+        return ElementContainer.GetTotalWidth() - totalRequiredWidth < 0f;
     }
 
     private void ApplyDragVelocity(Vector2 dragDelta)
@@ -131,11 +114,10 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         if (Mathf.Approximately(positionOffset, 0f))
             return;
 
-        float totalWidth = _rectTransform.rect.width;
         float loopBoundOffset = ElementWidth / 2f + ElementSpacing;
 
         if (positionOffset > 0f)
-            MoveElementsRight(positionOffset, totalWidth - loopBoundOffset);
+            MoveElementsRight(positionOffset, ElementContainer.GetTotalWidth() - loopBoundOffset);
         else if (positionOffset < 0f)
             MoveElementsLeft(positionOffset, -loopBoundOffset);
     }
