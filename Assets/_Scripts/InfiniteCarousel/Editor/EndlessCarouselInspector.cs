@@ -64,8 +64,8 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         if (!IsEveryDependencyInitialized())
             return;
 
-        //_gridLayoutGroup.hideFlags = HideFlags.None;
-        //_contentSizeFitter.hideFlags = HideFlags.None;
+        _gridLayoutGroup.hideFlags = HideFlags.None;
+        _contentSizeFitter.hideFlags = HideFlags.None;
     }
 
     protected override void OnPropertiesChange()
@@ -111,14 +111,11 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
     {
         _endlessCarousel = GetSelectedComponent();
 
-        _endlessCarousel.TryGetComponent(out _gridLayoutGroup);
-        _endlessCarousel.TryGetComponent(out _contentSizeFitter);
+        if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
+            _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
 
-        //if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
-        //    _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
-
-        //if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
-        //    _contentSizeFitter.hideFlags = HideFlags.NotEditable;
+        if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
+            _contentSizeFitter.hideFlags = HideFlags.NotEditable;
     }
 
     private bool IsEveryDependencyInitialized()
