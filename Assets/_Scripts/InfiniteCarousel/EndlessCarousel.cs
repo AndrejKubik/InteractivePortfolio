@@ -14,7 +14,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     public float ElementWidth = 200f;
     public float ElementHeight = 200f;
-    public float ElementSpacing = 10f;
+    public int ElementSpacing = 10;
 
     private bool _isDragging = false;
     private Vector2 _currentPointerPosition;
@@ -23,22 +23,20 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     private List<IEndlessCarouselElement> _elements;
 
+    protected override bool IsInitializedInStart()
+    {
+        return true;
+    }
+
     protected override void Initialize()
     {
         GetEssentialComponent(out _rectTransform);
         GetEssentialComponent(out _gridLayoutGroup);
         GetEssentialComponent(out _contentSizeFitter);
-
-        FindAllElements();
     }
 
     protected override void Validate()
     {
-        if (!IsEveryElementValid())
-            FailValidation(
-                $"Some endless carousel elements do not have a RectTransform component,\n" +
-                $"Make sure all elements and Canvas-based GameObjects!");
-
         if (_gridLayoutGroup.enabled == false)
             FailValidation("Grid Layout Group is disabled, it must be enabled by default for correct item distribution.");
 
@@ -52,11 +50,13 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
         _gridLayoutGroup.enabled = false;
         _contentSizeFitter.enabled = false;
+
+        FindAllElements();
     }
 
     private void Update()
     {
-        if (IsEmpty() || !IsMovingAllowed())
+        if (IsEmpty()/* || !IsMovingAllowed()*/)
             return;
 
         if (_isDragging)
@@ -98,15 +98,6 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         IEndlessCarouselElement[] elements = GetComponentsInChildren<IEndlessCarouselElement>(true);
 
         _elements = new List<IEndlessCarouselElement>(elements);
-    }
-
-    private bool IsEveryElementValid()
-    {
-        foreach (IEndlessCarouselElement element in _elements)
-            if (element.GetRectTransform() == null)
-                return false;
-
-        return true;
     }
 
     private bool IsEmpty()

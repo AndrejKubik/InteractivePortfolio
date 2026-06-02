@@ -1,3 +1,4 @@
+using System;
 using SnekEditor.GUIUtilities;
 using UnityEditor;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
     private SnekInputField _elementWidthField;
     private SnekInputField _elementHeightField;
     private SnekInputField _elementSpacingField;
+
+    private Action _onPropertiesChanged;
 
     protected override void OnCreateInspectorInstance()
     {
@@ -50,15 +53,10 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
         using (new SnekGUIHorizontalScope())
         {
-            _elementWidthField.DrawVertical();
-            _elementHeightField.DrawVertical();
-            _elementSpacingField.DrawVertical();
+            DrawElementWidthField();
+            DrawElementHeightField();
+            DrawElementSpacingField();
         }
-    }
-
-    protected override void OnPropertiesChange()
-    {
-        SyncGridLayoutGroupValues();
     }
 
     private void OnDisable()
@@ -66,19 +64,61 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         if (!IsEveryDependencyInitialized())
             return;
 
-        _gridLayoutGroup.hideFlags = HideFlags.None;
-        _contentSizeFitter.hideFlags = HideFlags.None;
+        //_gridLayoutGroup.hideFlags = HideFlags.None;
+        //_contentSizeFitter.hideFlags = HideFlags.None;
+    }
+
+    protected override void OnPropertiesChange()
+    {
+        _onPropertiesChanged?.Invoke();
+        _onPropertiesChanged = null;
+    }
+
+    private void DrawElementWidthField()
+    {
+        using (var propertyScope = new SnekPropertyFieldScope(sp_ElementWidth))
+        {
+            _elementWidthField.DrawVertical();
+
+            if (propertyScope.IsValueChanged())
+                _onPropertiesChanged += SyncCellSize;
+        }
+    }
+
+    private void DrawElementHeightField()
+    {
+        using (var propertyScope = new SnekPropertyFieldScope(sp_ElementHeight))
+        {
+            _elementHeightField.DrawVertical();
+
+            if (propertyScope.IsValueChanged())
+                _onPropertiesChanged += SyncCellSize;
+        }
+    }
+
+    private void DrawElementSpacingField()
+    {
+        using (var propertyScope = new SnekPropertyFieldScope(sp_ElementSpacing))
+        {
+            _elementSpacingField.DrawVertical();
+
+            if (propertyScope.IsValueChanged())
+                _onPropertiesChanged += SyncElementSpacingAndPadding;
+        }
     }
 
     private void InitializeDependencies()
     {
         _endlessCarousel = GetSelectedComponent();
 
-        if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
-            _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
+        _endlessCarousel.TryGetComponent(out _gridLayoutGroup);
+        _endlessCarousel.TryGetComponent(out _contentSizeFitter);
 
-        if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
-            _contentSizeFitter.hideFlags = HideFlags.NotEditable;
+        //if (_endlessCarousel.TryGetComponent(out _gridLayoutGroup))
+        //    _gridLayoutGroup.hideFlags = HideFlags.NotEditable;
+
+        //if (_endlessCarousel.TryGetComponent(out _contentSizeFitter))
+        //    _contentSizeFitter.hideFlags = HideFlags.NotEditable;
     }
 
     private bool IsEveryDependencyInitialized()
@@ -90,16 +130,38 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
 
     private void SyncGridLayoutGroupValues()
     {
+        Vector2 correctElementSize = new Vector2(
+            _endlessCarousel.ElementWidth, 
+            _endlessCarousel.ElementHeight);
+
+        if (_gridLayoutGroup.cellSize != correctElementSize)
+            SyncCellSize();
+
+        float spacing = _gridLayoutGroup.spacing.x;
+        RectOffset padding = _gridLayoutGroup.padding;
+        RectOffset correctPadding = SnekGUIUtility.Get2DPadding(_endlessCarousel.ElementSpacing, 0);
+
+        if (spacing != _endlessCarousel.ElementSpacing || !SnekGUIUtility.IsRectOffsetEqual(padding, correctPadding))
+            SyncElementSpacingAndPadding();
+    }
+
+    private void SyncElementSpacingAndPadding()
+    {
+        _gridLayoutGroup.spacing = new Vector2(_endlessCarousel.ElementSpacing, 0);
+        _gridLayoutGroup.padding = SnekGUIUtility.Get2DPadding(_endlessCarousel.ElementSpacing, 0);
+
+        EditorUtility.SetDirty(_gridLayoutGroup);
+        Debug.Log("sync spacing");
+    }
+
+    private void SyncCellSize()
+    {
         _gridLayoutGroup.cellSize = new Vector2(
             _endlessCarousel.ElementWidth,
             _endlessCarousel.ElementHeight);
 
-        int elementSpacing = Mathf.RoundToInt(_endlessCarousel.ElementSpacing);
-
-        _gridLayoutGroup.spacing = new Vector2(elementSpacing, 0);
-        _gridLayoutGroup.padding = SnekGUIUtility.Get2DPadding(elementSpacing, 0);
-
         EditorUtility.SetDirty(_gridLayoutGroup);
+        Debug.Log("sync size");
     }
 
     private void EnforceContentSizeFitterValues()

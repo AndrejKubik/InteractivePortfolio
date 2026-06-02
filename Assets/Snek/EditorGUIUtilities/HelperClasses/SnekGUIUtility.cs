@@ -24,6 +24,14 @@ namespace SnekEditor.GUIUtilities
             return new RectOffset(horizontalPadding, horizontalPadding, verticalPadding, verticalPadding);
         }
 
+        public static bool IsRectOffsetEqual(RectOffset value1, RectOffset value2)
+        {
+            return value1.top == value2.top
+                && value1.bottom == value2.bottom
+                && value1.left == value2.left
+                && value1.right == value2.right;
+        }
+
         /// <summary>
         /// Helper method in case you want to store the options into a variable before creating a gui scope instance for reusability
         /// </summary>
