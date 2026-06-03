@@ -48,13 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1673190594966448903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a165cd013dba392439ac398fcab7b7be, type: 3}
+  m_Script: {fileID: 11500000, guid: 04b05fbf787d5d949bbbd158e92905a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessCarousel
   ElementContainer: {fileID: 5289021152928061479}
   ElementWidth: 200
   ElementHeight: 200
-  ElementSpacing: 20
+  ElementSpacing: 10
 --- !u!114 &7724616079494276700
 MonoBehaviour:
   m_ObjectHideFlags: 0

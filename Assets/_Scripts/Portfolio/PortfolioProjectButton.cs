@@ -1,10 +1,11 @@
+using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.Utilities;
 using TMPro;
 using UnityEngine;
 
 [UseSnekInspector]
-public class PortfolioProjectButton : SnekUIButton, IEndlessCarouselElement
+public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
 {
     protected override void OnInitializationSuccess()
     {

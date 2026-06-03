@@ -9,7 +9,7 @@ namespace Snek.Utilities
         /// </summary>
         public static string Nicify(this string text)
         {
-            return Regex.Replace(text, "(\\B[A-Z])", " $1");
+            return Regex.Replace(text, @"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ");
         }
     }
 }
