@@ -757,8 +757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessCarousel
   ElementContainer: {fileID: 8275565547978724931}
-  ElementWidth: 300
-  ElementHeight: 150
+  ElementWidth: 200
+  ElementHeight: 200
   ElementSpacing: 20
 --- !u!1 &198548952
 GameObject:
@@ -3998,7 +3998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EndlessCarouselElementContainer
 --- !u!114 &8275565547978724932
 MonoBehaviour:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4012,7 +4012,7 @@ MonoBehaviour:
   m_VerticalFit: 2
 --- !u!114 &8275565547978724933
 MonoBehaviour:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4030,7 +4030,7 @@ MonoBehaviour:
   m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 150}
+  m_CellSize: {x: 200, y: 200}
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1

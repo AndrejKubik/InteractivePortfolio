@@ -39,18 +39,19 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", 0f);
         _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", 0f);
 
+        Undo.undoRedoPerformed += SyncAllData;
+
         InitializeDependencies();
 
-        if (!_elementContainer)
-            return;
+        if (_elementContainer)
+            SyncAllData();
+    }
 
-        if (!IsContentSizeFitterDataSynced())
-            EnforceContentSizeFitterValues();
+    
 
-        if (!IsBaseGridLayoutGroupDataSynced())
-            EnforceBaseGridLayoutGroupValues();
-
-        SyncGridLayoutGroupValues();
+    private void OnDisable()
+    {
+        Undo.undoRedoPerformed -= SyncAllData;
     }
 
     protected override void DrawContent()
@@ -168,6 +169,17 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         return SnekGUIUtility.IsRectOffsetEqual(_gridLayoutGroup.padding, correctPadding);
     }
 
+    private void SyncAllData()
+    {
+        if (!IsContentSizeFitterDataSynced())
+            SyncContentSizeFitterData();
+
+        if (!IsBaseGridLayoutGroupDataSynced())
+            SyncBaseGridLayoutGroupData();
+
+        SyncGridLayoutGroupValues();
+    }
+
     private void SyncElementSpacingAndPadding()
     {
         _gridLayoutGroup.spacing = new Vector2(_endlessCarousel.ElementSpacing, 0);
@@ -185,7 +197,7 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
         EditorUtility.SetDirty(_gridLayoutGroup);
     }
 
-    private void EnforceBaseGridLayoutGroupValues()
+    private void SyncBaseGridLayoutGroupData()
     {
         if (IsBaseGridLayoutGroupDataSynced())
             return;
@@ -208,7 +220,7 @@ public class EndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<Endless
             && _gridLayoutGroup.constraintCount == 1;
     }
 
-    private void EnforceContentSizeFitterValues()
+    private void SyncContentSizeFitterData()
     {
         _contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         _contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
