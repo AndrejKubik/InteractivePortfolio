@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 [UseSnekInspector]
 [RequireComponent(typeof(RectTransform))]
 public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private RectTransform _rectTransform;
+
     public EndlessCarouselElementContainer ElementContainer;
     public float ElementWidth = 200f;
     public float ElementHeight = 200f;
@@ -19,6 +20,11 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
     private float _velocity = 0f;
 
     private List<IEndlessCarouselElement> _elements;
+
+    protected override void Initialize()
+    {
+        GetEssentialComponent(out _rectTransform);
+    }
 
     protected override void Validate()
     {
@@ -33,7 +39,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
     private void Update()
     {
-        if (IsEmpty()/* || !IsMovingAllowed()*/)
+        if (IsEmpty() || !IsMovingAllowed())
             return;
 
         if (_isDragging)
@@ -82,7 +88,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
         return _elements == null || _elements.Count < 1;
     }
 
-    private bool IsMovingAllowed() //incorrect calculation, needs fixing
+    private bool IsMovingAllowed()
     {
         float totalRequiredElementWidth = _elements.Count * ElementWidth;
         float totalRequiredElementSpacing = (_elements.Count - 1) * ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
@@ -90,13 +96,7 @@ public class EndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandle
 
         float totalRequiredWidth = totalRequiredElementWidth + totalRequiredElementSpacing + totalPadding;
 
-        //float perElementRequiredSpace = ElementWidth + ElementSpacing;
-        //float totalPadding = ElementSpacing * 2f;
-
-        //float totalRequiredSpace = _elements.Count * perElementRequiredSpace + totalPadding;
-        //totalRequiredWidth -= ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
-
-        return ElementContainer.GetTotalWidth() - totalRequiredWidth < 0f;
+        return _rectTransform.rect.width - totalRequiredWidth < 0f;
     }
 
     private void ApplyDragVelocity(Vector2 dragDelta)
