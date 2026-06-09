@@ -1,7 +1,6 @@
 using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.Utilities;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

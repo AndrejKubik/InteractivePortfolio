@@ -77,9 +77,6 @@ namespace Snek.EndlessCarousel
             {
                 ApplyInertiaVelocity();
                 MoveElementsHorizontally(_velocityX * Time.deltaTime);
-
-                //OnHorizontalDrag?.Invoke(_velocityX * Time.deltaTime);
-                //OnVerticalDrag?.Invoke(_velocityY * Time.deltaTime);
             }
         }
 
