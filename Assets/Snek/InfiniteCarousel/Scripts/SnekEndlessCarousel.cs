@@ -16,12 +16,20 @@ namespace Snek.EndlessCarousel
         public float ElementHeight = 200f;
         public int ElementSpacing = 10;
 
-        private bool _isDragging = false;
+        private List<ISnekEndlessCarouselElement> _elements;
+
+        public bool IsDragging { get; private set; }
+
         private Vector2 _currentPointerPosition;
         private Vector2 _lastPointerPosition;
-        private float _velocity = 0f;
+        private float _velocityX = 0f;
+        private float _velocityY = 0f;
 
-        private List<ISnekEndlessCarouselElement> _elements;
+        public delegate void OnHorizontalDragEvent(float deltaX);
+        public delegate void OnVerticalDragEvent(float deltaY);
+
+        public event OnHorizontalDragEvent OnHorizontalDrag;
+        public event OnVerticalDragEvent OnVerticalDrag;
 
         protected override void Initialize()
         {
@@ -44,25 +52,40 @@ namespace Snek.EndlessCarousel
             if (IsEmpty() || !IsMovingAllowed())
                 return;
 
-            if (_isDragging)
+            if (IsDragging)
             {
                 Vector2 dragDelta = _currentPointerPosition - _lastPointerPosition;
 
+                float deltaX = dragDelta.x;
+                float deltaY = dragDelta.y;
+
                 ApplyDragVelocity(dragDelta);
-                MoveElementsHorizontally(dragDelta.x);
+
+                if (!Mathf.Approximately(deltaX, 0f))
+                {
+                    MoveElementsHorizontally(deltaX);
+
+                    OnHorizontalDrag?.Invoke(deltaX);
+                }
+
+                if (!Mathf.Approximately(deltaY, 0f))
+                    OnVerticalDrag?.Invoke(deltaY);
 
                 _lastPointerPosition = _currentPointerPosition;
             }
             else
             {
                 ApplyInertiaVelocity();
-                MoveElementsHorizontally(_velocity * Time.deltaTime);
+                MoveElementsHorizontally(_velocityX * Time.deltaTime);
+
+                //OnHorizontalDrag?.Invoke(_velocityX * Time.deltaTime);
+                //OnVerticalDrag?.Invoke(_velocityY * Time.deltaTime);
             }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _isDragging = true;
+            IsDragging = true;
 
             _lastPointerPosition = eventData.position;
             _currentPointerPosition = eventData.position;
@@ -75,7 +98,7 @@ namespace Snek.EndlessCarousel
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            _isDragging = false;
+            IsDragging = false;
         }
 
         private void FindAllElements()
@@ -103,19 +126,18 @@ namespace Snek.EndlessCarousel
 
         private void ApplyDragVelocity(Vector2 dragDelta)
         {
-            _velocity = dragDelta.x / Time.deltaTime;
+            _velocityX = dragDelta.x / Time.deltaTime;
+            _velocityY = dragDelta.y / Time.deltaTime;
         }
 
         private void ApplyInertiaVelocity()
         {
-            _velocity = Mathf.Lerp(_velocity, 0f, Time.deltaTime * 7.5f);
+            _velocityX = Mathf.Lerp(_velocityX, 0f, Time.deltaTime * 7.5f);
+            _velocityY = Mathf.Lerp(_velocityY, 0f, Time.deltaTime * 7.5f);
         }
 
         private void MoveElementsHorizontally(float positionOffset)
         {
-            if (Mathf.Approximately(positionOffset, 0f))
-                return;
-
             float loopBoundOffset = ElementWidth / 2f + ElementSpacing;
 
             if (positionOffset > 0f)

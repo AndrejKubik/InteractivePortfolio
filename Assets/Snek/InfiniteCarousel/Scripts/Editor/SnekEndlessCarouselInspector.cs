@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace SnekEditor.EndlessCarousel
 {
-    [CustomEditor(typeof(SnekEndlessCarousel))]
+    [CustomEditor(typeof(SnekEndlessCarousel), true)]
     public class SnekEndlessCarouselInspector : SnekMonoBehaviourInspectorCustom<SnekEndlessCarousel>
     {
         private SnekEndlessCarousel _endlessCarousel;
@@ -49,8 +49,6 @@ namespace SnekEditor.EndlessCarousel
             if (_elementContainer)
                 SyncAllData();
         }
-
-
 
         private void OnDisable()
         {
