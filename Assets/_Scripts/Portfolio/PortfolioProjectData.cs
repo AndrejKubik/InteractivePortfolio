@@ -40,8 +40,8 @@ public class PortfolioProjectData : SnekScriptableObject
         if (_thumbnail == null)
             FailValidation("Project data thumbnail not assigned.", out isDataValid);
 
-        if (string.IsNullOrEmpty(_videoDemoLink))
-            FailValidation("Project data video demo link not assigned.", out isDataValid);
+        //if (string.IsNullOrEmpty(_videoDemoLink))
+        //    FailValidation("Project data video demo link not assigned.", out isDataValid);
 
         if (string.IsNullOrEmpty(_descriptionText))
             FailValidation("Project data description text not assigned.", out isDataValid);
@@ -89,13 +89,18 @@ public class PortfolioProjectData : SnekScriptableObject
         return _descriptionText;
     }
 
-    public List<string> GetDevelopmentHighlights()
+    public string GetDevelopmentHighlights()
     {
-        var highlightTexts = new List<string>();
+        string finalText = string.Empty;
 
         foreach (DevelopmentHighlight highlight in _developmentHighlights)
-            highlightTexts.Add(highlight.Text);
+        {
+            if (!string.IsNullOrEmpty(finalText))
+                finalText += "\n\n";
 
-        return highlightTexts;
+            finalText += $"- {highlight.Text}";
+        }    
+        
+        return finalText;
     }
 }

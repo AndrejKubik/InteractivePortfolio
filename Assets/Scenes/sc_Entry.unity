@@ -348,6 +348,14 @@ PrefabInstance:
       propertyPath: StartSceneName
       value: sc_Main
       objectReference: {fileID: 0}
+    - target: {fileID: 4234765462187474828, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
+      propertyPath: PreLaunchServices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234765462187474828, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
+      propertyPath: 'PreLaunchServices.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1447417145130595861, guid: 2f74472176627a44ab4cecb47e15c5b9, type: 3}
     - target: {fileID: 7265095630778405482, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

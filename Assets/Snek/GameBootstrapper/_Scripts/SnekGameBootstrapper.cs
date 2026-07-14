@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Snek.Utilities;
 using UnityEngine.SceneManagement;
@@ -8,21 +9,45 @@ namespace Snek.GameBootstrapper
     public class SnekGameBootstrapper : SnekMonoBehaviour
     {
         public string StartSceneName;
+        public List<SnekMonoBehaviour> PreLaunchServices = new();
 
         protected override void Validate()
         {
             if (string.IsNullOrEmpty(StartSceneName))
                 FailValidation("No starting scene assigned, aborting launch.");
-            else if(!IsStartSceneInBuild())
+            else if (!IsStartSceneInBuild())
                 FailValidation("Assigned start scene is missing or not enabled in build settings");
 
             if (StartSceneName == SceneManager.GetActiveScene().name)
                 FailValidation("Cannot use bootstrap scene as starting scene, aborting launch.");
+
+            if (!IsEveryPreLaunchServiceValid())
+                FailValidation("Null or missing references present in Pre-Launch Services list.");
+        }
+
+        private bool IsEveryPreLaunchServiceValid()
+        {
+            foreach (SnekMonoBehaviour service in PreLaunchServices)
+                if (service == null)
+                    return false;
+
+            return true;
         }
 
         protected override void OnInitializationSuccess()
         {
+            InitializePreLaunchServices();
+
             SceneManager.LoadScene(StartSceneName);
+        }
+
+        private void InitializePreLaunchServices()
+        {
+            foreach (SnekMonoBehaviour service in PreLaunchServices)
+            {
+                SnekMonoBehaviour serviceInstance = Instantiate(service);
+                serviceInstance.name = service.name;
+            }
         }
 
         private bool IsStartSceneInBuild()

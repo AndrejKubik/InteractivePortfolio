@@ -12,3 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: InnerColor
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Inner Color
+  _thumbnail: {fileID: -517579302, guid: 131b11d8ecb072243b4df4b8134f261a, type: 3}
+  _videoDemoLink: 
+  _descriptionText: '- Zen painting game with smooth animations, calming music, different
+    painting tools, and various visual filters.'
+  _developmentHighlights:
+  - Name: 
+    Text: 'Complex UI functionality: Image gallery, favourites feature, nested scroll
+      views, etc.'
+  - Name: 
+    Text: Post-Processing effects on painted images and rendering into local files
+      for the gallery
+  - Name: 
+    Text: Editor tool for quick implementation of new paintable image templates
+  - Name: 
+    Text: Editor tool for quick implementation of exported in-game user-painted images
+      inside the Ideas menu as examples

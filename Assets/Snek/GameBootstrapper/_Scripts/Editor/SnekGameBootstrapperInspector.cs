@@ -10,23 +10,29 @@ namespace SnekEditor.GameBootstrapper
     public class SnekGameBootstrapperInspector : SnekMonoBehaviourInspectorCustom<SnekGameBootstrapper>
     {
         private const float StartScenePropertyWidth = 200f;
-        private const float StartScenePropertyHeight= 25f;
+        private const float StartScenePropertyHeight = 25f;
 
         private GUIStyle _labelStyle;
 
         private SerializedProperty sp_StartSceneName;
+        private SerializedProperty sp_PreLaunchServices;
 
         private SnekGameBootstrapperInspectorCache _cache;
         private SerializedObject so_Cache;
         private SerializedProperty sp_StartScene;
 
+        private SnekReorderableList list_PreLaunchServices;
+
         protected override void OnCreateInspectorInstance()
         {
             sp_StartSceneName = serializedObject.FindProperty(nameof(SnekGameBootstrapper.StartSceneName));
+            sp_PreLaunchServices = serializedObject.FindProperty(nameof(SnekGameBootstrapper.PreLaunchServices));
 
             _cache = SnekScriptableObjectManager.GetAsset<SnekGameBootstrapperInspectorCache>();
             so_Cache = new SerializedObject(_cache);
             sp_StartScene = so_Cache.FindProperty(nameof(_cache.StartScene));
+
+            list_PreLaunchServices = new SnekReorderableList(serializedObject, sp_PreLaunchServices);
 
             UpdateStartSceneName();
         }
@@ -58,6 +64,18 @@ namespace SnekEditor.GameBootstrapper
 
             so_Cache.Update();
 
+            DrawStartScenePropertyField();
+
+            GUILayout.Space(10f);
+
+            list_PreLaunchServices.Draw();
+
+            if (so_Cache.ApplyModifiedProperties())
+                UpdateStartSceneName();
+        }
+
+        private void DrawStartScenePropertyField()
+        {
             var mainScope = new SnekGUIHorizontalScope(
                 SnekGUIScopeAnchor.Center,
                 GUILayout.Height(StartScenePropertyHeight));
@@ -74,9 +92,6 @@ namespace SnekEditor.GameBootstrapper
                     GUILayout.Width(StartScenePropertyWidth),
                     GUILayout.ExpandHeight(true));
             }
-
-            if (so_Cache.ApplyModifiedProperties())
-                UpdateStartSceneName();
         }
 
         private void UpdateStartSceneName()
