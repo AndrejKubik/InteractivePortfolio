@@ -11,6 +11,9 @@ public class PortfolioProjectData : SnekScriptableObject
 
     [Space(10f)]
     [SerializeField] private Sprite _thumbnail;
+
+    [Space(10f)]
+    [TextArea]
     [SerializeField] private string _videoDemoLink = string.Empty;
 
     [Space(10f)]
@@ -40,8 +43,8 @@ public class PortfolioProjectData : SnekScriptableObject
         if (_thumbnail == null)
             FailValidation("Project data thumbnail not assigned.", out isDataValid);
 
-        //if (string.IsNullOrEmpty(_videoDemoLink))
-        //    FailValidation("Project data video demo link not assigned.", out isDataValid);
+        if (string.IsNullOrEmpty(_videoDemoLink))
+            FailValidation("Project data video demo link not assigned.", out isDataValid);
 
         if (string.IsNullOrEmpty(_descriptionText))
             FailValidation("Project data description text not assigned.", out isDataValid);

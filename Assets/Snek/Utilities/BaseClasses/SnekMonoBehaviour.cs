@@ -26,7 +26,7 @@ namespace Snek.Utilities
 
             if (!_isValid)
             {
-                Debug.LogError(InvalidSetupMessage(name), this);
+                Debug.LogError(InvalidSetupMessage(name), gameObject);
 
                 OnFailValidation();
 

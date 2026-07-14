@@ -12,6 +12,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _thumbnail;
+    [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private PortfolioDevelopmentHighlightsTextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
@@ -28,6 +29,12 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         if (!_projectName)
             FailValidation("Project name text mesh not assigned.");
+
+        if (!_thumbnail)
+            FailValidation("Thumbnail not assigned.");
+
+        if (!_videoDemo)
+            FailValidation("Video demo not assigned.");
 
         if (!_description)
             FailValidation("Description text mesh not assigned.");
@@ -59,7 +66,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         }
 
         _projectName.SetText(projectData.GetProjectName());
+        
         _thumbnail.sprite = projectData.GetThumbnail();
+
+        _videoDemo.ApplyData(projectData.GetVideoDemoLink());
         _description.SetText(projectData.GetDescriptionText());
 
         Canvas.ForceUpdateCanvases();

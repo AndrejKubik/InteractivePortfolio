@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Inner Color
   _thumbnail: {fileID: -517579302, guid: 131b11d8ecb072243b4df4b8134f261a, type: 3}
-  _videoDemoLink: 
-  _descriptionText: '- Zen painting game with smooth animations, calming music, different
-    painting tools, and various visual filters.'
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/InnerColor.mp4
+  _descriptionText: Zen painting game with smooth animations, calming music, different
+    painting tools, and various visual filters.
   _developmentHighlights:
   - Name: 
     Text: 'Complex UI functionality: Image gallery, favourites feature, nested scroll
