@@ -67,7 +67,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategory
   _endlessCarousel: {fileID: 3291872537999047736}
   _usedInScrollRect: 1
-  _scrollRect: {fileID: 0}
+  _parentScrollRect: {fileID: 0}
+  _pointerInputDispatcher: {fileID: 0}
 --- !u!1 &1946533648972431206
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +326,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9162422535891353451}
     m_Modifications:
+    - target: {fileID: 1305844308094074093, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       propertyPath: m_Name
       value: EndlessCarousel
