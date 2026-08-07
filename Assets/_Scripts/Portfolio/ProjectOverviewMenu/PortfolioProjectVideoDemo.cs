@@ -7,29 +7,33 @@ using UnityEngine.Video;
 [UseSnekInspector]
 public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 {
-    private RectTransform _rectTransform;
+    private const float VideoVerticalPadding = 15f;
+
+    private LayoutElement _layoutElement;
 
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private RawImage _videoPreview;
+    [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
+    [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
 
     private RenderTexture _renderTexture;
 
     protected override void Initialize()
     {
-        _rectTransform = transform as RectTransform;
+        GetEssentialComponent(out _layoutElement);
     }
 
     protected override void Validate()
     {
-        if (!_rectTransform)
-            FailValidation("Cannot find Rect Transform component.");
-
         if (!_videoPlayer)
             FailValidation("Video player not assigned.");
 
         if (!_videoPreview)
             FailValidation("Video preview not assigned.");
+
+        if (!_videoPreviewHeader)
+            FailValidation("Video preview header not assigned.");
 
         if (!_aspectRatioFitter)
             FailValidation("Aspect ratio fitter not assigned.");
@@ -42,7 +46,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void OnDestroy()
     {
-        _videoPlayer.prepareCompleted -= OnVideoPrepared;
+        if (_isValid)
+            _videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
 
     public void ApplyData(string videoURL)
@@ -61,23 +66,40 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void OnVideoPrepared(VideoPlayer source)
     {
-        _aspectRatioFitter.aspectRatio = (float)source.width / (float)source.height;
-        _aspectRatioFitter.enabled = true;
+        CreateAndApplyRenderTexture(source);
+        ApplyAspectRatioToVideoRectSize(source);
+        FitVideoPreviewToScreen();
 
+        _videoPlayer.Play();
+    }
+
+    private void CreateAndApplyRenderTexture(VideoPlayer source)
+    {
         _renderTexture = new RenderTexture((int)source.width, (int)source.height, 0);
 
         _renderTexture.Create();
 
         _videoPlayer.targetTexture = _renderTexture;
         _videoPreview.texture = _renderTexture;
+    }
+
+    private void ApplyAspectRatioToVideoRectSize(VideoPlayer source)
+    {
+        _aspectRatioFitter.aspectRatio = (float)source.width / (float)source.height;
+        _aspectRatioFitter.enabled = true;
+    }
+
+    private void FitVideoPreviewToScreen()
+    {
+        var horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
+        float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding - _videoPreviewHeader.rect.size.y;
+
+        horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
 
         var videoPlayerRectTransform = _videoPlayer.transform as RectTransform;
 
-        GetComponent<LayoutElement>().minWidth = videoPlayerRectTransform.rect.size.x;
-
-        _rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, videoPlayerRectTransform.rect.size.x);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
-
-        _videoPlayer.Play();
+        _layoutElement.preferredWidth = videoPlayerRectTransform.rect.size.x;
     }
 }
