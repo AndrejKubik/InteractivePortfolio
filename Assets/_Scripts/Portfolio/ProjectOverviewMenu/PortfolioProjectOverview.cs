@@ -71,9 +71,9 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     protected override void OnInitializationSuccess()
     {
         _thumbnail.sprite = _projectData.GetThumbnail();
-        _projectName.SetText(_projectData.GetProjectName());
 
-        _videoDemo.Initialize(_projectData.GetVideoDemoLink(), OnVideoDemoPrepared);
+        _projectName.SetText(_projectData.GetProjectName());
+        _videoDemo.InitializeExternally(_projectData.GetVideoDemoLink(), OnVideoDemoPrepared);
     }
 
     private void Update()

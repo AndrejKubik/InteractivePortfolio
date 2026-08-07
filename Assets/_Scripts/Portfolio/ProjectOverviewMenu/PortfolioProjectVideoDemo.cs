@@ -10,6 +10,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     private const float VideoVerticalPadding = 15f;
 
     private LayoutElement _layoutElement;
+    private string _videoURL = string.Empty;
 
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private RawImage _videoPreview;
@@ -18,15 +19,32 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
 
     private RenderTexture _renderTexture;
-    private Action _onVideoPreparedCallback;
+    private Action _onVideoPrepared;
+
+    protected override bool IsManuallyInitialized()
+    {
+        return true;
+    }
+
+    public void InitializeExternally(string videoURL, Action onVideoPrepared = null)
+    {
+        _videoURL = videoURL;
+        _onVideoPrepared = onVideoPrepared;
+
+        RunInitialization();
+    }
 
     protected override void Initialize()
     {
         GetEssentialComponent(out _layoutElement);
+        
     }
 
     protected override void Validate()
     {
+        if (string.IsNullOrEmpty(_videoURL))
+            FailValidation("Invalid video URL provided.");
+
         if (!_videoPlayer)
             FailValidation("Video player not assigned.");
 
@@ -42,28 +60,17 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     protected override void OnInitializationSuccess()
     {
+        _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
+
+        _videoPlayer.Prepare();
+        
     }
 
     private void OnDestroy()
     {
         if (_isValid)
             _videoPlayer.prepareCompleted -= OnVideoPrepared;
-    }
-
-    public void Initialize(string videoURL, Action onVideoPreparedCallback)
-    {
-        if (string.IsNullOrEmpty(videoURL))
-        {
-            Debug.LogError("Invalid video URL provided, cannot apply data.");
-
-            return;
-        }
-
-        _videoPlayer.url = videoURL;
-        _onVideoPreparedCallback = onVideoPreparedCallback;
-
-        _videoPlayer.Prepare();
     }
 
     private void OnVideoPrepared(VideoPlayer source)
@@ -74,7 +81,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _videoPlayer.Play();
 
-        _onVideoPreparedCallback.Invoke();
+        _onVideoPrepared?.Invoke();
     }
 
     private void CreateAndApplyRenderTexture(VideoPlayer source)
