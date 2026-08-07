@@ -124,10 +124,10 @@ namespace Snek.Utilities
         {
             _isValid = false;
 
-            Debug.LogError(message);
+            Debug.LogError(message, gameObject);
         }
 
-        protected string InvalidSetupMessage(string gameObjectName)
+        private string InvalidSetupMessage(string gameObjectName)
         {
             return $"Component setup invalid, disabling game object <b>[{gameObjectName}]</b>";
         }

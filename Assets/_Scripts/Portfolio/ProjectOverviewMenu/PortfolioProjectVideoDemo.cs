@@ -18,6 +18,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
 
     private RenderTexture _renderTexture;
+    private Action _onVideoPreparedCallback;
 
     protected override void Initialize()
     {
@@ -50,7 +51,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
             _videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
 
-    public void ApplyData(string videoURL)
+    public void Initialize(string videoURL, Action onVideoPreparedCallback)
     {
         if (string.IsNullOrEmpty(videoURL))
         {
@@ -60,6 +61,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         }
 
         _videoPlayer.url = videoURL;
+        _onVideoPreparedCallback = onVideoPreparedCallback;
 
         _videoPlayer.Prepare();
     }
@@ -71,6 +73,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         FitVideoPreviewToScreen();
 
         _videoPlayer.Play();
+
+        _onVideoPreparedCallback.Invoke();
     }
 
     private void CreateAndApplyRenderTexture(VideoPlayer source)
@@ -101,5 +105,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         var videoPlayerRectTransform = _videoPlayer.transform as RectTransform;
 
         _layoutElement.preferredWidth = videoPlayerRectTransform.rect.size.x;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using TMPro;
@@ -13,9 +14,23 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _thumbnail;
     [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
-    [SerializeField] private TextMeshProUGUI _description;
-    [SerializeField] private PortfolioDevelopmentHighlightsTextBox _developmentHighlightsTextBox;
+    [SerializeField] private TextBox _descriptionTextBox;
+    [SerializeField] private TextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
+
+    private PortfolioProjectData _projectData;
+
+    protected override bool IsManuallyInitialized()
+    {
+        return true;
+    }
+
+    public void InitializeExternally(PortfolioProjectData projectData)
+    {
+        _projectData = projectData;
+
+        RunInitialization();
+    }
 
     protected override void Initialize()
     {
@@ -24,6 +39,13 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     protected override void Validate()
     {
+        if (_projectData == null || !_projectData.IsDataValid())
+        {
+            _eventManager.RequestShowAllProjects();
+
+            FailValidation("Provided project data is null or has invalid values, cannot apply data.");
+        }
+
         if (!_eventManager)
             FailValidation("Cannot find event manager singleton.");
 
@@ -36,7 +58,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         if (!_videoDemo)
             FailValidation("Video demo not assigned.");
 
-        if (!_description)
+        if (!_descriptionTextBox)
             FailValidation("Description text mesh not assigned.");
 
         if (!_developmentHighlightsTextBox)
@@ -46,37 +68,24 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
             FailValidation("Scroll rect not assigned.");
     }
 
+    protected override void OnInitializationSuccess()
+    {
+        _thumbnail.sprite = _projectData.GetThumbnail();
+        _projectName.SetText(_projectData.GetProjectName());
+
+        _videoDemo.Initialize(_projectData.GetVideoDemoLink(), OnVideoDemoPrepared);
+    }
+
     private void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
             _eventManager.RequestShowAllProjects();
     }
 
-    public void ApplyProjectData(PortfolioProjectData projectData)
+    private void OnVideoDemoPrepared()
     {
-        if(projectData == null || !projectData.IsDataValid())
-        {
-            Debug.LogError("Provided project data is null or has invalid values, cannot apply data.");
-
-            _eventManager.RequestShowAllProjects();
-
-            gameObject.SetActive(false);
-
-            return;
-        }
-
-        _projectName.SetText(projectData.GetProjectName());
-        
-        _thumbnail.sprite = projectData.GetThumbnail();
-
-        _videoDemo.ApplyData(projectData.GetVideoDemoLink());
-        _description.SetText(projectData.GetDescriptionText());
-
-        Canvas.ForceUpdateCanvases();
-
-        _developmentHighlightsTextBox.ApplyData(
-            projectData.GetDevelopmentHighlights(),
-            _description.fontSize);
+        _descriptionTextBox.SetText(_projectData.GetDescriptionText());
+        _developmentHighlightsTextBox.SetText(_projectData.GetDevelopmentHighlights());
 
         _scrollRect.verticalNormalizedPosition = 1f;
     }

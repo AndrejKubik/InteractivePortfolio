@@ -48,7 +48,7 @@ public class PortfolioMenuController : SnekMonoBehaviour
     {
         ShowMenu(_projectOverviewMenu.gameObject);
 
-        _projectOverviewMenu.ApplyProjectData(projectData);
+        _projectOverviewMenu.InitializeExternally(projectData);
     }
 
     private void OnRequestShowAllProjects()
