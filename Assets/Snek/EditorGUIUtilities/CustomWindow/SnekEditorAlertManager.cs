@@ -53,11 +53,7 @@ namespace SnekEditor.GUIUtilities
         internal static SnekEditorAlert GetOldestAlert()
         {
             if(_activeEditorAlerts == null || _activeEditorAlerts.Count < 1)
-            {
-                Debug.LogError("Trying to get oldest alert while none are cached.");
-
                 return null;
-            }
 
             return _activeEditorAlerts[0];
         }

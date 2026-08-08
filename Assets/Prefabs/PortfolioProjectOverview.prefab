@@ -1135,7 +1135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioDevelopmentHighlightsTextBox
   _header: {fileID: 2090210343745797868}
   _textMesh: {fileID: 3249467142612875858}
-  _content: {fileID: 2385991202763868014}
 --- !u!114 &6916956885877198187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,7 +1819,7 @@ GameObject:
   - component: {fileID: 5347059973798538804}
   - component: {fileID: 2694412463504909505}
   m_Layer: 5
-  m_Name: DescriptionAndHighlights
+  m_Name: TextBoxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1987,7 +1986,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioDevelopmentHighlightsTextBox
   _header: {fileID: 5288620285301562439}
   _textMesh: {fileID: 4967168657985114824}
-  _content: {fileID: 0}
 --- !u!114 &5782625392768433748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,6 +2163,8 @@ MonoBehaviour:
   _descriptionTextBox: {fileID: 1872195396166068231}
   _developmentHighlightsTextBox: {fileID: 8370706452017805173}
   _scrollRect: {fileID: 8776589846541650826}
+  _horizontalLayoutGroupTransform: {fileID: 6251394487822251417}
+  _textBoxParentTransform: {fileID: 297096325522408788}
 --- !u!1 &6877795824388203435
 GameObject:
   m_ObjectHideFlags: 0

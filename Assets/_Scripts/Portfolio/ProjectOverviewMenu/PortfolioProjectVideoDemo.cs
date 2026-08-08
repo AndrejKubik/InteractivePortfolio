@@ -157,4 +157,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
     }
+
+    public RectTransform GetRectTransform()
+    {
+        return transform as RectTransform;
+    }
 }

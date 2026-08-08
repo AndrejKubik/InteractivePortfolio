@@ -17,6 +17,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private TextBox _descriptionTextBox;
     [SerializeField] private TextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
+    [SerializeField] private RectTransform _horizontalLayoutGroupTransform;
+    [SerializeField] private RectTransform _textBoxParentTransform;
 
     private PortfolioProjectData _projectData;
 
@@ -62,6 +64,12 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         if (!_scrollRect)
             FailValidation("Scroll rect not assigned.");
+
+        if (!_horizontalLayoutGroupTransform)
+            FailValidation("Horizontal layout group transform not assigned.");
+
+        if (!_textBoxParentTransform)
+            FailValidation("Text box parent transform not assigned.");
     }
 
     protected override void OnInitializationSuccess()
@@ -88,6 +96,17 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         _descriptionTextBox.SetText(_projectData.GetDescriptionText());
         _developmentHighlightsTextBox.SetText(_projectData.GetDevelopmentHighlights());
 
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+
+        float targetHeight = Mathf.Max(
+            _textBoxParentTransform.rect.height,
+            _videoDemo.GetRectTransform().rect.height);
+
+        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+        
         _scrollRect.verticalNormalizedPosition = 1f;
+
     }
 }
