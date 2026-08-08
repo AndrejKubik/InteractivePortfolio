@@ -37,7 +37,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     protected override void Initialize()
     {
         GetEssentialComponent(out _layoutElement);
-        
     }
 
     protected override void Validate()

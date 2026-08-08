@@ -40,11 +40,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     protected override void Validate()
     {
         if (_projectData == null || !_projectData.IsDataValid())
-        {
-            _eventManager.RequestShowAllProjects();
-
             FailValidation("Provided project data is null or has invalid values, cannot apply data.");
-        }
 
         if (!_eventManager)
             FailValidation("Cannot find event manager singleton.");
@@ -74,6 +70,11 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         _projectName.SetText(_projectData.GetProjectName());
         _videoDemo.InitializeExternally(_projectData.GetVideoDemoLink(), OnVideoDemoPrepared);
+    }
+
+    protected override void OnFailValidation()
+    {
+        _eventManager.RequestShowAllProjects();
     }
 
     private void Update()
