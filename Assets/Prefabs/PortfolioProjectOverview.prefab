@@ -1135,6 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioDevelopmentHighlightsTextBox
   _header: {fileID: 2090210343745797868}
   _textMesh: {fileID: 3249467142612875858}
+  _content: {fileID: 2385991202763868014}
 --- !u!114 &6916956885877198187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,6 +1987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioDevelopmentHighlightsTextBox
   _header: {fileID: 5288620285301562439}
   _textMesh: {fileID: 4967168657985114824}
+  _content: {fileID: 0}
 --- !u!114 &5782625392768433748
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -104,6 +104,6 @@ public class PortfolioProjectData : SnekScriptableObject
             finalText += $"- {highlight.Text}";
         }    
         
-        return finalText;
+        return finalText + "\n";
     }
 }

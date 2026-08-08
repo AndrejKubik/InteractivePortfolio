@@ -95,14 +95,57 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void ApplyAspectRatioToVideoRectSize(VideoPlayer source)
     {
+        _aspectRatioFitter.enabled = false;
+
         _aspectRatioFitter.aspectRatio = (float)source.width / (float)source.height;
+
+        _aspectRatioFitter.aspectMode = _aspectRatioFitter.aspectRatio > 1f ?
+            AspectRatioFitter.AspectMode.WidthControlsHeight : AspectRatioFitter.AspectMode.HeightControlsWidth;
+
         _aspectRatioFitter.enabled = true;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitter.GetComponent<RectTransform>());
     }
 
     private void FitVideoPreviewToScreen()
     {
+        switch (_aspectRatioFitter.aspectMode)
+        {
+            case AspectRatioFitter.AspectMode.WidthControlsHeight:
+
+                FitVideoPreviewToScreenLandscape();
+                break;
+
+            case AspectRatioFitter.AspectMode.HeightControlsWidth:
+
+                FitVideoPreviewToScreenPortrait();
+                break;
+
+            default:
+
+                Debug.LogError("Unsupported aspect mode provided, cannot fit video preview to screen.", gameObject);
+                break;
+        }
+    }
+
+    private void FitVideoPreviewToScreenLandscape()
+    {
         var horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
-        float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding - _videoPreviewHeader.rect.size.y;
+
+        float targetWidth = horizontalLayoutGroupTransform.rect.size.x / 2f;
+        targetWidth -= 2f * VideoVerticalPadding;
+
+        _layoutElement.preferredWidth = targetWidth;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
+    }
+
+    private void FitVideoPreviewToScreenPortrait()
+    {
+        var horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
+
+        float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding;
+        targetHeight -= _videoPreviewHeader.rect.size.y;
 
         horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 

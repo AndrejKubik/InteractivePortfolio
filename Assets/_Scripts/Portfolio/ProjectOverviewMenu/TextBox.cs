@@ -28,15 +28,13 @@ public class TextBox : SnekMonoBehaviour
     public void SetText(string text)
     {
         _textMesh.SetText(text);
+        _textMesh.ForceMeshUpdate();
 
-        Vector2 preferredSize = _textMesh.GetPreferredValues(
-            text,
-            _rectTransform.rect.width,
-            Mathf.Infinity);
+        float targetHeight = _textMesh.preferredHeight + _header.rect.height;
 
-        float targetHeight = preferredSize.y + _header.rect.size.y;
-
-        _rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+        _rectTransform.SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Vertical,
+            targetHeight);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
     }

@@ -1438,6 +1438,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 1600
       objectReference: {fileID: 0}
+    - target: {fileID: 6107027786297334391, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6251394487822251417, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1465,26 +1469,6 @@ PrefabInstance:
     - target: {fileID: 6514167735307958395, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273437900782111228, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273437900782111228, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273437900782111228, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1820.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273437900782111228, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 960.00006
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273437900782111228, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -950
       objectReference: {fileID: 0}
     - target: {fileID: 8081476150699108066, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2049,6 +2033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 255319156}
     m_Modifications:
+    - target: {fileID: -918560943884779937, guid: b3e5dfbaa28135b4db5cca0e6e5e73fa, type: 3}
+      propertyPath: _projectData
+      value: 
+      objectReference: {fileID: 11400000, guid: dc56959f8e2be8f41a53ed9045cc9509, type: 2}
     - target: {fileID: 8206856482197562814, guid: b3e5dfbaa28135b4db5cca0e6e5e73fa, type: 3}
       propertyPath: m_Name
       value: PortfolioProjectButton (2)
