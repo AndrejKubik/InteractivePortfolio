@@ -18,6 +18,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
 
+    private RectTransform _videoPlayerTransform;
+    private RectTransform _horizontalLayoutGroupTransform;
     private RenderTexture _renderTexture;
     private Action _onVideoPrepared;
 
@@ -59,11 +61,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     protected override void OnInitializationSuccess()
     {
+        _videoPlayerTransform = _videoPlayer.transform as RectTransform;
+        _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
+
         _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
 
         _videoPlayer.Prepare();
-        
     }
 
     private void OnDestroy()
@@ -130,32 +134,31 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void FitVideoPreviewToScreenLandscape()
     {
-        var horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
-
-        float targetWidth = horizontalLayoutGroupTransform.rect.size.x / 2f;
+        float targetWidth = _horizontalLayoutGroupTransform.rect.size.x / 2f;
         targetWidth -= 2f * VideoVerticalPadding;
 
         _layoutElement.preferredWidth = targetWidth;
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        var horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
+        float headerHeight = _videoPreviewHeader.rect.size.y;
 
         float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding;
-        targetHeight -= _videoPreviewHeader.rect.size.y;
+        targetHeight -= headerHeight;
 
-        horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
 
-        var videoPlayerRectTransform = _videoPlayer.transform as RectTransform;
+        _layoutElement.preferredWidth = _videoPlayerTransform.rect.size.x;
 
-        _layoutElement.preferredWidth = videoPlayerRectTransform.rect.size.x;
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(horizontalLayoutGroupTransform);
+        _videoPlayerTransform.ResetAnchorOffset();
+        _videoPlayerTransform.SetAnchorOffset(-headerHeight, AnchorOffsetSide.Top);
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
 
     public RectTransform GetRectTransform()
