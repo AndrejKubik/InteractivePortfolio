@@ -17,6 +17,9 @@ public class PortfolioMenuController : SnekMonoBehaviour
     [Min(0f)]
     [SerializeField] private float _menuSlideDuration = 0.5f;
 
+    private RectTransform _projectOverviewMenuTransform;
+    private float _backgroundWidth = 0f;
+
     protected override void Initialize()
     {
         _eventManager = SnekSingletonManager.GetSingleton<EventManager>();
@@ -34,6 +37,9 @@ public class PortfolioMenuController : SnekMonoBehaviour
     {
         _eventManager.OnRequestProjectOverview += OnRequestProjectOverview;
         _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
+
+        _projectOverviewMenuTransform = _projectOverviewMenu.transform as RectTransform;
+        _backgroundWidth = _backgroundTransform.rect.width;
     }
 
     private void OnDestroy()
@@ -44,37 +50,43 @@ public class PortfolioMenuController : SnekMonoBehaviour
 
     private void OnRequestProjectOverview(PortfolioProjectData projectData)
     {
-        ShowProjectOverviewMenu(true);
+        ShowProjectOverviewMenu(projectData);
+    }
 
-        _projectOverviewMenu.InitializeExternally(projectData);
+    private void ShowProjectOverviewMenu(PortfolioProjectData projectData)
+    {
+        _projectOverviewMenuTransform.anchoredPosition = new Vector2(_backgroundWidth, 0f);
+        _projectOverviewMenu.gameObject.SetActive(true);
+
+        _projectOverviewMenu.InitializeExternally(projectData, OnPrepareProjectOverviewDemoVideo);
+    }
+
+    private void OnPrepareProjectOverviewDemoVideo()
+    {
+        SlideTransformHorizontally(_projectOverviewMenuTransform, 0f)
+            .OnComplete(OnProjectOverviewSlideIn);
     }
 
     private void OnRequestShowAllProjects()
     {
-        ShowProjectOverviewMenu(false);
+        _allProjectsMenu.SetActive(true);
+
+        HideProjectOverviewMenu();
     }
 
-    private void ShowProjectOverviewMenu(bool newState)
+    private void HideProjectOverviewMenu()
     {
-        var menuTransform = _projectOverviewMenu.transform as RectTransform;
-        float backgroundWidth = _backgroundTransform.rect.width;
+        SlideTransformHorizontally(_projectOverviewMenuTransform, _backgroundWidth)
+            .OnComplete(OnProjectOverviewSlideOut);
+    }
 
-        if (newState == true)
-        {
-            menuTransform.anchoredPosition = new Vector2(backgroundWidth, 0f);
+    private Tween SlideTransformHorizontally(RectTransform rectTransform, float targetPositionX)
+    {
+        rectTransform.DOKill();
 
-            _projectOverviewMenu.gameObject.SetActive(true);
-
-            SlideTransformHorizontally(menuTransform, 0f)
-                .OnComplete(OnProjectOverviewSlideIn);
-        }
-        else if (newState == false)
-        {
-            _allProjectsMenu.SetActive(true);
-
-            SlideTransformHorizontally(menuTransform, backgroundWidth)
-                .OnComplete(OnProjectOverviewSlideOut);
-        }
+        return rectTransform
+            .DOAnchorPosX(targetPositionX, _menuSlideDuration)
+            .SetEase(Ease.OutCubic);
     }
 
     private void OnProjectOverviewSlideIn()
@@ -85,14 +97,5 @@ public class PortfolioMenuController : SnekMonoBehaviour
     private void OnProjectOverviewSlideOut()
     {
         _projectOverviewMenu.gameObject.SetActive(false);
-    }
-
-    private Tween SlideTransformHorizontally(RectTransform rectTransform, float targetPositionX)
-    {
-        rectTransform.DOKill();
-
-        return rectTransform
-            .DOAnchorPosX(targetPositionX, _menuSlideDuration)
-            .SetEase(Ease.OutCubic);
     }
 }

@@ -21,15 +21,17 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private RectTransform _textBoxParentTransform;
 
     private PortfolioProjectData _projectData;
+    private Action _onPrepareDemoVideo;
 
     protected override bool IsManuallyInitialized()
     {
         return true;
     }
 
-    public void InitializeExternally(PortfolioProjectData projectData)
+    public void InitializeExternally(PortfolioProjectData projectData, Action onDemoVideoPrepare)
     {
         _projectData = projectData;
+        _onPrepareDemoVideo = onDemoVideoPrepare;
 
         RunInitialization();
     }
@@ -41,35 +43,21 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     protected override void Validate()
     {
+        ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+        ValidateEssentialComponent(_projectName, nameof(_projectName));
+        ValidateEssentialComponent(_thumbnail, nameof(_thumbnail));
+        ValidateEssentialComponent(_videoDemo, nameof(_videoDemo));
+        ValidateEssentialComponent(_descriptionTextBox, nameof(_descriptionTextBox));
+        ValidateEssentialComponent(_developmentHighlightsTextBox, nameof(_developmentHighlightsTextBox));
+        ValidateEssentialComponent(_scrollRect, nameof(_scrollRect));
+        ValidateEssentialComponent(_horizontalLayoutGroupTransform, nameof(_horizontalLayoutGroupTransform));
+        ValidateEssentialComponent(_textBoxParentTransform, nameof(_textBoxParentTransform));
+
         if (_projectData == null || !_projectData.IsDataValid())
             FailValidation("Provided project data is null or has invalid values, cannot apply data.");
 
-        if (!_eventManager)
-            FailValidation("Cannot find event manager singleton.");
-
-        if (!_projectName)
-            FailValidation("Project name text mesh not assigned.");
-
-        if (!_thumbnail)
-            FailValidation("Thumbnail not assigned.");
-
-        if (!_videoDemo)
-            FailValidation("Video demo not assigned.");
-
-        if (!_descriptionTextBox)
-            FailValidation("Description text mesh not assigned.");
-
-        if (!_developmentHighlightsTextBox)
-            FailValidation("Development highlights not assigned.");
-
-        if (!_scrollRect)
-            FailValidation("Scroll rect not assigned.");
-
-        if (!_horizontalLayoutGroupTransform)
-            FailValidation("Horizontal layout group transform not assigned.");
-
-        if (!_textBoxParentTransform)
-            FailValidation("Text box parent transform not assigned.");
+        if (_onPrepareDemoVideo == null)
+            FailValidation("Demo video preparation callback not assigned.");
     }
 
     protected override void OnInitializationSuccess()
@@ -107,5 +95,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
         
         _scrollRect.verticalNormalizedPosition = 1f;
+
+        _onPrepareDemoVideo.Invoke();
     }
 }
