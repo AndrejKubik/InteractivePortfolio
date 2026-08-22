@@ -20,6 +20,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
+    private float _headerHeight = 0f;
+
     private RenderTexture _renderTexture;
     private Action _onVideoPrepared;
 
@@ -63,6 +65,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     {
         _videoPlayerTransform = _videoPlayer.transform as RectTransform;
         _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
+
+        _headerHeight = _videoPreviewHeader.rect.size.y;
 
         _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
@@ -113,6 +117,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void FitVideoPreviewToScreen()
     {
+        ResetHorizontalLayoutGroupHeight();
+
         switch (_aspectRatioFitter.aspectMode)
         {
             case AspectRatioFitter.AspectMode.WidthControlsHeight:
@@ -132,6 +138,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         }
     }
 
+    private void ResetHorizontalLayoutGroupHeight()
+    {
+        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+    }
+
     private void FitVideoPreviewToScreenLandscape()
     {
         float targetWidth = _horizontalLayoutGroupTransform.rect.size.x / 2f;
@@ -139,15 +152,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _layoutElement.preferredWidth = targetWidth;
 
+        _videoPlayerTransform.ResetAnchorOffset();
+        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        float headerHeight = _videoPreviewHeader.rect.size.y;
-
         float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding;
-        targetHeight -= headerHeight;
+        targetHeight -= _headerHeight;
 
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
@@ -156,7 +170,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _layoutElement.preferredWidth = _videoPlayerTransform.rect.size.x;
 
         _videoPlayerTransform.ResetAnchorOffset();
-        _videoPlayerTransform.SetAnchorOffset(-headerHeight, AnchorOffsetSide.Top);
+        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
         
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }

@@ -46,12 +46,12 @@ namespace Snek.Utilities
 
                 case AnchorOffsetSide.Right:
 
-                    rectTransform.offsetMax = new Vector2(newValue, rectTransform.offsetMax.y);
+                    rectTransform.offsetMax = new Vector2(-newValue, rectTransform.offsetMax.y);
                     break;
 
                 case AnchorOffsetSide.Top:
 
-                    rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, newValue);
+                    rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -newValue);
                     break;
 
                 case AnchorOffsetSide.Bottom:
