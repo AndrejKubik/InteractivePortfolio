@@ -1356,7 +1356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4640289475284198861, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4640289475284198861, guid: 5100f99fe1fe2314f9d88cb5890d6696, type: 3}
       propertyPath: m_Pivot.y
@@ -5421,6 +5421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioMenuController
   _allProjectsMenu: {fileID: 990974714}
   _projectOverviewMenu: {fileID: 494754859}
+  _backgroundTransform: {fileID: 1946506527}
 --- !u!1 &1838024861
 GameObject:
   m_ObjectHideFlags: 0

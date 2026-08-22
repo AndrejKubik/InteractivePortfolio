@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
@@ -10,8 +11,7 @@ public class PortfolioMenuController : SnekMonoBehaviour
 
     [SerializeField] private GameObject _allProjectsMenu;
     [SerializeField] private PortfolioProjectOverview _projectOverviewMenu;
-
-    private GameObject _activeMenu;
+    [SerializeField] private RectTransform _backgroundTransform;
 
     protected override void Initialize()
     {
@@ -20,22 +20,16 @@ public class PortfolioMenuController : SnekMonoBehaviour
 
     protected override void Validate()
     {
-        if (!_eventManager)
-            FailValidation("Cannot find event manager singleton.");
-
-        if (!_allProjectsMenu)
-            FailValidation("All projects menu not assigned.");
-
-        if (!_projectOverviewMenu)
-            FailValidation("Project overview menu not assigned.");
+        ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+        ValidateEssentialComponent(_allProjectsMenu, nameof(_allProjectsMenu));
+        ValidateEssentialComponent(_projectOverviewMenu, nameof(_projectOverviewMenu));
+        ValidateEssentialComponent(_backgroundTransform, nameof(_backgroundTransform));
     }
 
     protected override void OnInitializationSuccess()
     {
         _eventManager.OnRequestProjectOverview += OnRequestProjectOverview;
         _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
-
-        _activeMenu = _allProjectsMenu;
     }
 
     private void OnDestroy()
@@ -46,22 +40,49 @@ public class PortfolioMenuController : SnekMonoBehaviour
 
     private void OnRequestProjectOverview(PortfolioProjectData projectData)
     {
-        ShowMenu(_projectOverviewMenu.gameObject);
+        ShowProjectOverviewMenu(true);
 
         _projectOverviewMenu.InitializeExternally(projectData);
     }
 
     private void OnRequestShowAllProjects()
     {
-        ShowMenu(_allProjectsMenu);
+        ShowProjectOverviewMenu(false);
     }
 
-    private void ShowMenu(GameObject targetMenu)
+    private void ShowProjectOverviewMenu(bool newState)
     {
-        _activeMenu.SetActive(false);
-        
-        targetMenu.SetActive(true);
+        var menuTransform = _projectOverviewMenu.transform as RectTransform;
 
-        _activeMenu = targetMenu;
+        if(newState == true)
+        {
+            menuTransform.anchoredPosition = new Vector2(Screen.width, 0f);
+
+            _projectOverviewMenu.gameObject.SetActive(true);
+
+            menuTransform
+                .DOAnchorPosX(0f, 0.5f)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(OnProjectOverviewSlideIn);
+        }
+        else
+        {
+            _allProjectsMenu.SetActive(true);
+
+            menuTransform
+                .DOAnchorPosX(Screen.width, 0.5f)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(OnProjectOverviewSlideOut);
+        }
+    }
+
+    private void OnProjectOverviewSlideIn()
+    {
+        _allProjectsMenu.SetActive(false);
+    }
+
+    private void OnProjectOverviewSlideOut()
+    {
+        _projectOverviewMenu.gameObject.SetActive(false);
     }
 }

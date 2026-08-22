@@ -81,6 +81,15 @@ namespace Snek.Utilities
                 }
         }
 
+        protected void ValidateEssentialComponent<T>(T value, string name, bool nicifyName = true) where T : Object
+        {
+            if (nicifyName)
+                name = name.TrimStart('_').Nicify();
+
+            if (value == null)
+                FailValidation($"<b>{name}</b> is not assigned.");
+        }
+
         /// <summary>
         /// Use for checking if data setup is correct, called in <c>Awake()</c> or <c>Start()</c> after <c>Initialize()</c>
         /// </summary>

@@ -107,6 +107,5 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
         
         _scrollRect.verticalNormalizedPosition = 1f;
-
     }
 }

@@ -65,7 +65,7 @@ namespace Snek.Utilities
         {
             rectTransform.offsetMin = Vector2.zero;
             rectTransform.offsetMax = Vector2.zero;
-            rectTransform.localPosition = Vector2.zero;
+            rectTransform.anchoredPosition = Vector2.zero;
         }
     }
 }
