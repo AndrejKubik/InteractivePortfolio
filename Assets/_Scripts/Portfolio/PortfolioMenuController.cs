@@ -13,6 +13,10 @@ public class PortfolioMenuController : SnekMonoBehaviour
     [SerializeField] private PortfolioProjectOverview _projectOverviewMenu;
     [SerializeField] private RectTransform _backgroundTransform;
 
+    [Space(10f)]
+    [Min(0f)]
+    [SerializeField] private float _menuSlideDuration = 0.5f;
+
     protected override void Initialize()
     {
         _eventManager = SnekSingletonManager.GetSingleton<EventManager>();
@@ -53,25 +57,22 @@ public class PortfolioMenuController : SnekMonoBehaviour
     private void ShowProjectOverviewMenu(bool newState)
     {
         var menuTransform = _projectOverviewMenu.transform as RectTransform;
+        float backgroundWidth = _backgroundTransform.rect.width;
 
-        if(newState == true)
+        if (newState == true)
         {
-            menuTransform.anchoredPosition = new Vector2(Screen.width, 0f);
+            menuTransform.anchoredPosition = new Vector2(backgroundWidth, 0f);
 
             _projectOverviewMenu.gameObject.SetActive(true);
 
-            menuTransform
-                .DOAnchorPosX(0f, 0.5f)
-                .SetEase(Ease.OutCubic)
+            SlideTransformHorizontally(menuTransform, 0f)
                 .OnComplete(OnProjectOverviewSlideIn);
         }
-        else
+        else if (newState == false)
         {
             _allProjectsMenu.SetActive(true);
 
-            menuTransform
-                .DOAnchorPosX(Screen.width, 0.5f)
-                .SetEase(Ease.OutCubic)
+            SlideTransformHorizontally(menuTransform, backgroundWidth)
                 .OnComplete(OnProjectOverviewSlideOut);
         }
     }
@@ -84,5 +85,14 @@ public class PortfolioMenuController : SnekMonoBehaviour
     private void OnProjectOverviewSlideOut()
     {
         _projectOverviewMenu.gameObject.SetActive(false);
+    }
+
+    private Tween SlideTransformHorizontally(RectTransform rectTransform, float targetPositionX)
+    {
+        rectTransform.DOKill();
+
+        return rectTransform
+            .DOAnchorPosX(targetPositionX, _menuSlideDuration)
+            .SetEase(Ease.OutCubic);
     }
 }
