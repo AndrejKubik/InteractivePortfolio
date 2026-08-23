@@ -1,3 +1,4 @@
+using System;
 using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.SingletonManager;
@@ -10,6 +11,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
 {
     private EventManager _eventManager;
 
+    [SerializeField] private GameObject _loadingOverlay;
+
+    [Space(10f)]
     [SerializeField] private PortfolioProjectData _projectData;
 
     protected override void Initialize()
@@ -26,6 +30,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
         if (!_eventManager)
             FailValidation("Cannot find event manager singleton.");
 
+        ValidateEssentialComponent(_loadingOverlay, nameof(_loadingOverlay));
+
         if (!_projectData)
             FailValidation("Project data not assigned.");
         else if (!_projectData.IsDataValid())
@@ -35,6 +41,20 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
     protected override void OnInitializationSuccess()
     {
         GetComponentInChildren<TextMeshProUGUI>(true).text = transform.GetSiblingIndex().ToString();
+
+        _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
+    }
+
+    private void OnRequestShowAllProjects()
+    {
+        _loadingOverlay.SetActive(false);
     }
 
     public RectTransform GetRectTransform()
@@ -44,6 +64,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
 
     protected override void OnButtonClick()
     {
+        _loadingOverlay.SetActive(true);
+
         _eventManager.RequestProjectOverview(_projectData);
     }
 }

@@ -5422,6 +5422,7 @@ MonoBehaviour:
   _allProjectsMenu: {fileID: 990974714}
   _projectOverviewMenu: {fileID: 494754859}
   _backgroundTransform: {fileID: 1946506527}
+  _menuSlideDuration: 0.5
 --- !u!1 &1838024861
 GameObject:
   m_ObjectHideFlags: 0
