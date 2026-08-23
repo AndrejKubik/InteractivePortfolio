@@ -26,7 +26,7 @@ namespace Snek.GameUI
 
         [Min(2)]
         public int DragAreaCount = 2;
-        
+
         private SnekUISliderDragThresholdManager _dragThresholdManager;
         private SnekUISliderDragAreaManager _dragAreaManager;
 
@@ -69,7 +69,8 @@ namespace Snek.GameUI
 
         protected virtual void OnDestroy()
         {
-            Slider.onValueChanged.RemoveListener(OnSliderMove);
+            if (_isValid)
+                Slider.onValueChanged.RemoveListener(OnSliderMove);
         }
 
         private void OnSliderMoveInternal(float newValue)
@@ -142,6 +143,21 @@ namespace Snek.GameUI
             IsHandleHeld = false;
 
             OnHandleRelease();
+        }
+
+        public void SetValue(float newValue, bool notifySliderMove = true)
+        {
+            if(!_isValid)
+            {
+                Debug.LogError("Slider not initialized successfully, cannot set new value.");
+
+                return;
+            }
+
+            if (notifySliderMove)
+                Slider.value = newValue;
+            else
+                Slider.SetValueWithoutNotify(newValue);
         }
     }
 }

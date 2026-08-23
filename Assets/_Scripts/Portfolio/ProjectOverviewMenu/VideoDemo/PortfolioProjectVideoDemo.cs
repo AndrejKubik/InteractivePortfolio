@@ -17,6 +17,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
+    [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
 
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
@@ -24,6 +25,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private RenderTexture _renderTexture;
     private Action _onVideoPrepared;
+
+    private float _videoTotalTime = 0f;
+    private float _videoProgress = 0f;
 
     protected override bool IsManuallyInitialized()
     {
@@ -48,17 +52,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         if (string.IsNullOrEmpty(_videoURL))
             FailValidation("Invalid video URL provided.");
 
-        if (!_videoPlayer)
-            FailValidation("Video player not assigned.");
-
-        if (!_videoPreview)
-            FailValidation("Video preview not assigned.");
-
-        if (!_videoPreviewHeader)
-            FailValidation("Video preview header not assigned.");
-
-        if (!_aspectRatioFitter)
-            FailValidation("Aspect ratio fitter not assigned.");
+        ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
+        ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
+        ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
+        ValidateEssentialComponent(_aspectRatioFitter, nameof(_aspectRatioFitter));
+        ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
     }
 
     protected override void OnInitializationSuccess()
@@ -71,6 +69,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
 
+        _videoTimeline.InitializeExternally(OnUserMoveTimeline);
+
         _videoPlayer.Prepare();
     }
 
@@ -80,11 +80,25 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
             _videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
 
+    private void Update()
+    {
+        _videoProgress = Mathf.InverseLerp(0f, _videoTotalTime, (float)_videoPlayer.time);
+
+        _videoTimeline.SetValue(_videoProgress, false);
+    }
+
+    private void OnUserMoveTimeline(float newTime)
+    {
+        _videoPlayer.time = Mathf.Lerp(0f, _videoTotalTime, newTime);
+    }
+
     private void OnVideoPrepared(VideoPlayer source)
     {
         CreateAndApplyRenderTexture(source);
         ApplyAspectRatioToVideoRectSize(source);
         FitVideoPreviewToScreen();
+
+        _videoTotalTime = (float)_videoPlayer.length;
 
         _videoPlayer.Play();
 

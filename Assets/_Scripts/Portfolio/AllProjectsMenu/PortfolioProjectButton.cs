@@ -41,8 +41,6 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
     protected override void OnInitializationSuccess()
     {
         GetComponentInChildren<TextMeshProUGUI>(true).text = transform.GetSiblingIndex().ToString();
-
-        _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
     }
 
     protected override void OnDestroy()
@@ -54,6 +52,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
 
     private void OnRequestShowAllProjects()
     {
+        _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
+
         _loadingOverlay.SetActive(false);
     }
 
@@ -65,6 +65,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
     protected override void OnButtonClick()
     {
         _loadingOverlay.SetActive(true);
+
+        _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
 
         _eventManager.RequestProjectOverview(_projectData);
     }
