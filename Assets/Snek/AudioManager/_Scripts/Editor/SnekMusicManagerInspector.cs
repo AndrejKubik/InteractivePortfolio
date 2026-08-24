@@ -42,7 +42,7 @@ namespace SnekEditor.AudioManager
                 sp_DefaultTrack,
                 sp_RandomDefaultTrack);
 
-            _fadeTransitionDurationField = new SnekInputField(sp_FadeTransitionDuration, "Transition Duration");
+            _fadeTransitionDurationField = new SnekInputField(sp_FadeTransitionDuration, "Transition Duration", false);
             _shuffleTracksField = new SnekBoolField(sp_ShuffleTracks, "Shuffle Playback");
             _randomDefaultTrackField = new SnekBoolField(sp_RandomDefaultTrack, "Random Default Track");
             _fadeBetweenTracksField = new SnekBoolField(sp_FadeBetweenTracks, "Fade Between Tracks");

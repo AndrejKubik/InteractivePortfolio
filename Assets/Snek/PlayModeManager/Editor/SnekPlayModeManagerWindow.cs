@@ -21,7 +21,7 @@ namespace SnekEditor.PlayModeManager
 
         private SnekPlayModeManagerConfig _config;
 
-        protected override void OnCreateWindowInstance()
+        protected override void OnInitializationSuccess()
         {
             Undo.undoRedoPerformed += OnUndoRedo;
 

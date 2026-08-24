@@ -29,7 +29,7 @@ namespace SnekEditor.GameUIPlus
             sp_ReleaseSound = GetProperty(nameof(SnekUISliderWithSFX.ReleaseSound), true);
             sp_SFXCooldown = GetProperty(nameof(SnekUISliderWithSFX.SFXCooldown), true);
 
-            _sfxCooldownField = new SnekInputField(sp_SFXCooldown, "SFX Cooldown", 100f);
+            _sfxCooldownField = new SnekInputField(sp_SFXCooldown, "SFX Cooldown", false, 100f);
 
             _grabSoundField = new SnekObjectField<AudioClip>(sp_GrabSound, "Grab", false);
             _dragSoundField = new SnekObjectField<AudioClip>(sp_DragSound, "Drag", false);

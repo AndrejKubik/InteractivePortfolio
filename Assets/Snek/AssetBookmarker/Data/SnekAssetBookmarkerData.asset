@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781b21e7a08b6004090ad6f178116b36, type: 3}
+  m_Name: SnekAssetBookmarkerData
+  m_EditorClassIdentifier: SnekEditor.AssetBookmarker::SnekEditor.AssetBookmarker.SnekAssetBookmarkerData
+  WindowIconTexture: {fileID: 2800000, guid: a4cff96d52946f845881aaeef1f1ecc6, type: 3}
+  DeleteButtonTexture: {fileID: 2800000, guid: 392b0d63cd340034eb81b53340cad9f9, type: 3}
+  EditButtonTexture: {fileID: 2800000, guid: ef34e8b1aec0829448c1f8afb22d74a4, type: 3}
+  Bookmarks:
+  - Name: Exercise Types
+    Color: {r: 0.4719206, g: 0.990566, b: 0.990566, a: 1}
+    Tooltip: Folder - Contains base layout prefabs for exercise types.
+    Asset: {fileID: 102900000, guid: 1f6fd71e57ce5e444a6223d4890d0fad, type: 3}
+  - Name: Exercise Subelements
+    Color: {r: 0.47058824, g: 0.99215686, b: 0.99215686, a: 1}
+    Tooltip: Folder - Contains prefabs for elements used in exercise layouts.
+    Asset: {fileID: 102900000, guid: 058df75245f21d740a8b8921f13ea99a, type: 3}
+  - Name: Lesson Types
+    Color: {r: 0.4292453, g: 0.7163636, b: 1, a: 1}
+    Tooltip: Folder - Contains base layout prefabs for lesson types.
+    Asset: {fileID: 102900000, guid: d2f9fd848746e66438a008b9a7aa4dd1, type: 3}
+  - Name: Theory Slide Types
+    Color: {r: 0.42745098, g: 0.7176471, b: 1, a: 1}
+    Tooltip: Folder - Contains base layout prefabs for theory slide types
+    Asset: {fileID: 102900000, guid: 43e07e5b64e5f99428842a2479997d18, type: 3}
+  - Name: Shared Subelements
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Tooltip: Folder - Contains prefabs which are used in both theory and exercise
+      lesson layouts.
+    Asset: {fileID: 102900000, guid: 7a5c68933c9884b47b000e49b0dad830, type: 3}
+  - Name: Content Files
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Tooltip: Folder - Contains data files for page contents
+    Asset: {fileID: 102900000, guid: e194609e7e4dede4f8b9595002321cd2, type: 3}
+  - Name: Textures
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Tooltip: Folder - Contains all textures
+    Asset: {fileID: 102900000, guid: 6abdd5128e3856a40a846685f53c0450, type: 3}
+  - Name: SFX
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Tooltip: 
+    Asset: {fileID: 102900000, guid: 42087ea45afd7ff4bb375bae7ce4bc54, type: 3}
+  - Name: Speech
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Tooltip: 
+    Asset: {fileID: 102900000, guid: 0cc47a3904b627a41a5e435d5868e55a, type: 3}
+  - Name: Playable Exercises
+    Color: {r: 1, g: 0.89532655, b: 0.3160377, a: 1}
+    Tooltip: Folder - Contains prefabs for exercises that are playable
+    Asset: {fileID: 102900000, guid: 71c1048c6c8fc07429f30897fac8d0a0, type: 3}
+  - Name: Test Exercises
+    Color: {r: 1, g: 0.60746515, b: 0.2688679, a: 1}
+    Tooltip: Folder - Contains playable test exercises
+    Asset: {fileID: 102900000, guid: fff521592b31522429029a297d532683, type: 3}

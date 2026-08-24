@@ -38,9 +38,9 @@ namespace SnekEditor.EndlessCarousel
             sp_ElementSpacing = GetProperty(nameof(_endlessCarousel.ElementSpacing));
 
             _elementContainerField = new SnekObjectField<SnekEndlessCarouselElementContainer>(sp_ElementContainer, "Element Container", true);
-            _elementWidthField = new SnekInputField(sp_ElementWidth, "Width", 0f);
-            _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", 0f);
-            _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", 0f);
+            _elementWidthField = new SnekInputField(sp_ElementWidth, "Width", false, 0f);
+            _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", false, 0f);
+            _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", false, 0f);
 
             Undo.undoRedoPerformed += SyncAllData;
 

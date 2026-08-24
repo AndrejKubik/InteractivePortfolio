@@ -20,7 +20,7 @@ namespace SnekEditor.GUIUtilities
         private GUIStyle _labelStyle;
         private GUIStyle _buttonStyle;
 
-        protected override void OnCreateWindowInstance()
+        protected override void OnInitializationSuccess()
         {
             minSize = new Vector2(WindowWidth, WindowHeight);
             maxSize = new Vector2(WindowWidth, WindowHeight);

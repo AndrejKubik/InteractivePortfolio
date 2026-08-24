@@ -10,6 +10,8 @@ namespace Snek.GameUI
     public class SnekUIButton : SnekMonoBehaviour
     {
         protected Button _button { get; private set; }
+        protected RectTransform _inputRectTransform { get; private set; }
+        protected Image _buttonImage { get; private set; }
 
         private Action _externalCallback;
 
@@ -20,20 +22,34 @@ namespace Snek.GameUI
 
         protected override void Validate()
         {
-            if (_button)
-                _button.onClick.AddListener(OnButtonClickInternal);
-            else
+            if (!_button)
                 FailValidation("Cannot find Button component.");
+            else if (!_button.targetGraphic)
+                FailValidation("Button doesn't have a target graphic assigned.");
+        }
+
+        protected override void OnInitializationSuccess()
+        {
+            _button.onClick.AddListener(OnButtonClickInternal);
+
+            _inputRectTransform = _button.targetGraphic.rectTransform;
+            _buttonImage = _button.targetGraphic as Image;
         }
 
         protected virtual void OnDestroy()
         {
-            _button.onClick.RemoveListener(OnButtonClickInternal);
+            if (_isValid)
+                _button.onClick.RemoveListener(OnButtonClickInternal);
         }
 
         public void SetExternalCallback(Action callback)
         {
             _externalCallback = callback;
+        }
+
+        public void EnableInteraction(bool state)
+        {
+            _button.interactable = state;
         }
 
         private void OnButtonClickInternal()

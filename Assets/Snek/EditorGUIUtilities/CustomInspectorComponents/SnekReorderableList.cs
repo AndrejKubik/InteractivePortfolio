@@ -32,6 +32,9 @@ namespace SnekEditor.GUIUtilities
         protected readonly bool _isRemoveAllowed = true;
         protected readonly bool _isUsingCustomPropertyDrawer = false;
 
+        private readonly Dictionary<string, SnekSerializedPropertyContext> _elementContexts = new(StringComparer.Ordinal);
+        private int _currentElementsCount = -1;
+
         public SnekReorderableList(
             SerializedObject serializedObject,
             SerializedProperty elements,
@@ -64,6 +67,8 @@ namespace SnekEditor.GUIUtilities
 
             _visualSettings = SnekScriptableObjectManager.GetAsset<SnekInspectorGUILayoutSettings>();
             _iconsContainer = SnekScriptableObjectManager.GetAsset<SnekEditorIconsContainer>();
+
+            _currentElementsCount = elements.arraySize;
         }
 
 
@@ -134,7 +139,6 @@ namespace SnekEditor.GUIUtilities
             return contentHeight + 2f * GetElementVerticalPadding();
         }
 
-
         /// <summary>
         /// <c>Index</c> allows different label values between elements, in case you want them to be uniform just ignore the parameter
         /// <list type="bullet">In case you want them to be uniform just ignore the parameter</list>
@@ -156,6 +160,31 @@ namespace SnekEditor.GUIUtilities
         protected virtual float GetElementLabelWidth(int index)
         {
             return DefaultElementLabelWidth;
+        }
+
+        protected SnekSerializedPropertyContext GetElementContext(int index)
+        {
+            if(index < 0 || index >= serializedProperty.arraySize)
+            {
+                Debug.LogError("Requested index does not exist in the list, cannot get element context.");
+
+                return null;
+            }
+
+            SerializedProperty property = serializedProperty.GetArrayElementAtIndex(index);
+
+            string key = property.propertyPath;
+
+            if (_elementContexts.TryGetValue(key, out SnekSerializedPropertyContext context))
+                context.SerializedProperty = property;
+            else
+            {
+                context = new SnekSerializedPropertyContext(property);
+                
+                _elementContexts.Add(key, context);
+            }
+
+            return context;
         }
 
 
@@ -204,6 +233,7 @@ namespace SnekEditor.GUIUtilities
             }
 
             InitializeStyles();
+            InitializeElementContextCache();
 
             return true;
         }
@@ -247,6 +277,20 @@ namespace SnekEditor.GUIUtilities
                 _buttonStyle = SnekGUIStyles.TextButton();
         }
 
+        private void InitializeElementContextCache()
+        {
+            if (_currentElementsCount == serializedProperty.arraySize)
+                return;
+
+            ClearElementContextCache();
+
+            _currentElementsCount = serializedProperty.arraySize;
+        }
+
+        private void ClearElementContextCache()
+        {
+            _elementContexts.Clear();
+        }
 
 
         public virtual void Draw()
@@ -501,7 +545,9 @@ namespace SnekEditor.GUIUtilities
 
         protected virtual void OnReorderElements(ReorderableList list, int oldIndex, int newIndex)
         {
+            serializedProperty.serializedObject.ApplyModifiedProperties();
 
+            ClearElementContextCache();
         }
 
         protected virtual void OnDeselectElements()

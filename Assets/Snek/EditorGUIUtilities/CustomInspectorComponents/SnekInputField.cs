@@ -7,6 +7,7 @@ namespace SnekEditor.GUIUtilities
     {
         private readonly SerializedProperty _serializedProperty;
         private readonly string _label;
+        private readonly bool _isInputDelayed;
 
         private readonly float _fieldWidth;
         private readonly float _fieldHeight;
@@ -23,12 +24,14 @@ namespace SnekEditor.GUIUtilities
         public SnekInputField(
             SerializedProperty serializedProperty,
             string label,
+            bool delayInput,
             float fieldWidth = SnekGUILayout.DefaultFieldWidth,
             float fieldHeight = SnekGUILayout.DefaultFieldHeight,
             params GUILayoutOption[] options)
         {
             _serializedProperty = serializedProperty;
             _label = label;
+            _isInputDelayed = delayInput;
 
             _fieldWidth = fieldWidth;
             _fieldHeight = fieldHeight;
@@ -80,19 +83,28 @@ namespace SnekEditor.GUIUtilities
             {
                 case SerializedPropertyType.Integer:
 
-                    SnekGUILayout.DrawIntField(_serializedProperty, _fieldStyle, options);
+                    if (_isInputDelayed)
+                        SnekGUILayout.DrawDelayedIntField(_serializedProperty, _fieldStyle, options);
+                    else
+                        SnekGUILayout.DrawIntField(_serializedProperty, _fieldStyle, options);
 
                     break;
 
                 case SerializedPropertyType.Float:
 
-                    SnekGUILayout.DrawFloatField(_serializedProperty, _fieldStyle, options);
+                    if (_isInputDelayed)
+                        SnekGUILayout.DrawDelayedFloatField(_serializedProperty, _fieldStyle, options);
+                    else
+                        SnekGUILayout.DrawFloatField(_serializedProperty, _fieldStyle, options);
 
                     break;
 
                 case SerializedPropertyType.String:
 
-                    SnekGUILayout.DrawStringField(_serializedProperty, _fieldStyle, options);
+                    if (_isInputDelayed)
+                        SnekGUILayout.DrawDelayedStringField(_serializedProperty, _fieldStyle, options);
+                    else
+                        SnekGUILayout.DrawStringField(_serializedProperty, _fieldStyle, options);
 
                     break;
 

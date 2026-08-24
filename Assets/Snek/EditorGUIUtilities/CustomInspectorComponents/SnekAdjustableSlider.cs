@@ -56,6 +56,7 @@ namespace SnekEditor.GUIUtilities
             _minValueField = new SnekInputField(
                 sp_MinValue,
                 "Min",
+                false,
                 _fieldWidth,
                 _fieldHeight,
                 GUILayout.Width(_fieldWidth));
@@ -63,6 +64,7 @@ namespace SnekEditor.GUIUtilities
             _maxValueField = new SnekInputField(
                 sp_MaxValue,
                 "Max",
+                false,
                 _fieldWidth,
                 _fieldHeight,
                 GUILayout.Width(_fieldWidth));
@@ -70,6 +72,7 @@ namespace SnekEditor.GUIUtilities
             _defaultValueField = new SnekInputField(
                 sp_CurrentValue,
                 "Value:",
+                false,
                 _fieldWidth,
                 _fieldHeight);
 

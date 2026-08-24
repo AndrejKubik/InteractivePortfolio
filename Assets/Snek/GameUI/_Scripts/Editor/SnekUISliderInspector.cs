@@ -43,8 +43,8 @@ namespace SnekEditor.GameUI
             sp_DragAreaCount = GetProperty(nameof(SnekUISlider.DragAreaCount), true);
 
             _slider = new SnekAdjustableSlider(sp_SetupData, "Range Setup");
-            _dragThresholdPercentField = new SnekInputField(sp_DragThresholdPercent, "Drag Threshold (%)");
-            _dragAreaCountField = new SnekInputField(sp_DragAreaCount, "Drag Areas Count");
+            _dragThresholdPercentField = new SnekInputField(sp_DragThresholdPercent, "Drag Threshold (%)", false);
+            _dragAreaCountField = new SnekInputField(sp_DragAreaCount, "Drag Areas Count", false);
 
             _useDragThresholdField = new SnekBoolField(sp_UseDragThreshold, "Use Drag Threshold");
             _useDragAreasField = new SnekBoolField(sp_UseDragAreas, "Use Drag Areas");

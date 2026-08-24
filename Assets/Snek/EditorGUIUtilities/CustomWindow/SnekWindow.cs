@@ -1,4 +1,5 @@
-﻿using SnekEditor.ScriptableObjectManager;
+﻿using System;
+using SnekEditor.ScriptableObjectManager;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace SnekEditor.GUIUtilities
     public class SnekWindow : EditorWindow
     {
         protected SnekWindowGUILayoutSettings _layoutSettings;
+
+        private bool _isValid = true;
+        private bool _isInitialized = false;
 
         private void OnEnable()
         {
@@ -18,15 +22,90 @@ namespace SnekEditor.GUIUtilities
                 Close();
             }
 
-            OnCreateWindowInstance();
+            _isInitialized = false;
         }
 
         private void OnGUI()
         {
+            if (!_isInitialized)
+                Initialize();
+
+            Validate();
+
+            if (!_isValid)
+            {
+                Debug.LogError("Closing window to avoid issues.");
+                Close();
+
+                return;
+            }
+
+            if (!_isInitialized)
+            {
+                OnInitializationSuccess();
+
+                _isInitialized = true;
+            }
+
+            if (IsReinitializationRequired())
+            {
+                _isValid = true;
+                _isInitialized = false;
+
+                OnBeforeReinitialize();
+            }
+
             SnekGUILayout.DrawRect(GetEffectiveWindowRect(), GetBackgroundColor());
             SnekGUILayout.DrawColoredBorder(GetEffectiveWindowRect(), GetBorderColor(), GetBorderWidth());
 
-            DrawContent();
+            using (new SnekGUIHorizontalScope())
+            {
+                GUILayout.Space(GetBorderWidth());
+
+                using (new SnekGUIVerticalScope())
+                {
+                    GUILayout.Space(GetBorderWidth());
+
+                    if (!IsReinitializationRequired()) //must check here again instead of returning before to preserve GUI scope structure and avoid console errors
+                        DrawContent();
+
+                    GUILayout.Space(GetBorderWidth());
+                }
+
+                GUILayout.Space(GetBorderWidth());
+            }
+        }
+
+        protected virtual void Initialize()
+        {
+
+        }
+
+        protected virtual void Validate()
+        {
+
+        }
+
+        protected virtual void OnInitializationSuccess()
+        {
+
+        }
+
+        protected void FailValidation(string errorMessage)
+        {
+            Debug.LogError(errorMessage);
+
+            _isValid = false;
+        }
+
+        protected virtual bool IsReinitializationRequired()
+        {
+            return false;
+        }
+
+        protected virtual void OnBeforeReinitialize()
+        {
+
         }
 
         private Rect GetEffectiveWindowRect()
@@ -55,11 +134,6 @@ namespace SnekEditor.GUIUtilities
         protected virtual float GetBorderWidth()
         {
             return _layoutSettings.GetBorderWidth();
-        }
-
-        protected virtual void OnCreateWindowInstance()
-        {
-
         }
 
         protected virtual void DrawContent()

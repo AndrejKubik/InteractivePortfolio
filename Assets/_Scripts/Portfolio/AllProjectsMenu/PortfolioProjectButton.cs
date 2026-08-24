@@ -40,6 +40,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement
 
     protected override void OnInitializationSuccess()
     {
+        base.OnInitializationSuccess();
+
         GetComponentInChildren<TextMeshProUGUI>(true).text = transform.GetSiblingIndex().ToString();
     }
 

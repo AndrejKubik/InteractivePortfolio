@@ -9,9 +9,8 @@ namespace Snek.GameUIPlus
     [UseSnekInspector]
     public class SnekUIButtonWithSFX : SnekUIButton
     {
-        private SnekSFXManager _sfxManager;
+        protected SnekSFXManager _sfxManager;
 
-        [SerializeField] private AudioClip _buttonSFX;
         [SerializeField] private bool _useUnmutableAudioSource;
 
         protected override void Initialize()
@@ -27,17 +26,14 @@ namespace Snek.GameUIPlus
 
             if (!_sfxManager)
                 FailValidation("Cannot find SnekSFXManager singleton.");
-
-            if (!_buttonSFX)
-                FailValidation("Button SFX is not assigned.");
         }
 
-        protected override void OnButtonClick()
+        protected void PlayButtonSound(AudioClip sound)
         {
             if (_useUnmutableAudioSource)
-                _sfxManager.PlayUnmutableSound(_buttonSFX);
+                _sfxManager.PlayUnmutableSound(sound);
             else
-                _sfxManager.PlaySound(_buttonSFX);
+                _sfxManager.PlaySound(sound);
         }
     }
 }

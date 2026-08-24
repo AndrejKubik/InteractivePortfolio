@@ -44,6 +44,17 @@ namespace SnekEditor.GUIUtilities
             }
         }
 
+        public static void DrawDelayedIntField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
+        {
+            using (var scope = new SnekPropertyFieldScope(property))
+            {
+                int newValue = EditorGUILayout.DelayedIntField(property.intValue, style, options);
+
+                if (scope.IsValueChanged())
+                    property.intValue = newValue;
+            }
+        }
+
         public static void DrawFloatField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
         {
             using (var scope = new SnekPropertyFieldScope(property))
@@ -55,11 +66,55 @@ namespace SnekEditor.GUIUtilities
             }
         }
 
+        public static void DrawDelayedFloatField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
+        {
+            using (var scope = new SnekPropertyFieldScope(property))
+            {
+                float newValue = EditorGUILayout.DelayedFloatField(property.floatValue, style, options);
+
+                if (scope.IsValueChanged())
+                    property.floatValue = newValue;
+            }
+        }
+
+        public static void DrawColorField(SerializedProperty property, params GUILayoutOption[] options)
+        {
+            using (var scope = new SnekPropertyFieldScope(property))
+            {
+                Color newValue = EditorGUILayout.ColorField(property.colorValue, options);
+
+                if (scope.IsValueChanged())
+                    property.colorValue = newValue;
+            }
+        }
+
         public static void DrawStringField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
         {
             using (var scope = new SnekPropertyFieldScope(property))
             {
                 string newValue = EditorGUILayout.TextField(property.stringValue, style, options);
+
+                if (scope.IsValueChanged())
+                    property.stringValue = newValue;
+            }
+        }
+
+        public static void DrawDelayedStringField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
+        {
+            using (var scope = new SnekPropertyFieldScope(property))
+            {
+                string newValue = EditorGUILayout.DelayedTextField(property.stringValue, style, options);
+                
+                if (scope.IsValueChanged())
+                    property.stringValue = newValue;
+            }
+        }
+
+        public static void DrawTextAreaField(SerializedProperty property, GUIStyle style = null, params GUILayoutOption[] options)
+        {
+            using (var scope = new SnekPropertyFieldScope(property))
+            {
+                string newValue = EditorGUILayout.TextArea(property.stringValue, style, options);
 
                 if (scope.IsValueChanged())
                     property.stringValue = newValue;

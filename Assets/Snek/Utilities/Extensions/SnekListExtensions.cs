@@ -22,6 +22,15 @@ namespace Snek.Utilities
             }
         }
 
+        public static List<T> GetShuffledClone<T>(this IList<T> list)
+        {
+            var clone = new List<T>(list);
+            
+            clone.Shuffle();
+
+            return clone;
+        }
+
         public static void SwapListElements<T>(this IList<T> list, int currentIndex, int targetIndex)
         {
             T movedElement = list[currentIndex];
