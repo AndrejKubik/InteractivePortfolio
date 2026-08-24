@@ -1,4 +1,5 @@
 using System;
+using Snek.GameUI;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 {
     private const float VideoVerticalPadding = 15f;
 
+    private Canvas _canvas;
     private LayoutElement _layoutElement;
+
     private string _videoURL = string.Empty;
 
     [SerializeField] private VideoPlayer _videoPlayer;
@@ -18,6 +21,15 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
+
+    [Space(10f)]
+    [SerializeField] private PortfolioProjectVideoDemoPlayPauseButton _playPauseControlButton;
+    [SerializeField] private PortfolioProjectVideoDemoPlayPauseButton _playPauseOverlayButton;
+    [SerializeField] private Sprite _playSymbol;
+    [SerializeField] private Sprite _pauseSymbol;
+
+    [Min(0f)]
+    [SerializeField] private float _overlayFadeTime = 0.5f;
 
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
@@ -28,6 +40,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private float _videoTotalTime = 0f;
     private float _videoProgress = 0f;
+
+    private float _playPauseOverlaySymbolAlpha = 0f;
 
     protected override bool IsManuallyInitialized()
     {
@@ -45,6 +59,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     protected override void Initialize()
     {
         GetEssentialComponent(out _layoutElement);
+        GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
 
     protected override void Validate()
@@ -57,6 +72,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
         ValidateEssentialComponent(_aspectRatioFitter, nameof(_aspectRatioFitter));
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
+
+        ValidateEssentialComponent(_playPauseControlButton, nameof(_playPauseControlButton));
+        ValidateEssentialComponent(_playPauseOverlayButton, nameof(_playPauseOverlayButton));
+        ValidateEssentialComponent(_playSymbol, nameof(_playSymbol));
+        ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
     }
 
     protected override void OnInitializationSuccess()
@@ -70,6 +90,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _videoPlayer.prepareCompleted += OnVideoPrepared;
 
         _videoTimeline.InitializeExternally(OnUserMoveTimeline);
+
+        _playPauseControlButton.SetExternalCallback(OnPlayPauseButtonClick);
+        _playPauseControlButton.SetSymbol(_pauseSymbol);
+
+        _playPauseOverlayButton.SetExternalCallback(OnPlayPauseButtonClick);
+        _playPauseOverlayButton.SetSymbol(_playSymbol);
 
         _videoPlayer.Prepare();
     }
@@ -85,6 +111,44 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _videoProgress = Mathf.InverseLerp(0f, _videoTotalTime, (float)_videoPlayer.time);
 
         _videoTimeline.SetValue(_videoProgress, false);
+
+        if(_playPauseOverlaySymbolAlpha > 0f)
+            FadePlayPauseOverlaySymbol();
+    }
+
+    private void FadePlayPauseOverlaySymbol()
+    {
+        _playPauseOverlaySymbolAlpha = Mathf.MoveTowards(
+            _playPauseOverlaySymbolAlpha,
+            0f,
+            Time.deltaTime / _overlayFadeTime);
+
+        _playPauseOverlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
+    }
+
+    private void OnPlayPauseButtonClick()
+    {
+        if (_videoPlayer.isPaused)
+        {
+            _videoPlayer.Play();
+            _playPauseControlButton.SetSymbol(_pauseSymbol);
+            _playPauseOverlayButton.SetSymbol(_playSymbol);
+        }
+        else
+        {
+            _videoPlayer.Pause();
+            _playPauseControlButton.SetSymbol(_playSymbol);
+            _playPauseOverlayButton.SetSymbol(_pauseSymbol);
+        }
+
+        ShowPlayPauseOverlaySymbol();
+    }
+
+    private void ShowPlayPauseOverlaySymbol()
+    {
+        _playPauseOverlaySymbolAlpha = 1f;
+
+        _playPauseOverlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
     }
 
     private void OnUserMoveTimeline(float newTime)
