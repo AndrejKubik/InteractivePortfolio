@@ -10,7 +10,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 {
     private const float VideoVerticalPadding = 15f;
 
-    private Canvas _canvas;
     private LayoutElement _layoutElement;
 
     private string _videoURL = string.Empty;
@@ -59,7 +58,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     protected override void Initialize()
     {
         GetEssentialComponent(out _layoutElement);
-        GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
 
     protected override void Validate()

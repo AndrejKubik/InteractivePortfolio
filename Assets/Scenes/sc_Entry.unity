@@ -356,6 +356,18 @@ PrefabInstance:
       propertyPath: 'PreLaunchServices.Array.data[0]'
       value: 
       objectReference: {fileID: 1447417145130595861, guid: 2f74472176627a44ab4cecb47e15c5b9, type: 3}
+    - target: {fileID: 4234765462187474828, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
+      propertyPath: 'PreLaunchServices.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6309379893302671565, guid: a03bec449d7f326428822619b86905e3, type: 3}
+    - target: {fileID: 4234765462187474828, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
+      propertyPath: 'PreLaunchServices.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1082725438627005012, guid: dad1ca60f8c14cb4ba9cd3a0ff2ae5e5, type: 3}
+    - target: {fileID: 4234765462187474828, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
+      propertyPath: 'PreLaunchServices.Array.data[3]'
+      value: 
+      objectReference: {fileID: 4923568776593678918, guid: 48acca4582ebc3b429bc6a121e1b060d, type: 3}
     - target: {fileID: 7265095630778405482, guid: 33df99d654692bf499272bc7cdd606b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

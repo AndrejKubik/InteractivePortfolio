@@ -54,12 +54,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
       propertyPath: SingletonPrefabs.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
       propertyPath: 'SingletonPrefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 4721625580332111495, guid: c840c106c9954f64f9150263f724a130, type: 3}
+    - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
+      propertyPath: 'SingletonPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1082725438627005012, guid: dad1ca60f8c14cb4ba9cd3a0ff2ae5e5, type: 3}
+    - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
+      propertyPath: 'SingletonPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6309379893302671565, guid: a03bec449d7f326428822619b86905e3, type: 3}
+    - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
+      propertyPath: 'SingletonPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5678493237760466754, guid: 43a2b175fa7337d45a10296b6ad6b55a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Snek.AudioManager;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine;
 public class PortfolioMenuController : SnekMonoBehaviour
 {
     private EventManager _eventManager;
+    private SnekMusicManager _musicManager;
 
     [SerializeField] private GameObject _allProjectsMenu;
     [SerializeField] private PortfolioProjectOverview _projectOverviewMenu;
@@ -22,12 +24,15 @@ public class PortfolioMenuController : SnekMonoBehaviour
 
     protected override void Initialize()
     {
-        _eventManager = SnekSingletonManager.GetSingleton<EventManager>();
+        SnekSingletonManager.GetSingleton(out _eventManager);
+        SnekSingletonManager.GetSingleton(out _musicManager);
     }
 
     protected override void Validate()
     {
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+        ValidateEssentialComponent(_musicManager, nameof(_musicManager));
+
         ValidateEssentialComponent(_allProjectsMenu, nameof(_allProjectsMenu));
         ValidateEssentialComponent(_projectOverviewMenu, nameof(_projectOverviewMenu));
         ValidateEssentialComponent(_backgroundTransform, nameof(_backgroundTransform));
@@ -37,6 +42,8 @@ public class PortfolioMenuController : SnekMonoBehaviour
     {
         _eventManager.OnRequestProjectOverview += OnRequestProjectOverview;
         _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
+
+        _musicManager.StartPlaylist();
 
         _projectOverviewMenuTransform = _projectOverviewMenu.transform as RectTransform;
         _backgroundWidth = _backgroundTransform.rect.width;

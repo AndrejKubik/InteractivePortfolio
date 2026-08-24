@@ -40,7 +40,7 @@ public class HoverOverlay : SnekMonoBehaviour
 
     private void Show()
     {
-        _currentAlpha = 0.8f;
+        _currentAlpha = _maxAlpha;
 
         UpdateImageAlpha();
     }

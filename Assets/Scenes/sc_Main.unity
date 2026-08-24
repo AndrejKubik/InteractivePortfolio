@@ -5400,6 +5400,7 @@ RectTransform:
   - {fileID: 1946506527}
   - {fileID: 990974715}
   - {fileID: 494754858}
+  - {fileID: 7253157826208350830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6955,6 +6956,51 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9085365400665619145, guid: b3e5dfbaa28135b4db5cca0e6e5e73fa, type: 3}
   m_PrefabInstance: {fileID: 1980945968}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4260939400216088506
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1807646917}
+    m_Modifications:
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276149663344378735, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+      propertyPath: m_Name
+      value: SettingsButton
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
 --- !u!1001 &5957893498598489378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7395,6 +7441,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!224 &7253157826208350830 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2533226199163452751, guid: 3cba73a0ccca6f145a4c8b63d13d0481, type: 3}
+  m_PrefabInstance: {fileID: 4260939400216088506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -69,6 +69,11 @@ namespace Snek.SingletonManager
             Singletons.Add(singletonInstance);
         }
 
+        public static void GetSingleton<T>(out T singletonInstance) where T : SnekMonoSingleton
+        {
+            singletonInstance = GetSingleton<T>();
+        }
+
         public static T GetSingleton<T>() where T : SnekMonoSingleton
         {
             if (!_isInstanceCreationComplete)
