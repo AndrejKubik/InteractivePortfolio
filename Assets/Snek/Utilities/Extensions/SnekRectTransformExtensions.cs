@@ -67,5 +67,13 @@ namespace Snek.Utilities
             rectTransform.offsetMax = Vector2.zero;
             rectTransform.anchoredPosition = Vector2.zero;
         }
+
+        public static bool IsHovered(this RectTransform rectTransform, Canvas parentCanvas)
+        {
+            return RectTransformUtility.RectangleContainsScreenPoint(
+                rectTransform,
+                Input.mousePosition,
+                parentCanvas.worldCamera);
+        }
     }
 }

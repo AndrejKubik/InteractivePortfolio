@@ -8,7 +8,7 @@ using UnityEngine.Video;
 [UseSnekInspector]
 public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 {
-    private const float VideoVerticalPadding = 15f;
+    private const float VideoTopPadding = 15f;
 
     private LayoutElement _layoutElement;
 
@@ -17,8 +17,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private RawImage _videoPreview;
     [SerializeField] private RectTransform _videoPreviewHeader;
+    [SerializeField] private RectTransform _controlsPanel;
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
+    [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
 
     [Space(10f)]
@@ -33,6 +35,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
     private float _headerHeight = 0f;
+    private float _controlsPanelHeight = 0f;
+    private float _videoVerticalPadding = 0f;
 
     private RenderTexture _renderTexture;
     private Action _onVideoPrepared;
@@ -68,7 +72,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
         ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
+        ValidateEssentialComponent(_controlsPanel, nameof(_controlsPanel));
         ValidateEssentialComponent(_aspectRatioFitter, nameof(_aspectRatioFitter));
+        ValidateEssentialComponent(_horizontalLayoutGroup, nameof(_horizontalLayoutGroup));
+        ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
 
         ValidateEssentialComponent(_playPauseControlButton, nameof(_playPauseControlButton));
@@ -83,6 +90,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
 
         _headerHeight = _videoPreviewHeader.rect.size.y;
+        _controlsPanelHeight = _controlsPanel.rect.size.y;
+        _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
 
         _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
@@ -224,7 +233,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     private void FitVideoPreviewToScreenLandscape()
     {
         float targetWidth = _horizontalLayoutGroupTransform.rect.size.x / 2f;
-        targetWidth -= 2f * VideoVerticalPadding;
+        targetWidth -= 2f * VideoTopPadding;
 
         _layoutElement.preferredWidth = targetWidth;
 
@@ -236,8 +245,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        float targetHeight = (float)Screen.height - 2f * VideoVerticalPadding;
-        targetHeight -= _headerHeight;
+        float targetHeight = (float)Screen.height - 2f * _videoVerticalPadding;
 
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
@@ -247,7 +255,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _videoPlayerTransform.ResetAnchorOffset();
         _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
-        
+        _videoPlayerTransform.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
 
