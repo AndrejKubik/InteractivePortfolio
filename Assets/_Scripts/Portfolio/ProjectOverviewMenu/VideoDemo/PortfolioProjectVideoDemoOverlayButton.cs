@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoDemoPlayPauseButton : SnekUIButton
+public class PortfolioProjectVideoDemoOverlayButton : SnekUIButton
 {
     [SerializeField] private Image _symbolImage;
 

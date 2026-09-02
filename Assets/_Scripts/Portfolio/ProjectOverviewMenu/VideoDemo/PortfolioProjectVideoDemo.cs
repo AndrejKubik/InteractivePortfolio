@@ -1,6 +1,7 @@
 using System;
 using Snek.GameUI;
 using Snek.Utilities;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -22,12 +23,17 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
     [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
+    [SerializeField] private VideoPlayerVolumeSlider _volumeSlider;
+    [SerializeField] private AudioMuteButton _volumeMuteButton;
+    [SerializeField] private HoverOverlay _hoverOverlay;
 
     [Space(10f)]
-    [SerializeField] private PortfolioProjectVideoDemoPlayPauseButton _playPauseControlButton;
-    [SerializeField] private PortfolioProjectVideoDemoPlayPauseButton _playPauseOverlayButton;
+    [SerializeField] private PortfolioProjectVideoDemoOverlayButton _playPauseControlButton;
+    [SerializeField] private PortfolioProjectVideoDemoOverlayButton _overlayButton;
     [SerializeField] private Sprite _playSymbol;
     [SerializeField] private Sprite _pauseSymbol;
+    [SerializeField] private Sprite _mutedSymbol;
+    [SerializeField] private Sprite _unmutedSymbol;
 
     [Min(0f)]
     [SerializeField] private float _overlayFadeTime = 0.5f;
@@ -77,11 +83,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         ValidateEssentialComponent(_horizontalLayoutGroup, nameof(_horizontalLayoutGroup));
         ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
+        ValidateEssentialComponent(_volumeSlider, nameof(_volumeSlider));
+        ValidateEssentialComponent(_volumeMuteButton, nameof(_volumeMuteButton));
+        ValidateEssentialComponent(_hoverOverlay, nameof(_hoverOverlay));
 
         ValidateEssentialComponent(_playPauseControlButton, nameof(_playPauseControlButton));
-        ValidateEssentialComponent(_playPauseOverlayButton, nameof(_playPauseOverlayButton));
+        ValidateEssentialComponent(_overlayButton, nameof(_overlayButton));
         ValidateEssentialComponent(_playSymbol, nameof(_playSymbol));
         ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
+        ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
+        ValidateEssentialComponent(_unmutedSymbol, nameof(_unmutedSymbol));
     }
 
     protected override void OnInitializationSuccess()
@@ -98,13 +109,25 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _videoTimeline.InitializeExternally(OnUserMoveTimeline);
 
+        _volumeSlider.InitializeExternally(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
+        _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
+
         _playPauseControlButton.SetExternalCallback(OnPlayPauseButtonClick);
         _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-        _playPauseOverlayButton.SetExternalCallback(OnPlayPauseButtonClick);
-        _playPauseOverlayButton.SetSymbol(_playSymbol);
+        _overlayButton.SetExternalCallback(OnPlayPauseButtonClick);
+        _overlayButton.SetSymbol(_playSymbol);
+
+        LoadAudioSettings();
 
         _videoPlayer.Prepare();
+    }
+
+    private void LoadAudioSettings()
+    {
+        _volumeSlider.Slider.value = PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f);
+
+        SetAudioMute(Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0)));
     }
 
     private void OnDestroy()
@@ -119,7 +142,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _videoTimeline.SetValue(_videoProgress, false);
 
-        if(_playPauseOverlaySymbolAlpha > 0f)
+        if (_playPauseOverlaySymbolAlpha > 0f)
             FadePlayPauseOverlaySymbol();
     }
 
@@ -130,7 +153,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
             0f,
             Time.deltaTime / _overlayFadeTime);
 
-        _playPauseOverlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
+        _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
     }
 
     private void OnPlayPauseButtonClick()
@@ -139,28 +162,78 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         {
             _videoPlayer.Play();
             _playPauseControlButton.SetSymbol(_pauseSymbol);
-            _playPauseOverlayButton.SetSymbol(_playSymbol);
+
+            ShowFadingOverlay(_playSymbol);
         }
         else
         {
             _videoPlayer.Pause();
             _playPauseControlButton.SetSymbol(_playSymbol);
-            _playPauseOverlayButton.SetSymbol(_pauseSymbol);
-        }
 
-        ShowPlayPauseOverlaySymbol();
+            ShowFadingOverlay(_pauseSymbol);
+        }
     }
 
-    private void ShowPlayPauseOverlaySymbol()
+    private void ShowFadingOverlay(Sprite sprite)
     {
         _playPauseOverlaySymbolAlpha = 1f;
 
-        _playPauseOverlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
+        _overlayButton.SetSymbol(sprite);
+        _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
     }
 
     private void OnUserMoveTimeline(float newTime)
     {
         _videoPlayer.time = Mathf.Lerp(0f, _videoTotalTime, newTime);
+    }
+
+    private void OnVolumeChange(float newValue)
+    {
+        SetAudioVolume(newValue);
+    }
+
+    private void SetAudioVolume(float newValue)
+    {
+        _videoPlayer.SetDirectAudioVolume(0, newValue);
+        _volumeMuteButton.MatchSpriteWithVolume(newValue);
+
+        SetAudioMute(false);
+
+        PlayerPrefs.SetFloat(SaveKeys.VideoDemoVolume, newValue);
+    }
+
+    private float GetAudioVolume()
+    {
+        return _videoPlayer.GetDirectAudioVolume(0);
+    }
+
+    private void OnMuteButtonClick()
+    {
+        SetAudioMute(!IsAudioMuted());
+
+        if (IsAudioMuted()) //this has a different value due to change above
+            ShowFadingOverlay(_mutedSymbol);
+        else
+            ShowFadingOverlay(_unmutedSymbol);
+
+        _hoverOverlay.Show();
+    }
+
+    private bool IsAudioMuted()
+    {
+        return _videoPlayer.GetDirectAudioMute(0);
+    }
+
+    private void SetAudioMute(bool newState)
+    {
+        _videoPlayer.SetDirectAudioMute(0, newState);
+
+        if (newState == true)
+            _volumeMuteButton.SetMutedSymbol();
+        else
+            _volumeMuteButton.MatchSpriteWithVolume(GetAudioVolume());
+
+        PlayerPrefs.SetInt(SaveKeys.VideoDemoMute, Convert.ToInt32(newState));
     }
 
     private void OnVideoPrepared(VideoPlayer source)

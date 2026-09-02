@@ -59,7 +59,17 @@ namespace Snek.Utilities
 
         protected virtual bool IsManuallyInitialized()
         {
-            return false;
+            return this is ISnekInitializableManual;
+        }
+
+        public void InitializeExternally<TData>(TData data)
+        {
+            if (this is ISnekInitializableExternal<TData> behaviour)
+                behaviour.RunInitialization(data);
+            else
+                Debug.LogError(
+                    $"{GetType().Name} is not of type {nameof(ISnekInitializableExternal<TData>)}.\n" +
+                    $"Cannot initialize externally.");
         }
 
         /// <summary>

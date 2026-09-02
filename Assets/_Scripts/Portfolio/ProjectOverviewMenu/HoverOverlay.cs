@@ -38,7 +38,7 @@ public class HoverOverlay : SnekMonoBehaviour
             _canvas.worldCamera);
     }
 
-    private void Show()
+    public void Show()
     {
         _currentAlpha = _maxAlpha;
 

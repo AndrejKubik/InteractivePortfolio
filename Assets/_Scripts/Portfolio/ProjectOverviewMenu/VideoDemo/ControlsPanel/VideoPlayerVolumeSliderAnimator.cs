@@ -1,6 +1,4 @@
-using System;
 using Snek.Utilities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [UseSnekInspector]

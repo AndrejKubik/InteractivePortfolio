@@ -322,7 +322,7 @@ VideoPlayer:
   m_DataSource: 1
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 1
+  m_AudioOutputMode: 2
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -435,6 +435,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1260107128897551188}
     m_Modifications:
+    - target: {fileID: 808634386783775106, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 808634386783775106, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1685876172847065870, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
       propertyPath: m_Name
       value: VideoControlsPanel
@@ -461,6 +469,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1939833699016232945, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3535771618185536656, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3535771618185536656, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3535771618185536656, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5085052325643320431, guid: 19f801b81b8a05c419c55277b8cdddb1, type: 3}
