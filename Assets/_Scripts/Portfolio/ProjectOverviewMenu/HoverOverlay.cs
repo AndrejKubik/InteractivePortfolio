@@ -14,7 +14,10 @@ public class HoverOverlay : SnekMonoBehaviour
     [Min(0f)]
     [SerializeField] private float _fadeTime = 0.5f;
 
+    [SerializeField] private AnimationCurve _fadeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
     private float _currentAlpha = 0f;
+    private float _currentFadeProgress = 0f;
 
     protected override void Initialize()
     {
@@ -26,7 +29,7 @@ public class HoverOverlay : SnekMonoBehaviour
     {
         if (IsHovered())
             Show();
-        else if (_currentAlpha > 0f)
+        else if (_currentFadeProgress > 0f)
             FadeAlpha();
     }
 
@@ -42,13 +45,15 @@ public class HoverOverlay : SnekMonoBehaviour
     {
         _currentAlpha = _maxAlpha;
 
+        _currentFadeProgress = 1f;
+
         UpdateImageAlpha();
     }
 
     private void FadeAlpha()
     {
-        _currentAlpha = Mathf.MoveTowards(
-            _currentAlpha,
+        _currentFadeProgress = Mathf.MoveTowards(
+            _currentFadeProgress,
             0f,
             Time.deltaTime / _fadeTime);
 
@@ -57,6 +62,10 @@ public class HoverOverlay : SnekMonoBehaviour
 
     private void UpdateImageAlpha()
     {
+        float curvedProgress = _fadeCurve.Evaluate(_currentFadeProgress);
+
+        _currentAlpha = Mathf.LerpUnclamped(0f, _maxAlpha, curvedProgress);
+
         _image.color = _image.color.ChangeAlpha(_currentAlpha);
     }
 }

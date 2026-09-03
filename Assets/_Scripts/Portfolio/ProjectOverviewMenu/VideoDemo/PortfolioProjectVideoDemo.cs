@@ -15,13 +15,15 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private string _videoURL = string.Empty;
 
+    [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
+    [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
+
+    [Space(10f)]
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private RawImage _videoPreview;
     [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private RectTransform _controlsPanel;
     [SerializeField] private AspectRatioFitter _aspectRatioFitter;
-    [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
-    [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
     [SerializeField] private VideoPlayerVolumeSlider _volumeSlider;
     [SerializeField] private AudioMuteButton _volumeMuteButton;
@@ -180,6 +182,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _overlayButton.SetSymbol(sprite);
         _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
+        
+        _hoverOverlay.Show();
     }
 
     private void OnUserMoveTimeline(float newTime)
@@ -215,8 +219,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
             ShowFadingOverlay(_mutedSymbol);
         else
             ShowFadingOverlay(_unmutedSymbol);
-
-        _hoverOverlay.Show();
     }
 
     private bool IsAudioMuted()
