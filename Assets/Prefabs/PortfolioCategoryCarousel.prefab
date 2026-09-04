@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2801441759279342399
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_Name
+      value: PortfolioCategoryCarousel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476779139261881498, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476779139261881498, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100311266318422263, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1305844308094074093, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3120858508142831800}
+  m_SourcePrefab: {fileID: 100100000, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+--- !u!1 &3591873130248112184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+  m_PrefabInstance: {fileID: 2801441759279342399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3120858508142831800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3591873130248112184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017a2dca86d16d340aa4de7de531a8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategoryCarousel
+  ElementContainer: {fileID: 8036349010216729368}
+  ElementWidth: 325
+  ElementHeight: 325
+  ElementSpacing: 10
+--- !u!114 &8036349010216729368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5289021152928061479, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+  m_PrefabInstance: {fileID: 2801441759279342399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef544ece1910016478938c4231549c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndlessCarouselElementContainer

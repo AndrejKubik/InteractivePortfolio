@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CleanMachine
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Clean Machine
-  _thumbnail: {fileID: -517579302, guid: 131b11d8ecb072243b4df4b8134f261a, type: 3}
+  _thumbnail: {fileID: 21300000, guid: d57b9e62269984b449a4a24796b95fcf, type: 3}
   _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/CleanMachine.mp4
   _descriptionText: Zen painting game with smooth animations, calming music, different
     painting tools, and various visual filters.

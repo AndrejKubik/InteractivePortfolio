@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaintAndPlay
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Paint & Play
-  _thumbnail: {fileID: -517579302, guid: 131b11d8ecb072243b4df4b8134f261a, type: 3}
+  _thumbnail: {fileID: 21300000, guid: 92ae1afc3da26dd468e5a4037a1e5a67, type: 3}
   _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/PaintAndPlay.mp4
   _descriptionText: 'Playful painting game for children with childish characters
     and multiple game modes to choose from.

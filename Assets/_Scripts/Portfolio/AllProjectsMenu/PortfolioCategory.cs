@@ -1,4 +1,4 @@
-using Snek.EndlessCarousel;
+using System.Collections.Generic;
 using Snek.GameUI;
 using Snek.Utilities;
 using UnityEngine;
@@ -7,38 +7,40 @@ using UnityEngine.UI;
 [UseSnekInspector]
 public class PortfolioCategory : SnekMonoBehaviour
 {
-    [SerializeField] private SnekEndlessCarousel _endlessCarousel;
+    [SerializeField] private PortfolioCategoryCarousel _projectButtonsCarousel;
+    [SerializeField] private PortfolioProjectButton _projectButtonPrefab;
 
     [Space(10f)]
     [SerializeField] private bool _usedInScrollRect;
     [SerializeField] private ScrollRect _parentScrollRect;
     [SerializeField] private SnekUIPointerInputDispatcher _pointerInputDispatcher;
 
+    [Space(10f)]
+    [SerializeField] private List<PortfolioProjectData> _projects = new();
+
     private float _parentScrollRectVelocityY;
 
     protected override void Validate()
     {
-        if (!_endlessCarousel)
-            FailValidation("Endless carousel not assigned.");
+        ValidateEssentialComponent(_projectButtonsCarousel, nameof(_projectButtonsCarousel));
+        ValidateEssentialComponent(_projectButtonPrefab, nameof(_projectButtonPrefab));
+
+        if (_projects.Count < 1)
+            FailValidation("No projects assigned to the category.");
 
         if (!_usedInScrollRect)
             return;
-
-        if (!_parentScrollRect)
-            FailValidation("Parent Scroll Rect is not assigned.");
-
-        if (!_pointerInputDispatcher)
-            FailValidation("Pointer input dispatcher is not assigned.");
+        
+        ValidateEssentialComponent(_parentScrollRect, nameof(_parentScrollRect));
+        ValidateEssentialComponent(_pointerInputDispatcher, nameof(_pointerInputDispatcher));
     }
 
     protected override void OnInitializationSuccess()
     {
-        _endlessCarousel.OnVerticalDrag += OnEndlessCarouselVerticalDrag;
-    }
-
-    private void OnDestroy()
-    {
-        _endlessCarousel.OnVerticalDrag -= OnEndlessCarouselVerticalDrag;
+        _projectButtonsCarousel.InitializeExternally(new PortfolioCategoryCarousel.Data(
+            _projects,
+            OnEndlessCarouselVerticalDrag,
+            _projectButtonPrefab));
     }
 
     private void Update()
@@ -50,7 +52,7 @@ public class PortfolioCategory : SnekMonoBehaviour
             return;
         }
 
-        if (_endlessCarousel.IsDragging)
+        if (_projectButtonsCarousel.IsDragging)
             return;
 
         ApplyVerticalInertiaToParentScrollRect();

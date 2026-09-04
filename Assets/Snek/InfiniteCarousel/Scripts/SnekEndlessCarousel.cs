@@ -9,7 +9,7 @@ namespace Snek.EndlessCarousel
     [RequireComponent(typeof(RectTransform))]
     public class SnekEndlessCarousel : SnekMonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        private RectTransform _rectTransform;
+        protected RectTransform _rectTransform;
 
         public SnekEndlessCarouselElementContainer ElementContainer;
         public float ElementWidth = 200f;
