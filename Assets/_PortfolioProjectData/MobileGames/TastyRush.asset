@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
+  m_Name: TastyRush
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Tasty Rush
+  _thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
+  _descriptionText: 'Clicker-Idle game in which you are an owner of a fast food restaurant.
+
+
+    -
+    Attract customers by clicking, hire new employees, buy upgrades for automated
+    actions, and merge employees of the same level to upgrade them and unlock new
+    recipes.'
+  _developmentHighlights:
+  - Name: 
+    Text: "Customer-Employee system, which creates an easy setup for automated store
+      simulation, where customers spawn at the entrance, walk towards the counter
+      where employees serve them and they disappear afterwards. \r\n\r\nLater, I
+      turned that system into a tool for the asset store."

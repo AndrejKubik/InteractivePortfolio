@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
+  m_Name: FlashOfLight
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Flash of light
+  _thumbnail: {fileID: 21300000, guid: 9b687cc607115ab4ea1f31dd04cc09d9, type: 3}
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Flash.of.Light.mp4
+  _descriptionText: "Top-down exploration horror game where you wake up in a dark
+    and quiet forest with no memory, a flashlight, and a rather talkative ghost companion.\r\n\r\n-
+    While you explore your surroundings, you often get chased by terrifying monsters.
+    These monsters are weak to strong light so your only means of fighting back is
+    to point your flashlight at them to turn them to dust over a short time. Be careful
+    though, if you move the flashlight off of them they will regenerate quickly and
+    make sure your battery doesn\u2019t run out!"
+  _developmentHighlights:
+  - Name: 
+    Text: Top-Down movement and aim
+  - Name: 
+    Text: Realistic flashlight cone effect with a hitbox for damaging monsters
+  - Name: 
+    Text: Character animations with blend trees and animation rigging
+  - Name: 
+    Text: Character animations with blend trees and animation rigging
+  - Name: 
+    Text: Map system with landmarks, which trigger narrator voice lines

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
+  m_Name: PaintWithoutNumbers
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Paint Without Numbers
+  _thumbnail: {fileID: 21300000, guid: 96fdd87c35e85ee48a07a838789eb33c, type: 3}
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Paint.WIthout.Numbers.mp4
+  _descriptionText: 'Mandala painting game with pattern repetition and various painting
+    tools to choose from.
+
+
+    - Choose a mandala and paint one segment of a ring
+    after which the same texture is applied to the rest of the ring one by one for
+    a satisfying effect.'
+  _developmentHighlights:
+  - Name: 
+    Text: Texture repetition system for each mandala ring after player finished the
+      painting of one segment

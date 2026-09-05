@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
+  m_Name: PowerChord
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Power Chord
+  _thumbnail: {fileID: 21300000, guid: f0610ead20b5abb4c87a09901a3af761, type: 3}
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Power.Chord.mp4
+  _descriptionText: 'Puzzle game about mixing colors.
+
+
+    - You control a panicked
+    stickman electrician to help him supply the correct amount of energy to various
+    kitchen gadgets.'
+  _developmentHighlights: []

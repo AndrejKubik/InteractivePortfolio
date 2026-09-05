@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
+  m_Name: MasksEndMe
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
+  _projectName: Masks, end me!
+  _thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
+  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
+  _descriptionText: 'Prototype for a rogue-lite 3rd person shooter game about a magician
+    fighting masked demons.
+
+
+    - The demons attack you in waves and their numbers
+    increase over time. Each demon has two hitboxes and you have to aim at them to
+    deal damage while using the correct color of magic as well.'
+  _developmentHighlights:
+  - Name: 
+    Text: Quick weapon change menu while holding right click
+  - Name: 
+    Text: Various demon attack types
+  - Name: 
+    Text: Character animations
+  - Name: 
+    Text: Round system, increasing number of demons every round and with bigger chance
+      of stronger demons getting spawned

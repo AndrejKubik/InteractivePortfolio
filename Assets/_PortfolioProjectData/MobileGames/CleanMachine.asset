@@ -15,17 +15,19 @@ MonoBehaviour:
   _projectName: Clean Machine
   _thumbnail: {fileID: 21300000, guid: d57b9e62269984b449a4a24796b95fcf, type: 3}
   _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/CleanMachine.mp4
-  _descriptionText: Zen painting game with smooth animations, calming music, different
-    painting tools, and various visual filters.
+  _descriptionText: 'Arcade-idle game about cleaning the nature.
+
+
+    - Control
+    a robot which has a mighty vacuum to clean the environment, collect money, buy
+    upgrades, and unlock new areas.'
   _developmentHighlights:
   - Name: 
-    Text: 'Complex UI functionality: Image gallery, favourites feature, nested scroll
-      views, etc.'
+    Text: Garbage vacuuming system which shrinks the items as they get close to the
+      vacuum
   - Name: 
-    Text: Post-Processing effects on painted images and rendering into local files
-      for the gallery
+    Text: 'Animated box stacking system when player collects garbage '
   - Name: 
-    Text: Editor tool for quick implementation of new paintable image templates
+    Text: Animated box delivery system when player interacts with a dumpster
   - Name: 
-    Text: Editor tool for quick implementation of exported in-game user-painted images
-      inside the Ideas menu as examples
+    Text: Upgrade shop system with visual changes

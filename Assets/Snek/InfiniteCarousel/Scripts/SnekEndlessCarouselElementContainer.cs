@@ -6,15 +6,30 @@ namespace Snek.EndlessCarousel
 {
     [UseSnekInspector]
     [RequireComponent(typeof(RectTransform), typeof(GridLayoutGroup), typeof(ContentSizeFitter))]
-    public class SnekEndlessCarouselElementContainer : SnekMonoBehaviour
+    public class SnekEndlessCarouselElementContainer : SnekMonoBehaviour, ISnekInitializableExternal<SnekEndlessCarouselElementContainer.Data>
     {
+        public readonly struct Data
+        {
+            public readonly bool IsScrollable;
+
+            public Data(bool isScrollable)
+            {
+                IsScrollable = isScrollable;
+            }
+        }
+
+        [Tooltip("Where should elements be anchored to if they can all be visible at the same time?")]
+        [SerializeField] private TextAnchor _noScrollElementAlignment = TextAnchor.MiddleCenter;
+
         private RectTransform _rectTransform;
         private GridLayoutGroup _gridLayoutGroup;
         private ContentSizeFitter _contentSizeFitter;
 
-        protected override bool IsInitializedInStart()
+        private bool _isScrollable = true;
+
+        public void OnBeforeInitialize(Data data)
         {
-            return true;
+            _isScrollable = data.IsScrollable;
         }
 
         protected override void Initialize()
@@ -37,8 +52,15 @@ namespace Snek.EndlessCarousel
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); //enforces element position distribution before disabling the layout group
 
-            _gridLayoutGroup.enabled = false;
             _contentSizeFitter.enabled = false;
+
+            if (_isScrollable)
+                _gridLayoutGroup.enabled = false;
+            else
+            {
+                _rectTransform.ResetAnchorOffset();
+                _gridLayoutGroup.childAlignment = _noScrollElementAlignment;
+            }
         }
 
         public float GetTotalWidth()

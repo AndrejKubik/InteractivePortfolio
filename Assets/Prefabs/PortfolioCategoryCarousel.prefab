@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1006420509610661562, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_CellSize.x
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006420509610661562, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      propertyPath: m_CellSize.y
+      value: 325
+      objectReference: {fileID: 0}
     - target: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       propertyPath: m_Name
       value: PortfolioCategoryCarousel
@@ -108,6 +116,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3120858508142831800}
+    - targetCorrespondingSourceObject: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3995270009028962650}
   m_SourcePrefab: {fileID: 100100000, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
 --- !u!1 &3591873130248112184 stripped
 GameObject:
@@ -130,6 +141,18 @@ MonoBehaviour:
   ElementWidth: 325
   ElementHeight: 325
   ElementSpacing: 10
+--- !u!114 &3995270009028962650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3591873130248112184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8350124c67b304295426139504823e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategoryCarouselController
 --- !u!114 &8036349010216729368 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5289021152928061479, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}

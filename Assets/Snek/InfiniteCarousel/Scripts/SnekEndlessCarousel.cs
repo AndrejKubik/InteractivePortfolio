@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Snek.EndlessCarousel
 {
@@ -45,6 +47,8 @@ namespace Snek.EndlessCarousel
         protected override void OnInitializationSuccess()
         {
             FindAllElements();
+
+            ElementContainer.InitializeExternally(new SnekEndlessCarouselElementContainer.Data(IsMovingAllowed()));
         }
 
         private void Update()
@@ -105,12 +109,12 @@ namespace Snek.EndlessCarousel
             _elements = new List<ISnekEndlessCarouselElement>(elements);
         }
 
-        private bool IsEmpty()
+        public bool IsEmpty()
         {
             return _elements == null || _elements.Count < 1;
         }
 
-        private bool IsMovingAllowed()
+        public bool IsMovingAllowed()
         {
             float totalRequiredElementWidth = _elements.Count * ElementWidth;
             float totalRequiredElementSpacing = (_elements.Count - 1) * ElementSpacing; //spacing is only in-between elements, so its not needed after the last element

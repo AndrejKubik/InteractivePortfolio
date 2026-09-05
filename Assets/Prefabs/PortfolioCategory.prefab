@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d237f2c6b59dd234f936442756c49a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategory
-  _projectButtonsCarousel: {fileID: 4540151867776148305}
+  _projectButtonsCarouselController: {fileID: 2538997410608521907}
   _projectButtonPrefab: {fileID: -918560943884779937, guid: b3e5dfbaa28135b4db5cca0e6e5e73fa, type: 3}
   _usedInScrollRect: 1
   _parentScrollRect: {fileID: 0}
@@ -476,6 +476,17 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 200690024411683336}
   m_SourcePrefab: {fileID: 100100000, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
+--- !u!114 &2538997410608521907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3995270009028962650, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
+  m_PrefabInstance: {fileID: 1463204057966726121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708560868101178321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8350124c67b304295426139504823e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategoryCarouselController
 --- !u!1 &2708560868101178321 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3591873130248112184, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
@@ -501,17 +512,6 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
---- !u!114 &4540151867776148305 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3120858508142831800, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
-  m_PrefabInstance: {fileID: 1463204057966726121}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708560868101178321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017a2dca86d16d340aa4de7de531a8bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategoryCarousel
 --- !u!224 &5775795342185543713 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4929725347724227528, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}

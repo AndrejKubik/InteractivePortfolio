@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [UseSnekInspector]
 public class PortfolioCategory : SnekMonoBehaviour
 {
-    [SerializeField] private PortfolioCategoryCarousel _projectButtonsCarousel;
+    [SerializeField] private PortfolioCategoryCarouselController _projectButtonsCarouselController;
     [SerializeField] private PortfolioProjectButton _projectButtonPrefab;
 
     [Space(10f)]
@@ -22,7 +22,7 @@ public class PortfolioCategory : SnekMonoBehaviour
 
     protected override void Validate()
     {
-        ValidateEssentialComponent(_projectButtonsCarousel, nameof(_projectButtonsCarousel));
+        ValidateEssentialComponent(_projectButtonsCarouselController, nameof(_projectButtonsCarouselController));
         ValidateEssentialComponent(_projectButtonPrefab, nameof(_projectButtonPrefab));
 
         if (_projects.Count < 1)
@@ -37,7 +37,9 @@ public class PortfolioCategory : SnekMonoBehaviour
 
     protected override void OnInitializationSuccess()
     {
-        _projectButtonsCarousel.InitializeExternally(new PortfolioCategoryCarousel.Data(
+        LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform); //enforces correct rect calculations down the line
+
+        _projectButtonsCarouselController.InitializeExternally(new PortfolioCategoryCarouselController.Data(
             _projects,
             OnEndlessCarouselVerticalDrag,
             _projectButtonPrefab));
@@ -52,7 +54,7 @@ public class PortfolioCategory : SnekMonoBehaviour
             return;
         }
 
-        if (_projectButtonsCarousel.IsDragging)
+        if (_projectButtonsCarouselController.IsDraggingCarousel())
             return;
 
         ApplyVerticalInertiaToParentScrollRect();

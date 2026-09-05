@@ -18,19 +18,20 @@ MonoBehaviour:
   _descriptionText: 'Playful painting game for children with childish characters
     and multiple game modes to choose from.
 
+    
 
-    - Pick a childish character, paint
-    it however you like and place it alongside others to make an empty ambient painting
-    come to life.'
+    - Pick a childish character,
+    paint it however you like and place it alongside others to make an empty ambient
+    painting come to life.'
   _developmentHighlights:
   - Name: 
-    Text: 'Complex UI functionality: Image gallery, favourites feature, nested scroll
-      views, etc.'
+    Text: 'Complex UI functionality: Multiple image gallery menus, carousels, infinite
+      scroll view that smoothly enlarges the element at the center of the screen,
+      etc.'
   - Name: 
-    Text: Post-Processing effects on painted images and rendering into local files
-      for the gallery
+    Text: Multiple game modes which utilize 2D painting functionality
   - Name: 
-    Text: Editor tool for quick implementation of new paintable image templates
+    Text: In-Editor tools for playable element setup for each individual game mode
+      which increased iteration speed by far
   - Name: 
-    Text: Editor tool for quick implementation of exported in-game user-painted images
-      inside the Ideas menu as examples
+    Text: Utilized addressables package for memory load optimization
