@@ -27,6 +27,15 @@ namespace Snek.EndlessCarousel
         private float _velocityX = 0f;
         private float _velocityY = 0f;
 
+        private enum DragInputType
+        {
+            None,
+            Horizontal,
+            Vertical
+        }
+
+        private DragInputType _currentDragType = DragInputType.None;
+
         public delegate void OnHorizontalDragEvent(float deltaX);
         public delegate void OnVerticalDragEvent(float deltaY);
 
@@ -48,40 +57,67 @@ namespace Snek.EndlessCarousel
         {
             FindAllElements();
 
-            ElementContainer.InitializeExternally(new SnekEndlessCarouselElementContainer.Data(IsMovingAllowed()));
+            ElementContainer.InitializeExternally(new SnekEndlessCarouselElementContainer.Data(IsScrollingAllowed()));
         }
 
         private void Update()
         {
-            if (IsEmpty() || !IsMovingAllowed())
-                return;
-
-            if (IsDragging)
-            {
-                Vector2 dragDelta = _currentPointerPosition - _lastPointerPosition;
-
-                float deltaX = dragDelta.x;
-                float deltaY = dragDelta.y;
-
-                ApplyDragVelocity(dragDelta);
-
-                if (!Mathf.Approximately(deltaX, 0f))
-                {
-                    MoveElementsHorizontally(deltaX);
-
-                    OnHorizontalDrag?.Invoke(deltaX);
-                }
-
-                if (!Mathf.Approximately(deltaY, 0f))
-                    OnVerticalDrag?.Invoke(deltaY);
-
-                _lastPointerPosition = _currentPointerPosition;
-            }
-            else
+            if (!IsDragging)
             {
                 ApplyInertiaVelocity();
                 MoveElementsHorizontally(_velocityX * Time.deltaTime);
+
+                _currentDragType = DragInputType.None;
+
+                return;
             }
+
+            Vector2 dragDelta = _currentPointerPosition - _lastPointerPosition;
+
+            float deltaX = dragDelta.x;
+            float deltaY = dragDelta.y;
+
+            switch (_currentDragType)
+            {
+                default:
+                case DragInputType.None:
+
+                    float dragDistanceX = Mathf.Abs(deltaX);
+                    float dragDistanceY = Mathf.Abs(deltaY);
+
+                    if (dragDistanceX > 0f && dragDistanceX > dragDistanceY)
+                        _currentDragType = DragInputType.Horizontal;
+                    else if (dragDistanceY > 0f && dragDistanceY > dragDistanceX)
+                        _currentDragType = DragInputType.Vertical;
+
+                    break;
+
+                case DragInputType.Horizontal:
+
+                    if (!Mathf.Approximately(deltaX, 0f) && !IsEmpty() && IsScrollingAllowed())
+                    {
+                        MoveElementsHorizontally(deltaX);
+
+                        OnHorizontalDrag?.Invoke(deltaX);
+
+                        ApplyDragVelocity(new Vector2(deltaX, 0f));
+                    }
+
+                    break;
+
+                case DragInputType.Vertical:
+
+                    if (!Mathf.Approximately(deltaY, 0f))
+                    {
+                        OnVerticalDrag?.Invoke(deltaY);
+
+                        ApplyDragVelocity(new Vector2(0f, deltaY));
+                    }
+
+                    break;
+            }
+
+            _lastPointerPosition = _currentPointerPosition;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -114,7 +150,7 @@ namespace Snek.EndlessCarousel
             return _elements == null || _elements.Count < 1;
         }
 
-        public bool IsMovingAllowed()
+        public bool IsScrollingAllowed()
         {
             float totalRequiredElementWidth = _elements.Count * ElementWidth;
             float totalRequiredElementSpacing = (_elements.Count - 1) * ElementSpacing; //spacing is only in-between elements, so its not needed after the last element
