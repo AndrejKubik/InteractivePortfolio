@@ -108,6 +108,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _videoPlayer.url = _videoURL;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
+        _videoPlayer.errorReceived += OnVideoErrorReceived;
 
         _videoTimeline.InitializeExternally(OnUserMoveTimeline);
 
@@ -125,17 +126,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _videoPlayer.Prepare();
     }
 
-    private void LoadAudioSettings()
-    {
-        _volumeSlider.Slider.value = PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f);
-
-        SetAudioMute(Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0)));
-    }
-
     private void OnDestroy()
     {
-        if (_isValid)
-            _videoPlayer.prepareCompleted -= OnVideoPrepared;
+        if (!_isValid)
+            return;
+
+        _videoPlayer.prepareCompleted -= OnVideoPrepared;
+        _videoPlayer.errorReceived -= OnVideoErrorReceived;
     }
 
     private void Update()
@@ -146,6 +143,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         if (_playPauseOverlaySymbolAlpha > 0f)
             FadePlayPauseOverlaySymbol();
+    }
+
+    private void LoadAudioSettings()
+    {
+        _volumeSlider.Slider.value = PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f);
+
+        SetAudioMute(Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0)));
     }
 
     private void FadePlayPauseOverlaySymbol()
@@ -182,7 +186,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
         _overlayButton.SetSymbol(sprite);
         _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
-        
+
         _hoverOverlay.Show();
     }
 
@@ -249,6 +253,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         _videoPlayer.Play();
 
         _onVideoPrepared?.Invoke();
+    }
+
+    private void OnVideoErrorReceived(VideoPlayer source, string message)
+    {
+        Debug.LogError(message);
     }
 
     private void CreateAndApplyRenderTexture(VideoPlayer source)

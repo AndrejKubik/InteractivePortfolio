@@ -22,6 +22,11 @@ public class PortfolioMenuController : SnekMonoBehaviour
     private RectTransform _projectOverviewMenuTransform;
     private float _backgroundWidth = 0f;
 
+    protected override bool IsInitializedInStart()
+    {
+        return true;
+    }
+
     protected override void Initialize()
     {
         SnekSingletonManager.GetSingleton(out _eventManager);
@@ -90,6 +95,8 @@ public class PortfolioMenuController : SnekMonoBehaviour
     private Tween SlideTransformHorizontally(RectTransform rectTransform, float targetPositionX)
     {
         rectTransform.DOKill();
+
+        Debug.Log(targetPositionX);
 
         return rectTransform
             .DOAnchorPosX(targetPositionX, _menuSlideDuration)

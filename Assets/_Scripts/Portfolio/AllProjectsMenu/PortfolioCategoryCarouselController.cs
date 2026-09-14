@@ -3,7 +3,6 @@ using Snek.EndlessCarousel;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 using OnVerticalDragEvent = Snek.EndlessCarousel.SnekEndlessCarousel.OnVerticalDragEvent;
 

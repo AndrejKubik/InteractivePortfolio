@@ -20,6 +20,11 @@ public class PortfolioCategory : SnekMonoBehaviour
 
     private float _parentScrollRectVelocityY;
 
+    protected override bool IsInitializedInStart()
+    {
+        return true;
+    }
+
     protected override void Validate()
     {
         ValidateEssentialComponent(_projectButtonsCarouselController, nameof(_projectButtonsCarouselController));
