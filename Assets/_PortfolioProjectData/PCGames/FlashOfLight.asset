@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Flash of light
   _thumbnail: {fileID: 21300000, guid: 9b687cc607115ab4ea1f31dd04cc09d9, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Flash.of.Light.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Flash.of.Light.mp4
   _descriptionText: "Top-down exploration horror game where you wake up in a dark
     and quiet forest with no memory, a flashlight, and a rather talkative ghost companion.\r\n\r\n-
     While you explore your surroundings, you often get chased by terrifying monsters.

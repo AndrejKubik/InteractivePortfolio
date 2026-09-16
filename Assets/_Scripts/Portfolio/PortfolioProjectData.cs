@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Snek.Utilities;
 using UnityEngine;
 
@@ -7,21 +8,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPortfolioProjectData", menuName = "Interactive Portfolio/Portfolio Project Data")]
 public class PortfolioProjectData : SnekScriptableObject
 {
-    [SerializeField] private string _projectName = string.Empty;
-
-    [Space(10f)]
-    [SerializeField] private Sprite _thumbnail;
-
-    [Space(10f)]
-    [TextArea]
-    [SerializeField] private string _videoDemoLink = string.Empty;
-
-    [Space(10f)]
-    [TextArea(1, 10)]
-    [SerializeField] private string _descriptionText = string.Empty;
-
-    [Space(10f)]
-    [SerializeField] private List<DevelopmentHighlight> _developmentHighlights;
+    private const string ProxyDemoVideosBaseUrl = "https://interactive-portfolio.andrejkk97.workers.dev/";
+    private const string DemoVideosBaseUrl = "https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/";
 
     [Serializable]
     private struct DevelopmentHighlight
@@ -33,6 +21,22 @@ public class PortfolioProjectData : SnekScriptableObject
         public string Text;
     }
 
+    [SerializeField] private string _projectName = string.Empty;
+
+    [Space(10f)]
+    [SerializeField] private Sprite _thumbnail;
+
+    [Space(10f)]
+    [TextArea]
+    [SerializeField] private string _videoDemoUrl = string.Empty;
+
+    [Space(10f)]
+    [TextArea(1, 10)]
+    [SerializeField] private string _descriptionText = string.Empty;
+
+    [Space(10f)]
+    [SerializeField] private List<DevelopmentHighlight> _developmentHighlights;
+
     public bool IsDataValid()
     {
         bool isDataValid = true;
@@ -43,8 +47,10 @@ public class PortfolioProjectData : SnekScriptableObject
         if (_thumbnail == null)
             FailValidation("Project data thumbnail not assigned.", out isDataValid);
 
-        if (string.IsNullOrEmpty(_videoDemoLink))
+        if (string.IsNullOrEmpty(_videoDemoUrl))
             FailValidation("Project data video demo link not assigned.", out isDataValid);
+        else if(!_videoDemoUrl.StartsWith(DemoVideosBaseUrl))
+            FailValidation("Project data video demo link is invalid.", out isDataValid);
 
         if (string.IsNullOrEmpty(_descriptionText))
             FailValidation("Project data description text not assigned.", out isDataValid);
@@ -82,9 +88,11 @@ public class PortfolioProjectData : SnekScriptableObject
         return _thumbnail;
     }
 
-    public string GetVideoDemoLink()
+    public string GetVideoDemoUrl()
     {
-        return _videoDemoLink;
+        string fileName = _videoDemoUrl.Replace(DemoVideosBaseUrl, string.Empty);
+
+        return ProxyDemoVideosBaseUrl + fileName;
     }
 
     public string GetDescriptionText()

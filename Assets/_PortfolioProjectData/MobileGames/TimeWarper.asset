@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Time Warper
   _thumbnail: {fileID: 21300000, guid: b283885b53a73a843a2de3e4770c075a, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
   _descriptionText: 'Runner game about controling time.
 
 

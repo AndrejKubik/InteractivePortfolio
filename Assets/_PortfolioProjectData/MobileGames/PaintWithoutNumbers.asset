@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Paint Without Numbers
   _thumbnail: {fileID: 21300000, guid: 96fdd87c35e85ee48a07a838789eb33c, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Paint.WIthout.Numbers.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Paint.WIthout.Numbers.mp4
   _descriptionText: 'Mandala painting game with pattern repetition and various painting
     tools to choose from.
 

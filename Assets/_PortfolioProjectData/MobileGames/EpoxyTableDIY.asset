@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Epoxy Table DIY
   _thumbnail: {fileID: 21300000, guid: 1223ae8fce5a87b4099e3c8bc84a668e, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Epoxy.Table.DIY.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Epoxy.Table.DIY.mp4
   _descriptionText: 'Simulation game where you create your very own epoxy table.
 
 

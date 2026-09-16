@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Clean Machine
   _thumbnail: {fileID: 21300000, guid: d57b9e62269984b449a4a24796b95fcf, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/CleanMachine.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/CleanMachine.mp4
   _descriptionText: 'Arcade-idle game about cleaning the nature.
 
 

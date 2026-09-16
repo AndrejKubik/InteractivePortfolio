@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Masks, end me!
   _thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
   _descriptionText: 'Prototype for a rogue-lite 3rd person shooter game about a magician
     fighting masked demons.
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Power Chord
   _thumbnail: {fileID: 21300000, guid: f0610ead20b5abb4c87a09901a3af761, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Power.Chord.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Power.Chord.mp4
   _descriptionText: 'Puzzle game about mixing colors.
 
 

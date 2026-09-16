@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Paint & Play
   _thumbnail: {fileID: 21300000, guid: 92ae1afc3da26dd468e5a4037a1e5a67, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/PaintAndPlay.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/PaintAndPlay.mp4
   _descriptionText: 'Playful painting game for children with childish characters
     and multiple game modes to choose from.
 
-    
 
-    - Pick a childish character,
-    paint it however you like and place it alongside others to make an empty ambient
-    painting come to life.'
+
+    - Pick a childish character, paint
+    it however you like and place it alongside others to make an empty ambient painting
+    come to life.'
   _developmentHighlights:
   - Name: 
     Text: 'Complex UI functionality: Multiple image gallery menus, carousels, infinite

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Customer-Employee system
   _thumbnail: {fileID: 21300000, guid: daab18e1c4b187f4a9c3ce1f0d8edd2f, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/SnekProduction.Customer-Employee.System.Tutorial.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/SnekProduction.Customer-Employee.System.Tutorial.mp4
   _descriptionText: 'Plug & play system for spawning customers and employees, customer
     movement with waiting in line, customer serving over time and customer despawning. '
   _developmentHighlights: []

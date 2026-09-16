@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   _projectName: Back to the R(eb)oots
   _thumbnail: {fileID: 21300000, guid: 80464591e02b16b45b62e031a4f4c7bb, type: 3}
-  _videoDemoLink: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Back.to.the.R.eb.oots.mp4
+  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Back.to.the.R.eb.oots.mp4
   _descriptionText: "Top-down dungeon crawler game about a computer virus trying
     to corrupt the system.\n\n- You play as the virus which is trying to find the
     windows root folder while the minions of the Malware-bites antivirus constantly
