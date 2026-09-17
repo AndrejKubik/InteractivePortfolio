@@ -82,7 +82,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     private void OnVideoDemoPrepared()
     {
         _descriptionTextBox.SetText(_projectData.GetDescriptionText());
-        _developmentHighlightsTextBox.SetText(_projectData.GetDevelopmentHighlights());
+
+        UpdateDevelopmentHighlights();
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
 
@@ -93,9 +94,20 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-        
+
         _scrollRect.verticalNormalizedPosition = 1f;
 
         _onPrepareDemoVideo.Invoke();
+    }
+
+    private void UpdateDevelopmentHighlights()
+    {
+        string developmentHighlights = _projectData.GetDevelopmentHighlights();
+        bool isTextBoxRequired = !string.IsNullOrWhiteSpace(developmentHighlights);
+
+        _developmentHighlightsTextBox.gameObject.SetActive(isTextBoxRequired);
+
+        if (isTextBoxRequired)
+            _developmentHighlightsTextBox.SetText(developmentHighlights);
     }
 }
