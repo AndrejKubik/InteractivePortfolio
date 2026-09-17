@@ -96,8 +96,6 @@ public class PortfolioMenuController : SnekMonoBehaviour
     {
         rectTransform.DOKill();
 
-        Debug.Log(targetPositionX);
-
         return rectTransform
             .DOAnchorPosX(targetPositionX, _menuSlideDuration)
             .SetEase(Ease.OutCubic);

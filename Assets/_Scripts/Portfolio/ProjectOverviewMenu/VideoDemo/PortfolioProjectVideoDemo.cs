@@ -11,6 +11,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 {
     private const float VideoTopPadding = 15f;
 
+    private Canvas _canvas;
     private LayoutElement _layoutElement;
 
     private string _videoURL = string.Empty;
@@ -69,6 +70,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     protected override void Initialize()
     {
+        GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
     }
 
@@ -329,7 +331,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        float targetHeight = (float)Screen.height - 2f * _videoVerticalPadding;
+        float screenHeight = (float)Screen.height / _canvas.scaleFactor;
+        float targetHeight = screenHeight - 2f * _videoVerticalPadding;
 
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
