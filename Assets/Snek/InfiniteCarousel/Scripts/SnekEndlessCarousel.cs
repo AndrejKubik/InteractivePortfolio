@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Snek.EndlessCarousel
 {
