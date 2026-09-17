@@ -5,11 +5,11 @@ using Snek.Utilities;
 [UseSnekInspector]
 public class EventManager : SnekMonoSingleton
 {
-    public delegate void RequestProjectOverviewEvent(PortfolioProjectData projectData);
+    public delegate void RequestProjectOverviewEvent(PortfolioProject project);
     public event RequestProjectOverviewEvent OnRequestProjectOverview;
-    public void RequestProjectOverview(PortfolioProjectData projectData)
+    public void RequestProjectOverview(PortfolioProject project)
     {
-        OnRequestProjectOverview?.Invoke(projectData);
+        OnRequestProjectOverview?.Invoke(project);
     }
 
     public event Action OnRequestShowAllProjects;

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: FortuneFrenzy
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Fortune Frenzy
-  _thumbnail: {fileID: 21300000, guid: d373c66ba70600f4a839587f1c9eaf08, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Fortune.Frenzy.mp4
-  _descriptionText: 'Fast-paced shooter PvP-like game with a wheel of fortune element
+  ProjectName: Fortune Frenzy
+  Thumbnail: {fileID: 21300000, guid: d373c66ba70600f4a839587f1c9eaf08, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Fortune.Frenzy.mp4
+  Description: 'Fast-paced shooter PvP-like game with a wheel of fortune element
     to spice things up.
 
 
     - Control your auto-firing soldier cannon to send your
     army to demolish the enemy walls and slay their king while occasionally spinning
     your wheel of fortune to get random power-ups.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: Wheel of fortune system for getting random bonus effects
   - Name: 

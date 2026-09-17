@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: GridLevelEditor
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Grid Level Editor
-  _thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
-  _descriptionText: Level editor tool for a mobile game project.
-  _developmentHighlights:
+  ProjectName: Grid Level Editor
+  Thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
+  Description: Level editor tool for a mobile game project.
+  DevelopmentHighlights:
   - Name: 
     Text: Object placement, grid size and level data controls
   - Name: 

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: EpoxyTableDIY
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Epoxy Table DIY
-  _thumbnail: {fileID: 21300000, guid: 1223ae8fce5a87b4099e3c8bc84a668e, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Epoxy.Table.DIY.mp4
-  _descriptionText: 'Simulation game where you create your very own epoxy table.
+  ProjectName: Epoxy Table DIY
+  Thumbnail: {fileID: 21300000, guid: 1223ae8fce5a87b4099e3c8bc84a668e, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Epoxy.Table.DIY.mp4
+  Description: 'Simulation game where you create your very own epoxy table.
 
 
     -
     Choose a table type, place hard-wood segments, drop in smaller details, mix epoxy
     with a color of your choice and fill the table with it.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: 'Smooth epoxy liquid simulation '
   - Name: 

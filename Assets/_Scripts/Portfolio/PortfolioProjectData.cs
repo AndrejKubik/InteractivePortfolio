@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Snek.Utilities;
 using UnityEngine;
 
@@ -8,110 +6,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPortfolioProjectData", menuName = "Interactive Portfolio/Portfolio Project Data")]
 public class PortfolioProjectData : SnekScriptableObject
 {
-    private const string ProxyDemoVideosBaseUrl = "https://interactive-portfolio.andrejkk97.workers.dev/";
-    private const string DemoVideosBaseUrl = "https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/";
-
-    [Serializable]
-    private struct DevelopmentHighlight
-    {
-        [HideInInspector]
-        public string Name; //prevents list element name override in the inspector
-
-        [TextArea(1, 10)]
-        public string Text;
-    }
-
-    [SerializeField] private string _projectName = string.Empty;
+    public string ProjectName = string.Empty;
 
     [Space(10f)]
-    [SerializeField] private Sprite _thumbnail;
+    public Sprite Thumbnail;
 
     [Space(10f)]
     [TextArea]
-    [SerializeField] private string _videoDemoUrl = string.Empty;
+    public string VideoDemoUrl = string.Empty;
 
     [Space(10f)]
     [TextArea(1, 10)]
-    [SerializeField] private string _descriptionText = string.Empty;
+    public string Description = string.Empty;
 
     [Space(10f)]
-    [SerializeField] private List<DevelopmentHighlight> _developmentHighlights;
-
-    public bool IsDataValid()
-    {
-        bool isDataValid = true;
-
-        if (string.IsNullOrEmpty(_projectName))
-            FailValidation("Project data name not assigned.", out isDataValid);
-
-        if (_thumbnail == null)
-            FailValidation("Project data thumbnail not assigned.", out isDataValid);
-
-        if (string.IsNullOrEmpty(_videoDemoUrl))
-            FailValidation("Project data video demo link not assigned.", out isDataValid);
-        else if(!_videoDemoUrl.StartsWith(DemoVideosBaseUrl))
-            FailValidation("Project data video demo link is invalid.", out isDataValid);
-
-        if (string.IsNullOrEmpty(_descriptionText))
-            FailValidation("Project data description text not assigned.", out isDataValid);
-
-        if (!IsEveryDevelopmentHighlightValid())
-            FailValidation("Empty development highlights found inside project data.", out isDataValid);
-
-        return isDataValid;
-
-    }
-
-    private bool IsEveryDevelopmentHighlightValid()
-    {
-        foreach (DevelopmentHighlight highlight in _developmentHighlights)
-            if (string.IsNullOrEmpty(highlight.Text))
-                return false;
-
-        return true;
-    }
-
-    private void FailValidation(string message, out bool isDataValid)
-    {
-        Debug.LogError(message);
-
-        isDataValid = false;
-    }
-
-    public string GetProjectName()
-    {
-        return _projectName;
-    }
-
-    public Sprite GetThumbnail()
-    {
-        return _thumbnail;
-    }
-
-    public string GetVideoDemoUrl()
-    {
-        string fileName = _videoDemoUrl.Replace(DemoVideosBaseUrl, string.Empty);
-
-        return ProxyDemoVideosBaseUrl + fileName;
-    }
-
-    public string GetDescriptionText()
-    {
-        return _descriptionText;
-    }
-
-    public string GetDevelopmentHighlights()
-    {
-        string finalText = string.Empty;
-
-        foreach (DevelopmentHighlight highlight in _developmentHighlights)
-        {
-            if (!string.IsNullOrEmpty(finalText))
-                finalText += "\n\n";
-
-            finalText += $"- {highlight.Text}";
-        }    
-        
-        return finalText + "\n";
-    }
+    public List<PortfolioProjectDevelopmentHighlight> DevelopmentHighlights;
 }

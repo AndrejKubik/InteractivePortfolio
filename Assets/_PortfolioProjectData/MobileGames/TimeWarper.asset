@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: TimeWarper
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Time Warper
-  _thumbnail: {fileID: 21300000, guid: b283885b53a73a843a2de3e4770c075a, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
-  _descriptionText: 'Runner game about controling time.
+  ProjectName: Time Warper
+  Thumbnail: {fileID: 21300000, guid: b283885b53a73a843a2de3e4770c075a, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
+  Description: 'Runner game about controling time.
 
 
     - Tap and hold to briefly
     slow down the time to safely pass obstacles and reach the finish line.'
-  _developmentHighlights: []
+  DevelopmentHighlights: []

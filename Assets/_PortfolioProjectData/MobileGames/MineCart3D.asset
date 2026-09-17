@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: MineCart3D
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Mine Cart 3D
-  _thumbnail: {fileID: 21300000, guid: e1d8c387a9392f944805655a4d2b91a2, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Mine.Cart.3D.mp4
-  _descriptionText: 'Puzzle game with a snake game element.
+  ProjectName: Mine Cart 3D
+  Thumbnail: {fileID: 21300000, guid: e1d8c387a9392f944805655a4d2b91a2, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Mine.Cart.3D.mp4
+  Description: 'Puzzle game with a snake game element.
 
 
-    - Guide the miner
-    in the right direction through the rail maze to help him collect all of the valuable
+    - Guide the miner in
+    the right direction through the rail maze to help him collect all of the valuable
     minerals while you avoid crashing into your trail of mining carts.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: Turn-based snake movement along pre-placed splines

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: SnekUtilities
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Snek Utilities
-  _thumbnail: {fileID: 21300000, guid: 046638a532cfb814cb570fb172dc8819, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Snek.Utilities.Store.Page.Slides.mp4
-  _descriptionText: Package with utilities designed to help developers create their
-    own editor tools faster and easier using the IMGUI.
-  _developmentHighlights:
+  ProjectName: Snek Utilities
+  Thumbnail: {fileID: 21300000, guid: 046638a532cfb814cb570fb172dc8819, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Snek.Utilities.Store.Page.Slides.mp4
+  Description: Package with utilities designed to help developers create their own
+    editor tools faster and easier using the IMGUI.
+  DevelopmentHighlights:
   - Name: 
     Text: Easy-to-use stylized inspector for any custom component you make
   - Name: 

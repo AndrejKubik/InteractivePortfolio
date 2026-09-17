@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: MasksEndMe
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Masks, end me!
-  _thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
-  _descriptionText: 'Prototype for a rogue-lite 3rd person shooter game about a magician
+  ProjectName: Masks, end me!
+  Thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
+  Description: 'Prototype for a rogue-lite 3rd person shooter game about a magician
     fighting masked demons.
 
 
     - The demons attack you in waves and their numbers
     increase over time. Each demon has two hitboxes and you have to aim at them to
     deal damage while using the correct color of magic as well.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: Quick weapon change menu while holding right click
   - Name: 

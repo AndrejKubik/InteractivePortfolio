@@ -1,7 +1,6 @@
 using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.Utilities;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,11 +24,11 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
     [SerializeField] private GameObject _loadingOverlay;
 
     private EventManager _eventManager;
-    private PortfolioProjectData _projectData;
+    private PortfolioProject _project;
 
     public void OnBeforeInitialize(Data data)
     {
-        _projectData = data.ProjectData;
+        _project = new PortfolioProject(data.ProjectData);
         _eventManager = data.EventManager;
     }
 
@@ -46,9 +45,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
         
-        if (!_projectData)
-            FailValidation("Project data not assigned.");
-        else if (!_projectData.IsDataValid())
+        if (_project == null)
+            FailValidation("Portfolio project not created.");
+        else if (!_project.IsDataValid())
             FailValidation("Project data contains invalid values.");
 
         base.Validate();
@@ -56,7 +55,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
     protected override void OnInitializationSuccess()
     {
-        _image.sprite = _projectData.GetThumbnail();
+        _image.sprite = _project.GetThumbnail();
 
         base.OnInitializationSuccess();
     }
@@ -74,7 +73,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
         _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
 
-        _eventManager.RequestProjectOverview(_projectData);
+        _eventManager.RequestProjectOverview(_project);
     }
 
     private void OnRequestShowAllProjects()

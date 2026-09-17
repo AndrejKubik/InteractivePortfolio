@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: PaintWithoutNumbers
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Paint Without Numbers
-  _thumbnail: {fileID: 21300000, guid: 96fdd87c35e85ee48a07a838789eb33c, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Paint.WIthout.Numbers.mp4
-  _descriptionText: 'Mandala painting game with pattern repetition and various painting
+  ProjectName: Paint Without Numbers
+  Thumbnail: {fileID: 21300000, guid: 96fdd87c35e85ee48a07a838789eb33c, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Paint.WIthout.Numbers.mp4
+  Description: 'Mandala painting game with pattern repetition and various painting
     tools to choose from.
 
 
     - Choose a mandala and paint one segment of a ring
     after which the same texture is applied to the rest of the ring one by one for
     a satisfying effect.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: Texture repetition system for each mandala ring after player finished the
       painting of one segment

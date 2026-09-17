@@ -20,7 +20,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private RectTransform _horizontalLayoutGroupTransform;
     [SerializeField] private RectTransform _textBoxParentTransform;
 
-    private PortfolioProjectData _projectData;
+    private PortfolioProject _project;
     private Action _onPrepareDemoVideo;
 
     protected override bool IsManuallyInitialized()
@@ -28,9 +28,9 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         return true;
     }
 
-    public void InitializeExternally(PortfolioProjectData projectData, Action onDemoVideoPrepare)
+    public void InitializeExternally(PortfolioProject project, Action onDemoVideoPrepare)
     {
-        _projectData = projectData;
+        _project = project;
         _onPrepareDemoVideo = onDemoVideoPrepare;
 
         RunInitialization();
@@ -53,8 +53,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         ValidateEssentialComponent(_horizontalLayoutGroupTransform, nameof(_horizontalLayoutGroupTransform));
         ValidateEssentialComponent(_textBoxParentTransform, nameof(_textBoxParentTransform));
 
-        if (_projectData == null || !_projectData.IsDataValid())
-            FailValidation("Provided project data is null or has invalid values, cannot apply data.");
+        if (_project == null || !_project.IsDataValid())
+            FailValidation("Provided project is null or has invalid data, cannot apply data.");
 
         if (_onPrepareDemoVideo == null)
             FailValidation("Demo video preparation callback not assigned.");
@@ -62,10 +62,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     protected override void OnInitializationSuccess()
     {
-        _thumbnail.sprite = _projectData.GetThumbnail();
+        _thumbnail.sprite = _project.GetThumbnail();
 
-        _projectName.SetText(_projectData.GetProjectName());
-        _videoDemo.InitializeExternally(_projectData.GetVideoDemoUrl(), OnVideoDemoPrepared);
+        _projectName.SetText(_project.GetProjectName());
+        _videoDemo.InitializeExternally(_project.GetVideoDemoUrl(), OnVideoDemoPrepared);
     }
 
     protected override void OnFailValidation()
@@ -81,7 +81,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     private void OnVideoDemoPrepared()
     {
-        _descriptionTextBox.SetText(_projectData.GetDescriptionText());
+        _descriptionTextBox.SetText(_project.GetDescriptionText());
 
         UpdateDevelopmentHighlights();
 
@@ -102,7 +102,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
     private void UpdateDevelopmentHighlights()
     {
-        string developmentHighlights = _projectData.GetDevelopmentHighlights();
+        string developmentHighlights = _project.GetDevelopmentHighlights();
         bool isTextBoxRequired = !string.IsNullOrWhiteSpace(developmentHighlights);
 
         _developmentHighlightsTextBox.gameObject.SetActive(isTextBoxRequired);

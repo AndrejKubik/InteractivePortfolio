@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: SausageEscape
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Sausage Escape
-  _thumbnail: {fileID: 21300000, guid: 0b133bbaa48670b4a848f82153c3f574, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Sausage.Escape.mp4
-  _descriptionText: 'Runner game about escorting raw sausages towards the fired-up
-    grill right outside the kitchen window.
+  ProjectName: Sausage Escape
+  Thumbnail: {fileID: 21300000, guid: 0b133bbaa48670b4a848f82153c3f574, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Sausage.Escape.mp4
+  Description: 'Runner game about escorting raw sausages towards the fired-up grill
+    right outside the kitchen window.
 
 
-    - Collect dancing sausages and
-    navigate them through a messy kitchen counter so that the barbeque party can
-    begin!'
-  _developmentHighlights: []
+    - Collect dancing sausages and navigate
+    them through a messy kitchen counter so that the barbeque party can begin!'
+  DevelopmentHighlights: []

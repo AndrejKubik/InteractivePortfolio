@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1260263eb6f0344abf44a691548a1b, type: 3}
   m_Name: TastyRush
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
-  _projectName: Tasty Rush
-  _thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
-  _videoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
-  _descriptionText: 'Clicker-Idle game in which you are an owner of a fast food restaurant.
+  ProjectName: Tasty Rush
+  Thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
+  VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
+  Description: 'Clicker-Idle game in which you are an owner of a fast food restaurant.
 
 
     -
     Attract customers by clicking, hire new employees, buy upgrades for automated
     actions, and merge employees of the same level to upgrade them and unlock new
     recipes.'
-  _developmentHighlights:
+  DevelopmentHighlights:
   - Name: 
     Text: "Customer-Employee system, which creates an easy setup for automated store
       simulation, where customers spawn at the entrance, walk towards the counter

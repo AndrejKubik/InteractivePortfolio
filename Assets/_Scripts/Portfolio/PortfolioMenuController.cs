@@ -60,17 +60,17 @@ public class PortfolioMenuController : SnekMonoBehaviour
         _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
     }
 
-    private void OnRequestProjectOverview(PortfolioProjectData projectData)
+    private void OnRequestProjectOverview(PortfolioProject project)
     {
-        ShowProjectOverviewMenu(projectData);
+        ShowProjectOverviewMenu(project);
     }
 
-    private void ShowProjectOverviewMenu(PortfolioProjectData projectData)
+    private void ShowProjectOverviewMenu(PortfolioProject project)
     {
         _projectOverviewMenuTransform.anchoredPosition = new Vector2(_backgroundWidth, 0f);
         _projectOverviewMenu.gameObject.SetActive(true);
 
-        _projectOverviewMenu.InitializeExternally(projectData, OnPrepareProjectOverviewDemoVideo);
+        _projectOverviewMenu.InitializeExternally(project, OnPrepareProjectOverviewDemoVideo);
     }
 
     private void OnPrepareProjectOverviewDemoVideo()
