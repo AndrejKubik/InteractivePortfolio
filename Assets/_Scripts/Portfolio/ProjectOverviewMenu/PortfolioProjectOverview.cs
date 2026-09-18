@@ -1,4 +1,6 @@
 using System;
+using Snek.GameUI;
+using Snek.GameUIPlus;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using TMPro;
@@ -18,7 +20,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private TextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private RectTransform _horizontalLayoutGroupTransform;
-    [SerializeField] private RectTransform _textBoxParentTransform;
+    [SerializeField] private RectTransform _infoSectionTransform;
+    [SerializeField] private RectTransform _scrollViewContentTransform;
+    [SerializeField] private RectTransform _headerTransform;
+    [SerializeField] private SnekUIButton _backToAllProjectsButton;
 
     private PortfolioProject _project;
     private Action _onPrepareDemoVideo;
@@ -51,7 +56,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         ValidateEssentialComponent(_developmentHighlightsTextBox, nameof(_developmentHighlightsTextBox));
         ValidateEssentialComponent(_scrollRect, nameof(_scrollRect));
         ValidateEssentialComponent(_horizontalLayoutGroupTransform, nameof(_horizontalLayoutGroupTransform));
-        ValidateEssentialComponent(_textBoxParentTransform, nameof(_textBoxParentTransform));
+        ValidateEssentialComponent(_infoSectionTransform, nameof(_infoSectionTransform));
+        ValidateEssentialComponent(_scrollViewContentTransform, nameof(_scrollViewContentTransform));
+        ValidateEssentialComponent(_headerTransform, nameof(_headerTransform));
+        ValidateEssentialComponent(_backToAllProjectsButton, nameof(_backToAllProjectsButton));
 
         if (_project == null || !_project.IsDataValid())
             FailValidation("Provided project is null or has invalid data, cannot apply data.");
@@ -66,6 +74,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         _projectName.SetText(_project.GetProjectName());
         _videoDemo.InitializeExternally(_project.GetVideoDemoUrl(), OnVideoDemoPrepared);
+        _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
     }
 
     protected override void OnFailValidation()
@@ -79,8 +88,29 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
             _eventManager.RequestShowAllProjects();
     }
 
-    private void OnVideoDemoPrepared()
+    private void OnVideoDemoPrepared(VideoAspectForm videoAspectForm)
     {
+        switch (videoAspectForm)
+        {
+            case VideoAspectForm.Landscape:
+
+                _headerTransform.SetParent(_scrollViewContentTransform);
+                break;
+
+            case VideoAspectForm.Portrait:
+
+                _headerTransform.SetParent(_infoSectionTransform);
+                break;
+
+            default:
+            case VideoAspectForm.Unsupported:
+
+                Debug.LogError("Invalid video aspect form provided, cannot prepare video demo.");
+                return;
+        }
+
+        _headerTransform.SetAsFirstSibling();
+
         _descriptionTextBox.SetText(_project.GetDescriptionText());
 
         UpdateDevelopmentHighlights();
@@ -88,7 +118,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
 
         float targetHeight = Mathf.Max(
-            _textBoxParentTransform.rect.height,
+            _infoSectionTransform.rect.height,
             _videoDemo.GetRectTransform().rect.height);
 
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);

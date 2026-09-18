@@ -48,7 +48,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     private float _videoVerticalPadding = 0f;
 
     private RenderTexture _renderTexture;
-    private Action _onVideoPrepared;
+    private Action<VideoAspectForm> _onVideoPrepared;
 
     private float _videoTotalTime = 0f;
     private float _videoProgress = 0f;
@@ -60,7 +60,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         return true;
     }
 
-    public void InitializeExternally(string videoURL, Action onVideoPrepared = null)
+    public void InitializeExternally(string videoURL, Action<VideoAspectForm> onVideoPrepared = null)
     {
         _videoURL = videoURL;
         _onVideoPrepared = onVideoPrepared;
@@ -251,10 +251,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
         FitVideoPreviewToScreen();
 
         _videoTotalTime = (float)_videoPlayer.length;
-
+        
         _videoPlayer.Play();
 
-        _onVideoPrepared?.Invoke();
+        _onVideoPrepared?.Invoke(GetVideoAspectForm());
     }
 
     private void OnVideoErrorReceived(VideoPlayer source, string message)
@@ -290,14 +290,14 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     {
         ResetHorizontalLayoutGroupHeight();
 
-        switch (_aspectRatioFitter.aspectMode)
+        switch (GetVideoAspectForm())
         {
-            case AspectRatioFitter.AspectMode.WidthControlsHeight:
+            case VideoAspectForm.Landscape:
 
                 FitVideoPreviewToScreenLandscape();
                 break;
 
-            case AspectRatioFitter.AspectMode.HeightControlsWidth:
+            case VideoAspectForm.Portrait:
 
                 FitVideoPreviewToScreenPortrait();
                 break;
@@ -307,6 +307,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
                 Debug.LogError("Unsupported aspect mode provided, cannot fit video preview to screen.", gameObject);
                 break;
         }
+    }
+
+    private VideoAspectForm GetVideoAspectForm()
+    {
+        return _aspectRatioFitter.aspectMode switch
+        {
+            AspectRatioFitter.AspectMode.WidthControlsHeight => VideoAspectForm.Landscape,
+            AspectRatioFitter.AspectMode.HeightControlsWidth => VideoAspectForm.Portrait,
+            _ => VideoAspectForm.Unsupported,
+        };
     }
 
     private void ResetHorizontalLayoutGroupHeight()

@@ -17,4 +17,10 @@ MonoBehaviour:
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/SnekProduction.Customer-Employee.System.Tutorial.mp4
   Description: 'Plug & play system for spawning customers and employees, customer
     movement with waiting in line, customer serving over time and customer despawning. '
-  DevelopmentHighlights: []
+  DevelopmentHighlights:
+  - Name: 
+    Text: Event system which utilizes ScriptableObjects
+  - Name: 
+    Text: Custom inspectors
+  - Name: 
+    Text: Object pooling system
