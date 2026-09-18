@@ -1,6 +1,5 @@
 using System;
 using Snek.GameUI;
-using Snek.GameUIPlus;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using TMPro;
@@ -73,6 +72,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         _thumbnail.sprite = _project.GetThumbnail();
 
         _projectName.SetText(_project.GetProjectName());
+        Canvas.ForceUpdateCanvases();
+
         _videoDemo.InitializeExternally(_project.GetVideoDemoUrl(), OnVideoDemoPrepared);
         _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
     }
@@ -115,7 +116,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         UpdateDevelopmentHighlights();
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollViewContentTransform);
 
         float targetHeight = Mathf.Max(
             _infoSectionTransform.rect.height,

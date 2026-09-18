@@ -1693,7 +1693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d22785d9a5152d4181275cbd94c8a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectOverview
-  _projectName: {fileID: 6423438537810279308}
+  _projectName: {fileID: 3085720674408677209}
   _thumbnail: {fileID: 1554209202507808466}
   _videoDemo: {fileID: 5930670346519786289}
   _descriptionTextBox: {fileID: 1872195396166068231}
@@ -2821,9 +2821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76551fd1a9bf2a143a155de3f943d78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Snek.GameUI::Snek.GameUI.SnekUIButton
---- !u!114 &6423438537810279308 stripped
+--- !u!114 &3085720674408677209 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1350327447818897423, guid: 10c5de231ce5d014db74bfc2ce12f4f2, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7010801024918998234, guid: 10c5de231ce5d014db74bfc2ce12f4f2, type: 3}
   m_PrefabInstance: {fileID: 5447650180462080899}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
