@@ -72,7 +72,6 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
         _thumbnail.sprite = _project.GetThumbnail();
 
         _projectName.SetText(_project.GetProjectName());
-        Canvas.ForceUpdateCanvases();
 
         _videoDemo.InitializeExternally(_project.GetVideoDemoUrl(), OnVideoDemoPrepared);
         _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
