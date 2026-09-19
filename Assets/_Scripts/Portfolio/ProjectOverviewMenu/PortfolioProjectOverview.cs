@@ -38,9 +38,9 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
     [SerializeField] private RectTransform _headerTransform;
     [SerializeField] private SnekUIButton _backToAllProjectsButton;
 
-    private PortfolioProject _project;
-    private float _slideDuration;
-    private Action _onPrepareDemoVideo;
+    private PortfolioProject _project = null;
+    private float _slideDuration = 0f;
+    private Action _onPrepareDemoVideo = null;
 
     public void OnBeforeInitialize(Data data)
     {
@@ -84,20 +84,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
 
         _videoDemo.InitializeExternally(new PortfolioProjectVideoDemo.Data(
             _project.GetVideoDemoUrl(),
+            _slideDuration,
             OnVideoDemoPrepared));
 
         _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
-    }
-
-    protected override void OnFailValidation()
-    {
-        _eventManager.RequestShowAllProjects();
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            _eventManager.RequestShowAllProjects();
     }
 
     private void OnVideoDemoPrepared(VideoAspectForm videoAspectForm)
@@ -151,5 +141,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
 
         if (isTextBoxRequired)
             _developmentHighlightsTextBox.SetText(developmentHighlights);
+    }
+
+    public void FadeVideoVolume()
+    {
+        _videoDemo.FadeVolume();
     }
 }

@@ -1,7 +1,6 @@
 using System;
-using Snek.GameUI;
+using DG.Tweening;
 using Snek.Utilities;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -12,11 +11,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     public readonly struct Data
     {
         public readonly string VideoUrl;
+        public readonly float SlideDuration;
         public readonly Action<VideoAspectForm> OnVideoPrepared;
 
-        public Data(string videoUrl, Action<VideoAspectForm> onVideoPrepared)
+        public Data(string videoUrl, float slideDuration, Action<VideoAspectForm> onVideoPrepared)
         {
             VideoUrl = videoUrl;
+            SlideDuration = slideDuration;
             OnVideoPrepared = onVideoPrepared;
         }
     }
@@ -52,7 +53,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     [SerializeField] private float _overlayFadeTime = 0.5f;
 
     private string _videoURL = string.Empty;
-    private Action<VideoAspectForm> _onVideoPrepared;
+    private float _slideDuration = 0f;
+    private Action<VideoAspectForm> _onVideoPrepared = null;
 
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
@@ -67,9 +69,15 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private float _playPauseOverlaySymbolAlpha = 0f;
 
+    private Tween _activeVolumeTween = null;
+
+    private float _savedVolume = 0f;
+    private bool _savedMuteState = false;
+
     public void OnBeforeInitialize(Data data)
     {
         _videoURL = data.VideoUrl;
+        _slideDuration = data.SlideDuration;
         _onVideoPrepared = data.OnVideoPrepared;
     }
 
@@ -154,9 +162,25 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void LoadAudioSettings()
     {
-        _volumeSlider.SetValue(PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f));
+        _savedVolume = PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f);
+        _savedMuteState = Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0));
+
+        _volumeSlider.SetValue(_savedVolume, false);
         
-        SetAudioMute(Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0)));
+        SetAudioMute(_savedMuteState);
+    }
+
+    private void StartFadeVolumeTween(float startValue, float endValue)
+    {
+        if (_activeVolumeTween != null)
+            _activeVolumeTween.Kill();
+
+        _activeVolumeTween = DOVirtual.Float(startValue, endValue, _slideDuration, SetAudioVolume);
+    }
+
+    public void FadeVolume()
+    {
+        StartFadeVolumeTween(_volumeSlider.Slider.value, 0f);
     }
 
     private void FadePlayPauseOverlaySymbol()
@@ -205,6 +229,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     private void OnVolumeChange(float newValue)
     {
         SetAudioVolume(newValue);
+
+        PlayerPrefs.SetFloat(SaveKeys.VideoDemoVolume, newValue);
     }
 
     private void SetAudioVolume(float newValue)
@@ -213,8 +239,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _volumeMuteButton.MatchSpriteWithVolume(newValue);
 
         SetAudioMute(false);
-
-        PlayerPrefs.SetFloat(SaveKeys.VideoDemoVolume, newValue);
     }
 
     private float GetAudioVolume()
@@ -251,11 +275,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void OnVideoPrepared(VideoPlayer source)
     {
+        _videoTotalTime = (float)_videoPlayer.length;
+
         CreateAndApplyRenderTexture(source);
         ApplyAspectRatioToVideoRectSize(source);
         FitVideoPreviewToScreen();
-
-        _videoTotalTime = (float)_videoPlayer.length;
+        StartFadeVolumeTween(0f, _savedVolume);
         
         _videoPlayer.Play();
 

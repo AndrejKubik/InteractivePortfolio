@@ -4,6 +4,7 @@ using Snek.AudioManager;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [UseSnekInspector]
 public class PortfolioMenuController : SnekMonoBehaviour
@@ -60,6 +61,12 @@ public class PortfolioMenuController : SnekMonoBehaviour
         _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
     }
 
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            _eventManager.RequestShowAllProjects();
+    }
+
     private void OnRequestProjectOverview(PortfolioProject project)
     {
         ShowProjectOverviewMenu(project);
@@ -93,6 +100,8 @@ public class PortfolioMenuController : SnekMonoBehaviour
     {
         SlideTransformHorizontally(_projectOverviewMenuTransform, _backgroundWidth)
             .OnComplete(OnProjectOverviewSlideOut);
+
+        _projectOverviewMenu.FadeVideoVolume();
     }
 
     private Tween SlideTransformHorizontally(RectTransform rectTransform, float targetPositionX)
