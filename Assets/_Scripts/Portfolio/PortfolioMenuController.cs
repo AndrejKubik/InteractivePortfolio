@@ -70,7 +70,10 @@ public class PortfolioMenuController : SnekMonoBehaviour
         _projectOverviewMenuTransform.anchoredPosition = new Vector2(_backgroundWidth, 0f);
         _projectOverviewMenu.gameObject.SetActive(true);
 
-        _projectOverviewMenu.InitializeExternally(project, OnPrepareProjectOverviewDemoVideo);
+        _projectOverviewMenu.InitializeExternally(new PortfolioProjectOverview.Data(
+            project,
+            _menuSlideDuration,
+            OnPrepareProjectOverviewDemoVideo));
     }
 
     private void OnPrepareProjectOverviewDemoVideo()

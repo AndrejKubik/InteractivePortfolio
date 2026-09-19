@@ -8,8 +8,22 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class PortfolioProjectOverview : SnekMonoBehaviour
+public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExternal<PortfolioProjectOverview.Data>
 {
+    public readonly struct Data
+    {
+        public readonly PortfolioProject Project;
+        public readonly float SlideDuration;
+        public readonly Action OnPrepareDemoVideo;
+
+        public Data(PortfolioProject project, float slideDuration, Action onPrepareDemoVideo)
+        {
+            Project = project;
+            SlideDuration = slideDuration;
+            OnPrepareDemoVideo = onPrepareDemoVideo;
+        }
+    }
+
     private EventManager _eventManager;
 
     [SerializeField] private TextMeshProUGUI _projectName;
@@ -25,19 +39,14 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
     [SerializeField] private SnekUIButton _backToAllProjectsButton;
 
     private PortfolioProject _project;
+    private float _slideDuration;
     private Action _onPrepareDemoVideo;
 
-    protected override bool IsManuallyInitialized()
+    public void OnBeforeInitialize(Data data)
     {
-        return true;
-    }
-
-    public void InitializeExternally(PortfolioProject project, Action onDemoVideoPrepare)
-    {
-        _project = project;
-        _onPrepareDemoVideo = onDemoVideoPrepare;
-
-        RunInitialization();
+        _project = data.Project;
+        _slideDuration = data.SlideDuration;
+        _onPrepareDemoVideo = data.OnPrepareDemoVideo;
     }
 
     protected override void Initialize()
@@ -73,7 +82,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour
 
         _projectName.SetText(_project.GetProjectName());
 
-        _videoDemo.InitializeExternally(_project.GetVideoDemoUrl(), OnVideoDemoPrepared);
+        _videoDemo.InitializeExternally(new PortfolioProjectVideoDemo.Data(
+            _project.GetVideoDemoUrl(),
+            OnVideoDemoPrepared));
+
         _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
     }
 

@@ -7,14 +7,24 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoDemo : SnekMonoBehaviour
+public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableExternal<PortfolioProjectVideoDemo.Data>
 {
+    public readonly struct Data
+    {
+        public readonly string VideoUrl;
+        public readonly Action<VideoAspectForm> OnVideoPrepared;
+
+        public Data(string videoUrl, Action<VideoAspectForm> onVideoPrepared)
+        {
+            VideoUrl = videoUrl;
+            OnVideoPrepared = onVideoPrepared;
+        }
+    }
+
     private const float VideoTopPadding = 15f;
 
     private Canvas _canvas;
     private LayoutElement _layoutElement;
-
-    private string _videoURL = string.Empty;
 
     [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
     [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
@@ -41,6 +51,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     [Min(0f)]
     [SerializeField] private float _overlayFadeTime = 0.5f;
 
+    private string _videoURL = string.Empty;
+    private Action<VideoAspectForm> _onVideoPrepared;
+
     private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
     private float _headerHeight = 0f;
@@ -48,24 +61,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
     private float _videoVerticalPadding = 0f;
 
     private RenderTexture _renderTexture;
-    private Action<VideoAspectForm> _onVideoPrepared;
 
     private float _videoTotalTime = 0f;
     private float _videoProgress = 0f;
 
     private float _playPauseOverlaySymbolAlpha = 0f;
 
-    protected override bool IsManuallyInitialized()
+    public void OnBeforeInitialize(Data data)
     {
-        return true;
-    }
-
-    public void InitializeExternally(string videoURL, Action<VideoAspectForm> onVideoPrepared = null)
-    {
-        _videoURL = videoURL;
-        _onVideoPrepared = onVideoPrepared;
-
-        RunInitialization();
+        _videoURL = data.VideoUrl;
+        _onVideoPrepared = data.OnVideoPrepared;
     }
 
     protected override void Initialize()
@@ -149,8 +154,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour
 
     private void LoadAudioSettings()
     {
-        _volumeSlider.Slider.value = PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f);
-
+        _volumeSlider.SetValue(PlayerPrefs.GetFloat(SaveKeys.VideoDemoVolume, 1f));
+        
         SetAudioMute(Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0)));
     }
 
