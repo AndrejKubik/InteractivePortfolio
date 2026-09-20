@@ -10,7 +10,8 @@ namespace Snek.Utilities
     /// </summary>
     public abstract class SnekMonoBehaviour : MonoBehaviour
     {
-        protected bool _isValid;
+        protected bool _isValid { get; private set; }
+        protected bool _isInitializedOnce { get; private set; }
 
         private List<SnekEssentialComponentReference> _essentialComponents = new List<SnekEssentialComponentReference>();
 
@@ -33,7 +34,11 @@ namespace Snek.Utilities
                 gameObject.SetActive(false);
             }
             else
+            {
                 OnInitializationSuccess();
+
+                _isInitializedOnce = true;
+            }
         }
 
         protected virtual void Awake()

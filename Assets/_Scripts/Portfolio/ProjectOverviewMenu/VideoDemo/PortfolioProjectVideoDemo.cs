@@ -122,8 +122,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
 
         _videoPlayer.url = _videoURL;
-        _videoPlayer.prepareCompleted += OnVideoPrepared;
-        _videoPlayer.errorReceived += OnVideoErrorReceived;
+
+        if (!_isInitializedOnce)
+        {
+            _videoPlayer.prepareCompleted += OnVideoPrepared;
+            _videoPlayer.errorReceived += OnVideoErrorReceived;
+        }
 
         _videoTimeline.InitializeExternally(OnUserMoveTimeline);
 
@@ -166,7 +170,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _savedMuteState = Convert.ToBoolean(PlayerPrefs.GetInt(SaveKeys.VideoDemoMute, 0));
 
         _volumeSlider.SetValue(_savedVolume, false);
-        
+
         SetAudioMute(_savedMuteState);
     }
 
@@ -281,7 +285,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         ApplyAspectRatioToVideoRectSize(source);
         FitVideoPreviewToScreen();
         StartFadeVolumeTween(0f, _savedVolume);
-        
+
         _videoPlayer.Play();
 
         _onVideoPrepared?.Invoke(GetVideoAspectForm());
