@@ -32,6 +32,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
 
     [Space(10f)]
+    [SerializeField] private RectTransform _videoPlayerContainer;
     [SerializeField] private VideoPlayer _videoPlayer;
     [SerializeField] private RawImage _videoPreview;
     [SerializeField] private RectTransform _videoPreviewHeader;
@@ -57,7 +58,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     private float _slideDuration = 0f;
     private Action<VideoAspectForm> _onVideoPrepared = null;
 
-    private RectTransform _videoPlayerTransform;
     private RectTransform _horizontalLayoutGroupTransform;
     private float _headerHeight = 0f;
     private float _controlsPanelHeight = 0f;
@@ -95,6 +95,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         if (string.IsNullOrEmpty(_videoURL))
             FailValidation("Invalid video URL provided.");
 
+        ValidateEssentialComponent(_videoPlayerContainer, nameof(_videoPlayerContainer));
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
         ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
@@ -117,7 +118,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     protected override void OnInitializationSuccess()
     {
-        _videoPlayerTransform = _videoPlayer.transform as RectTransform;
         _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
 
         _headerHeight = _videoPreviewHeader.rect.size.y;
@@ -154,11 +154,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void SetVideoPlayerTransformAnchors()
     {
-        _videoPlayerTransform.ResetAnchorOffset();
-        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
-        _videoPlayerTransform.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
+        _videoPlayerContainer.ResetAnchorOffset();
+        _videoPlayerContainer.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
+        _videoPlayerContainer.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerContainer);
     }
 
     private void OnDestroy()
@@ -418,7 +418,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
 
-        _layoutElement.preferredWidth = _videoPlayerTransform.rect.size.x;
+        _layoutElement.preferredWidth = _videoPlayerContainer.rect.size.x;
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
