@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using Snek.Utilities;
 using UnityEngine;
@@ -74,6 +75,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     private float _savedVolume = 0f;
     private bool _savedMuteState = false;
 
+    private bool _isVideoPlayerSeeking = false;
+
     public void OnBeforeInitialize(Data data)
     {
         _videoURL = data.VideoUrl;
@@ -127,10 +130,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         {
             _videoPlayer.prepareCompleted += OnVideoPrepared;
             _videoPlayer.errorReceived += OnVideoErrorReceived;
+            _videoPlayer.seekCompleted += OnVideoSeekCompleted;
         }
 
-        _videoTimeline.InitializeExternally(OnUserMoveTimeline);
-
+        _videoTimeline.InitializeExternally(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.InitializeExternally(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
         _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
 
@@ -152,16 +155,35 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         _videoPlayer.prepareCompleted -= OnVideoPrepared;
         _videoPlayer.errorReceived -= OnVideoErrorReceived;
+        _videoPlayer.seekCompleted -= OnVideoSeekCompleted;
     }
 
     private void Update()
     {
+        if (_playPauseOverlaySymbolAlpha > 0f)
+            FadePlayPauseOverlaySymbol();
+
+        if (!_isVideoPlayerSeeking && !_videoTimeline.IsHandleHeld)
+            UpdateTimelineSlider();
+    }
+
+    private void UpdateTimelineSlider()
+    {
         _videoProgress = Mathf.InverseLerp(0f, _videoTotalTime, (float)_videoPlayer.time);
 
         _videoTimeline.SetValue(_videoProgress, false);
+    }
 
-        if (_playPauseOverlaySymbolAlpha > 0f)
-            FadePlayPauseOverlaySymbol();
+    private void OnVideoSeekCompleted(VideoPlayer source)
+    {
+        StartCoroutine(StopSeekingSequence());
+    }
+
+    private IEnumerator StopSeekingSequence() //smoother feedback when waiting for the end of frame
+    {
+        yield return new WaitForEndOfFrame();
+
+        _isVideoPlayerSeeking = false;
     }
 
     private void LoadAudioSettings()
@@ -227,7 +249,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void OnUserMoveTimeline(float newTime)
     {
+        if (_isVideoPlayerSeeking)
+            return;
+
         _videoPlayer.time = Mathf.Lerp(0f, _videoTotalTime, newTime);
+
+        _isVideoPlayerSeeking = true;
     }
 
     private void OnVolumeChange(float newValue)

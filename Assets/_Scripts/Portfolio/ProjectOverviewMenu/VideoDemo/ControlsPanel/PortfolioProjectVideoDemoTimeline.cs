@@ -1,23 +1,25 @@
 using System;
 using Snek.GameUI;
 using Snek.Utilities;
-using UnityEngine;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoDemoTimeline : SnekUISlider
+public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializableExternal<PortfolioProjectVideoDemoTimeline.Data>
 {
-    private Action<float> _onUserMoveSlider;
-
-    protected override bool IsManuallyInitialized()
+    public readonly struct Data
     {
-        return true;
+        public readonly Action<float> OnUserMoveSlider;
+
+        public Data(Action<float> onUserMoveSlider)
+        {
+            OnUserMoveSlider = onUserMoveSlider;
+        }
     }
 
-    public void InitializeExternally(Action<float> onUserMoveSlider)
-    {
-        _onUserMoveSlider = onUserMoveSlider;
+    private Action<float> _onUserMoveSlider = null;
 
-        RunInitialization();
+    public void OnBeforeInitialize(Data data)
+    {
+        _onUserMoveSlider = data.OnUserMoveSlider;
     }
 
     protected override void Validate()

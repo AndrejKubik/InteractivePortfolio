@@ -159,5 +159,10 @@ namespace Snek.GameUI
             else
                 Slider.SetValueWithoutNotify(newValue);
         }
+
+        public float GetValue()
+        {
+            return Slider.value;
+        }
     }
 }
