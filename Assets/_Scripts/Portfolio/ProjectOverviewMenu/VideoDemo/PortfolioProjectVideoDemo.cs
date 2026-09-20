@@ -124,6 +124,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _controlsPanelHeight = _controlsPanel.rect.size.y;
         _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
 
+        _aspectRatioFitter.enabled = false;
+
+        SetVideoPlayerTransformAnchors();
+
         _videoPlayer.url = _videoURL;
 
         if (!_isInitializedOnce)
@@ -146,6 +150,15 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         LoadAudioSettings();
 
         _videoPlayer.Prepare();
+    }
+
+    private void SetVideoPlayerTransformAnchors()
+    {
+        _videoPlayerTransform.ResetAnchorOffset();
+        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
+        _videoPlayerTransform.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerTransform);
     }
 
     private void OnDestroy()
@@ -311,11 +324,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         CreateAndApplyRenderTexture(source);
         ApplyAspectRatioToVideoRectSize(source);
         FitVideoPreviewToScreen();
-        StartFadeVolumeTween(0f, _savedVolume);
+
+        _onVideoPrepared?.Invoke(GetVideoAspectForm());
 
         _videoPlayer.Play();
 
-        _onVideoPrepared?.Invoke(GetVideoAspectForm());
+        StartFadeVolumeTween(0f, _savedVolume);
     }
 
     private void OnVideoErrorReceived(VideoPlayer source, string message)
@@ -335,8 +349,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void ApplyAspectRatioToVideoRectSize(VideoPlayer source)
     {
-        _aspectRatioFitter.enabled = false;
-
         _aspectRatioFitter.aspectRatio = (float)source.width / (float)source.height;
 
         _aspectRatioFitter.aspectMode = _aspectRatioFitter.aspectRatio > 1f ?
@@ -344,7 +356,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         _aspectRatioFitter.enabled = true;
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitter.GetComponent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitter.transform as RectTransform);
     }
 
     private void FitVideoPreviewToScreen()
@@ -394,9 +406,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         _layoutElement.preferredWidth = targetWidth;
 
-        _videoPlayerTransform.ResetAnchorOffset();
-        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
-
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
 
@@ -410,10 +419,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
 
         _layoutElement.preferredWidth = _videoPlayerTransform.rect.size.x;
-
-        _videoPlayerTransform.ResetAnchorOffset();
-        _videoPlayerTransform.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
-        _videoPlayerTransform.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
     }
