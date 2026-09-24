@@ -235,18 +235,59 @@ MonoBehaviour:
   _videoPreview: {fileID: 1713233322463601211}
   _videoPreviewHeader: {fileID: 6166773008592682523}
   _controlsPanel: {fileID: 5809681728907727446}
-  _aspectRatioFitter: {fileID: 2803594634783665455}
   _videoTimeline: {fileID: 5235894426067751768}
   _volumeSlider: {fileID: 4651308478419652481}
   _volumeMuteButton: {fileID: 8631796209477525130}
+  _mutedSymbol: {fileID: 21300000, guid: 376774b881777b245afaea4e43c8ddbe, type: 3}
+  _unmutedSymbol: {fileID: 21300000, guid: 52ba06715f9eb8244ac14e98e3c79dff, type: 3}
   _hoverOverlay: {fileID: 1942104746884637577}
   _playPauseControlButton: {fileID: 214527747161454585}
   _overlayButton: {fileID: 5505824749699410216}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
   _pauseSymbol: {fileID: 21300000, guid: df0d421cbdf8c104e92fb633e9774e17, type: 3}
-  _mutedSymbol: {fileID: 21300000, guid: 376774b881777b245afaea4e43c8ddbe, type: 3}
-  _unmutedSymbol: {fileID: 21300000, guid: 52ba06715f9eb8244ac14e98e3c79dff, type: 3}
   _overlayFadeTime: 0.5
+  _fullscreenHoverControlsPanelShowTimeMax: 3
+  _fullscreenControlsPanelHideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8992247
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 9.923066
+      outSlope: 9.923066
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _toggleFullScreenButton: {fileID: 5944349526471412662}
+  _videoPlayerContainerMini: {fileID: 3696471186925387911}
+  _videoPlayerContainerFullscreen: {fileID: 0}
+  _videoPlayerContainerFullscreenBackground: {fileID: 0}
+  _aspectRatioFitterMini: {fileID: 5804224893378992192}
+  _aspectRatioFitterFullscreen: {fileID: 0}
+  _fullscreenOnSymbol: {fileID: 21300000, guid: 4471fb2763b90ce4ab053601b0f07049, type: 3}
+  _fullscreenOffSymbol: {fileID: 21300000, guid: f8a9ddb7e6f96a145851c93011ad3d46, type: 3}
 --- !u!114 &8980434437558856437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,8 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3696471186925387911}
   - component: {fileID: 2191030661155092252}
-  - component: {fileID: 3678344925996276338}
-  - component: {fileID: 2803594634783665455}
+  - component: {fileID: 5804224893378992192}
   m_Layer: 5
   m_Name: VideoPlayerContainer
   m_TagString: Untagged
@@ -314,34 +354,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4713357560697007623}
   m_CullTransparentMesh: 1
---- !u!114 &3678344925996276338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4713357560697007623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!114 &2803594634783665455
+--- !u!114 &5804224893378992192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -793,6 +806,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6222520501639090636, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
   m_PrefabInstance: {fileID: 502986634402710426}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5944349526471412662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090104521017575468, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+  m_PrefabInstance: {fileID: 502986634402710426}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab97fc89cb4ce7d4e97f0ff9d346755c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoPlayerToggleFullScreenButton
 --- !u!114 &8631796209477525130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8156224836657437968, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}

@@ -28,7 +28,14 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
 
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _thumbnail;
+
+    [Space(10f)]
     [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
+    [SerializeField] private RectTransform _videoPlayer;
+    [SerializeField] private RectTransform _videoPlayerContainerMini;
+    [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
+
+    [Space(10f)]
     [SerializeField] private TextBox _descriptionTextBox;
     [SerializeField] private TextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
@@ -57,9 +64,15 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
     protected override void Validate()
     {
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+
         ValidateEssentialComponent(_projectName, nameof(_projectName));
         ValidateEssentialComponent(_thumbnail, nameof(_thumbnail));
+
         ValidateEssentialComponent(_videoDemo, nameof(_videoDemo));
+        ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
+        ValidateEssentialComponent(_videoPlayerContainerMini, nameof(_videoPlayerContainerMini));
+        ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
+
         ValidateEssentialComponent(_descriptionTextBox, nameof(_descriptionTextBox));
         ValidateEssentialComponent(_developmentHighlightsTextBox, nameof(_developmentHighlightsTextBox));
         ValidateEssentialComponent(_scrollRect, nameof(_scrollRect));

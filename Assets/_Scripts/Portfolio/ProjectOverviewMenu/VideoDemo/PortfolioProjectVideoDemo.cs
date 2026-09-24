@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Snek.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -37,22 +38,35 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     [SerializeField] private RawImage _videoPreview;
     [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private RectTransform _controlsPanel;
-    [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
     [SerializeField] private VideoPlayerVolumeSlider _volumeSlider;
-    [SerializeField] private AudioMuteButton _volumeMuteButton;
-    [SerializeField] private HoverOverlay _hoverOverlay;
 
     [Space(10f)]
+    [SerializeField] private AudioMuteButton _volumeMuteButton;
+    [SerializeField] private Sprite _mutedSymbol;
+    [SerializeField] private Sprite _unmutedSymbol;
+
+    [Space(10f)]
+    [SerializeField] private HoverOverlay _hoverOverlay;
     [SerializeField] private PortfolioProjectVideoDemoOverlayButton _playPauseControlButton;
     [SerializeField] private PortfolioProjectVideoDemoOverlayButton _overlayButton;
     [SerializeField] private Sprite _playSymbol;
     [SerializeField] private Sprite _pauseSymbol;
-    [SerializeField] private Sprite _mutedSymbol;
-    [SerializeField] private Sprite _unmutedSymbol;
 
     [Min(0f)]
     [SerializeField] private float _overlayFadeTime = 0.5f;
+    [SerializeField] private float _fullscreenHoverControlsPanelShowTimeMax = 3f;
+    [SerializeField] private AnimationCurve _fullscreenControlsPanelHideCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
+    [Space(10f)]
+    [SerializeField] private VideoPlayerToggleFullScreenButton _toggleFullScreenButton;
+    [SerializeField] private RectTransform _videoPlayerContainerMini;
+    [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
+    [SerializeField] private RectTransform _videoPlayerContainerFullscreenBackground;
+    [SerializeField] private AspectRatioFitter _aspectRatioFitterMini;
+    [SerializeField] private AspectRatioFitter _aspectRatioFitterFullscreen;
+    [SerializeField] private Sprite _fullscreenOnSymbol;
+    [SerializeField] private Sprite _fullscreenOffSymbol;
 
     private string _videoURL = string.Empty;
     private float _slideDuration = 0f;
@@ -77,6 +91,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private bool _isVideoPlayerSeeking = false;
 
+    private bool _isFullscreen = false;
+    private float _fullscreenHoverControlsPanelShowTime = 0f;
+
     public void OnBeforeInitialize(Data data)
     {
         _videoURL = data.VideoUrl;
@@ -100,20 +117,29 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
         ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
         ValidateEssentialComponent(_controlsPanel, nameof(_controlsPanel));
-        ValidateEssentialComponent(_aspectRatioFitter, nameof(_aspectRatioFitter));
         ValidateEssentialComponent(_horizontalLayoutGroup, nameof(_horizontalLayoutGroup));
         ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
         ValidateEssentialComponent(_volumeSlider, nameof(_volumeSlider));
-        ValidateEssentialComponent(_volumeMuteButton, nameof(_volumeMuteButton));
-        ValidateEssentialComponent(_hoverOverlay, nameof(_hoverOverlay));
 
+        ValidateEssentialComponent(_volumeMuteButton, nameof(_volumeMuteButton));
+        ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
+        ValidateEssentialComponent(_unmutedSymbol, nameof(_unmutedSymbol));
+
+        ValidateEssentialComponent(_hoverOverlay, nameof(_hoverOverlay));
         ValidateEssentialComponent(_playPauseControlButton, nameof(_playPauseControlButton));
         ValidateEssentialComponent(_overlayButton, nameof(_overlayButton));
         ValidateEssentialComponent(_playSymbol, nameof(_playSymbol));
         ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
-        ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
-        ValidateEssentialComponent(_unmutedSymbol, nameof(_unmutedSymbol));
+
+        ValidateEssentialComponent(_toggleFullScreenButton, nameof(_toggleFullScreenButton));
+        ValidateEssentialComponent(_videoPlayerContainerMini, nameof(_videoPlayerContainerMini));
+        ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
+        ValidateEssentialComponent(_videoPlayerContainerFullscreenBackground, nameof(_videoPlayerContainerFullscreenBackground));
+        ValidateEssentialComponent(_aspectRatioFitterMini, nameof(_aspectRatioFitterMini));
+        ValidateEssentialComponent(_aspectRatioFitterFullscreen, nameof(_aspectRatioFitterFullscreen));
+        ValidateEssentialComponent(_fullscreenOnSymbol, nameof(_fullscreenOnSymbol));
+        ValidateEssentialComponent(_fullscreenOffSymbol, nameof(_fullscreenOffSymbol));
     }
 
     protected override void OnInitializationSuccess()
@@ -124,7 +150,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _controlsPanelHeight = _controlsPanel.rect.size.y;
         _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
 
-        _aspectRatioFitter.enabled = false;
+        _aspectRatioFitterMini.enabled = false;
+        _isFullscreen = false;
 
         SetVideoPlayerTransformAnchors();
 
@@ -139,6 +166,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         _videoTimeline.InitializeExternally(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.InitializeExternally(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
+
         _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
 
         _playPauseControlButton.SetExternalCallback(OnPlayPauseButtonClick);
@@ -146,6 +174,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         _overlayButton.SetExternalCallback(OnPlayPauseButtonClick);
         _overlayButton.SetSymbol(_playSymbol);
+
+        _toggleFullScreenButton.SetExternalCallback(OnToggleFullscreenButtonClick);
 
         LoadAudioSettings();
 
@@ -178,6 +208,46 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
         if (!_isVideoPlayerSeeking && !_videoTimeline.IsHandleHeld)
             UpdateTimelineSlider();
+
+        _hoverOverlay.HandleMouseHover(_isFullscreen, OnShowHoverOverlay);
+
+        if (!IsControlsPanelVisible())
+            return;
+
+        float hideProgress = _fullscreenHoverControlsPanelShowTime / _fullscreenHoverControlsPanelShowTimeMax;
+        float hideProgressCurved = _fullscreenControlsPanelHideCurve.Evaluate(hideProgress);
+
+        float showPositionY = _controlsPanelHeight;
+        float hidePositionY = 0f;
+
+        float targetPositionY = Mathf.Lerp(showPositionY, hidePositionY, hideProgressCurved);
+
+        _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, targetPositionY);
+
+        _fullscreenHoverControlsPanelShowTime += Time.deltaTime;
+
+        _fullscreenHoverControlsPanelShowTime = Mathf.Min(
+            _fullscreenHoverControlsPanelShowTime,
+            _fullscreenHoverControlsPanelShowTimeMax);
+    }
+
+    private bool IsControlsPanelVisible()
+    {
+        return _fullscreenHoverControlsPanelShowTime <= _fullscreenHoverControlsPanelShowTimeMax;
+    }
+
+    private void OnShowHoverOverlay()
+    {
+        if (!_isFullscreen)
+            return;
+
+        float targetControlsPanelPositionY = _controlsPanelHeight;
+
+        _controlsPanel.anchoredPosition = new Vector2(
+            _controlsPanel.anchoredPosition.x,
+            targetControlsPanelPositionY);
+
+        _fullscreenHoverControlsPanelShowTime = 0f;
     }
 
     private void UpdateTimelineSlider()
@@ -300,6 +370,33 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
             ShowFadingOverlay(_unmutedSymbol);
     }
 
+    private void OnToggleFullscreenButtonClick()
+    {
+        _isFullscreen = !_isFullscreen;
+
+        RectTransform targetParent = _isFullscreen ?
+            _videoPlayerContainerFullscreen : _videoPlayerContainerMini;
+
+        var videoPlayerTransform = _videoPlayer.transform as RectTransform;
+
+        videoPlayerTransform.SetParent(targetParent, true);
+        videoPlayerTransform.ResetAnchorOffset();
+
+        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(_isFullscreen);
+
+        float targetControlsPanelPositionY = _isFullscreen ?
+            _controlsPanelHeight : 0f;
+
+        _controlsPanel.anchoredPosition = new Vector2(
+            _controlsPanel.anchoredPosition.x,
+            targetControlsPanelPositionY);
+
+        Sprite fullscreenButtonSymbol = _isFullscreen ?
+            _fullscreenOffSymbol : _fullscreenOnSymbol;
+
+        _toggleFullScreenButton.SetSymbol(fullscreenButtonSymbol);
+    }
+
     private bool IsAudioMuted()
     {
         return _videoPlayer.GetDirectAudioMute(0);
@@ -349,14 +446,20 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private void ApplyAspectRatioToVideoRectSize(VideoPlayer source)
     {
-        _aspectRatioFitter.aspectRatio = (float)source.width / (float)source.height;
+        float aspectRatio = (float)source.width / (float)source.height;
 
-        _aspectRatioFitter.aspectMode = _aspectRatioFitter.aspectRatio > 1f ?
+        _aspectRatioFitterMini.aspectRatio = aspectRatio;
+        _aspectRatioFitterFullscreen.aspectRatio = aspectRatio;
+
+        AspectRatioFitter.AspectMode aspectMode = aspectRatio > 1f ?
             AspectRatioFitter.AspectMode.WidthControlsHeight : AspectRatioFitter.AspectMode.HeightControlsWidth;
 
-        _aspectRatioFitter.enabled = true;
+        _aspectRatioFitterMini.aspectMode = aspectMode;
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitter.transform as RectTransform);
+        _aspectRatioFitterMini.enabled = true;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitterMini.transform as RectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitterFullscreen.transform as RectTransform);
     }
 
     private void FitVideoPreviewToScreen()
@@ -384,7 +487,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private VideoAspectForm GetVideoAspectForm()
     {
-        return _aspectRatioFitter.aspectMode switch
+        return _aspectRatioFitterMini.aspectMode switch
         {
             AspectRatioFitter.AspectMode.WidthControlsHeight => VideoAspectForm.Landscape,
             AspectRatioFitter.AspectMode.HeightControlsWidth => VideoAspectForm.Portrait,

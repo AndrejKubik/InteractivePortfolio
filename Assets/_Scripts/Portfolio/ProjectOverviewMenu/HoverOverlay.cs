@@ -1,5 +1,7 @@
+using System;
 using Snek.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [UseSnekInspector]
@@ -25,12 +27,30 @@ public class HoverOverlay : SnekMonoBehaviour
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
 
-    private void Update()
+    public void HandleMouseHover(bool isFullscreen, Action onShowOverlay)
     {
-        if (IsHovered())
-            Show();
-        else if (_currentFadeProgress > 0f)
-            FadeAlpha();
+        if(isFullscreen)
+        {
+            if (IsHovered() && IsMouseMoved())
+            {
+                Show();
+
+                onShowOverlay.Invoke();
+            }
+            else if(IsOverlayVisible())
+                FadeAlpha();
+        }
+        else
+        {
+            if (IsHovered())
+            {
+                Show();
+
+                onShowOverlay.Invoke();
+            }
+            else if (IsOverlayVisible())
+                FadeAlpha();
+        }
     }
 
     private bool IsHovered()
@@ -39,6 +59,18 @@ public class HoverOverlay : SnekMonoBehaviour
             _image.rectTransform,
             Input.mousePosition,
             _canvas.worldCamera);
+    }
+
+    private bool IsMouseMoved()
+    {
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+        return mouseDelta.sqrMagnitude > 0f;
+    }
+
+    private bool IsOverlayVisible()
+    {
+        return _currentFadeProgress > 0f;
     }
 
     public void Show()
