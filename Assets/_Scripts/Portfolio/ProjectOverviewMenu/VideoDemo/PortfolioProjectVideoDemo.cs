@@ -54,8 +54,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
     [SerializeField] private Sprite _pauseSymbol;
 
     [Min(0f)]
-    [SerializeField] private float _overlayFadeTime = 0.5f;
+    [SerializeField] private float _overlayButtonSymbolFadeTime = 0.5f;
+
+    [Min(0f)]
     [SerializeField] private float _fullscreenHoverControlsPanelShowTimeMax = 3f;
+
     [SerializeField] private AnimationCurve _fullscreenControlsPanelHideCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
     [Space(10f)]
@@ -93,6 +96,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private bool _isFullscreen = false;
     private float _fullscreenHoverControlsPanelShowTime = 0f;
+
+    private bool _isPlayPauseButtonClicked = false;
 
     public void OnBeforeInitialize(Data data)
     {
@@ -209,18 +214,29 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         if (!_isVideoPlayerSeeking && !_videoTimeline.IsHandleHeld)
             UpdateTimelineSlider();
 
-        _hoverOverlay.HandleMouseHover(_isFullscreen, OnShowHoverOverlay);
+        _hoverOverlay.HandleMouseHover(
+            _isFullscreen,
+            IsControlsPanelRequired() || _isPlayPauseButtonClicked,
+            OnShowHoverOverlay);
 
-        if (!IsControlsPanelVisible())
-            return;
+        if (_isPlayPauseButtonClicked)
+            _isPlayPauseButtonClicked = false;
 
-        float hideProgress = _fullscreenHoverControlsPanelShowTime / _fullscreenHoverControlsPanelShowTimeMax;
-        float hideProgressCurved = _fullscreenControlsPanelHideCurve.Evaluate(hideProgress);
+        if (_isFullscreen)
+            HandleFullscreenControlsPanelAnimation();
+        else
+            _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, 0f);
+    }
 
-        float showPositionY = _controlsPanelHeight;
+    private void HandleFullscreenControlsPanelAnimation()
+    {
+        float showProgress = _fullscreenHoverControlsPanelShowTime / _fullscreenHoverControlsPanelShowTimeMax;
+        float showProgressCurved = _fullscreenControlsPanelHideCurve.Evaluate(showProgress);
+
         float hidePositionY = 0f;
+        float showPositionY = _controlsPanelHeight;
 
-        float targetPositionY = Mathf.Lerp(showPositionY, hidePositionY, hideProgressCurved);
+        float targetPositionY = Mathf.Lerp(hidePositionY, showPositionY, showProgressCurved);
 
         _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, targetPositionY);
 
@@ -231,9 +247,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
             _fullscreenHoverControlsPanelShowTimeMax);
     }
 
-    private bool IsControlsPanelVisible()
+    private bool IsControlsPanelRequired()
     {
-        return _fullscreenHoverControlsPanelShowTime <= _fullscreenHoverControlsPanelShowTimeMax;
+        return _fullscreenHoverControlsPanelShowTime < _fullscreenHoverControlsPanelShowTimeMax;
     }
 
     private void OnShowHoverOverlay()
@@ -247,7 +263,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
             _controlsPanel.anchoredPosition.x,
             targetControlsPanelPositionY);
 
-        _fullscreenHoverControlsPanelShowTime = 0f;
+        ShowFullscreenControlPanel();
     }
 
     private void UpdateTimelineSlider()
@@ -297,7 +313,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
         _playPauseOverlaySymbolAlpha = Mathf.MoveTowards(
             _playPauseOverlaySymbolAlpha,
             0f,
-            Time.deltaTime / _overlayFadeTime);
+            Time.deltaTime / _overlayButtonSymbolFadeTime);
 
         _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
     }
@@ -318,6 +334,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
             ShowFadingOverlay(_pauseSymbol);
         }
+
+        _isPlayPauseButtonClicked = true;
+
+        if (_isFullscreen)
+            ShowFullscreenControlPanel();
+    }
+
+    private void ShowFullscreenControlPanel()
+    {
+        _fullscreenHoverControlsPanelShowTime = 0f;
     }
 
     private void ShowFadingOverlay(Sprite sprite)

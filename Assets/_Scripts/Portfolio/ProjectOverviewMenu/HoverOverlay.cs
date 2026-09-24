@@ -27,9 +27,9 @@ public class HoverOverlay : SnekMonoBehaviour
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
 
-    public void HandleMouseHover(bool isFullscreen, Action onShowOverlay)
+    public void HandleMouseHover(bool isFullscreen, bool isFullAlphaLocked, Action onShowOverlay)
     {
-        if(isFullscreen)
+        if (isFullscreen)
         {
             if (IsHovered() && IsMouseMoved())
             {
@@ -37,7 +37,7 @@ public class HoverOverlay : SnekMonoBehaviour
 
                 onShowOverlay.Invoke();
             }
-            else if(IsOverlayVisible())
+            else if (IsOverlayVisible() && !isFullAlphaLocked)
                 FadeAlpha();
         }
         else
@@ -96,7 +96,7 @@ public class HoverOverlay : SnekMonoBehaviour
     {
         float curvedProgress = _fadeCurve.Evaluate(_currentFadeProgress);
 
-        _currentAlpha = Mathf.LerpUnclamped(0f, _maxAlpha, curvedProgress);
+        _currentAlpha = Mathf.LerpUnclamped(_maxAlpha, 0f, curvedProgress);
 
         _image.color = _image.color.ChangeAlpha(_currentAlpha);
     }
