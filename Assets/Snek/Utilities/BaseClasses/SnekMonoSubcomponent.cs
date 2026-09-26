@@ -8,21 +8,7 @@ namespace Snek.Utilities
         protected bool _isValid { get; private set; }
         protected bool _isInitializedOnce { get; private set; }
 
-        public void Initialize<TData>(TData data, SnekMonoBehaviour parentComponent)
-        {
-            if (this is ISnekInitializableWithData<TData> initializable)
-            {
-                initializable.PrepareInitializationData(data);
-
-                Initialize(parentComponent);
-            }
-            else
-                Debug.LogError(
-                    $"{GetType().Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
-                    $"Cannot initialize externally.");
-        }
-
-        public void Initialize(SnekMonoBehaviour parentComponent)
+        internal void Initialize(SnekMonoBehaviour parentComponent)
         {
             if (parentComponent == null)
             {
@@ -44,11 +30,11 @@ namespace Snek.Utilities
 
             if (!_isValid)
             {
-                Debug.LogError(GetInvalidSetupMessage(), parentComponent.gameObject);
+                Debug.LogError(GetInvalidSetupMessage(), _parentComponent.gameObject);
 
                 OnFailValidation();
 
-                parentComponent.gameObject.SetActive(false);
+                _parentComponent.gameObject.SetActive(false);
             }
             else
             {
@@ -58,11 +44,18 @@ namespace Snek.Utilities
             }
         }
 
-        
-
         protected virtual void OnInitialize()
         {
 
+        }
+
+        protected void ValidateEssentialComponent<T>(T value, string name, bool nicifyName = true) where T : Object
+        {
+            if (nicifyName)
+                name = name.TrimStart('_').Nicify();
+
+            if (value == null)
+                FailValidation($"<b>{name}</b> is not assigned.");
         }
 
         protected virtual void Validate()
@@ -76,6 +69,11 @@ namespace Snek.Utilities
         }
 
         protected virtual void OnFailValidation()
+        {
+
+        }
+
+        internal virtual void OnDispose()
         {
 
         }

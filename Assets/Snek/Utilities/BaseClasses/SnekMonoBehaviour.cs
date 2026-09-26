@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Snek.Utilities
@@ -13,7 +14,22 @@ namespace Snek.Utilities
         protected bool _isValid { get; private set; }
         protected bool _isInitializedOnce { get; private set; }
 
-        private List<SnekEssentialComponentReference> _essentialComponents = new List<SnekEssentialComponentReference>();
+        private List<SnekEssentialComponentReference> _essentialComponents = new();
+        private List<SnekMonoSubcomponent> _subcomponents = new();
+
+        public void Initialize<TData>(TData data)
+        {
+            if (this is ISnekInitializableWithData<TData> initializable)
+            {
+                initializable.PrepareInitializationData(data);
+
+                Initialize();
+            }
+            else
+                Debug.LogError(
+                    $"{GetType().Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
+                    $"Cannot initialize with data.");
+        }
 
         public void Initialize()
         {
@@ -53,6 +69,19 @@ namespace Snek.Utilities
                 Initialize();
         }
 
+        private void OnDestroy()
+        {
+            OnDispose();
+
+            foreach (SnekMonoSubcomponent subcomponent in _subcomponents)
+                subcomponent.OnDispose();
+        }
+
+        protected virtual void OnDispose()
+        {
+
+        }
+
         /// <summary>
         /// <list type="bullet"><c>True</c> = you can completely override the <c>Awake()</c></list>
         /// <list type="bullet"><c>False</c> = you can completely override <c>Start()</c></list> 
@@ -67,14 +96,34 @@ namespace Snek.Utilities
             return this is ISnekInitializableManual;
         }
 
-        public void Initialize<TData>(TData data)
+        protected void InitializeSubcomponent<T>(out T subcomponent) where T : SnekMonoSubcomponent
         {
-            if (this is ISnekInitializableWithData<TData> initializable)
-                initializable.RunInitialization(data);
+            subcomponent = new SnekMonoSubcomponent() as T;
+
+            subcomponent.Initialize(this);
+
+            _subcomponents.Add(subcomponent);
+        }
+
+        protected void InitializeSubcomponent<T, TData>(out T subcomponent, TData data) where T : SnekMonoSubcomponent
+        {
+            subcomponent = new SnekMonoSubcomponent() as T;
+
+            if(subcomponent is ISnekInitializableWithData<TData> initializable)
+            {
+                initializable.PrepareInitializationData(data);
+                subcomponent.Initialize(this);
+
+                _subcomponents.Add(subcomponent);
+            }
             else
+            {
+                subcomponent = null;
+
                 Debug.LogError(
-                    $"{GetType().Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
-                    $"Cannot initialize externally.");
+                    $"{typeof(T).Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
+                    $"Cannot initialize with data.");
+            }
         }
 
         /// <summary>
@@ -96,7 +145,7 @@ namespace Snek.Utilities
                 }
         }
 
-        protected void ValidateEssentialComponent<T>(T value, string name, bool nicifyName = true) where T : Object
+        protected void ValidateEssentialComponent<T>(T value, string name, bool nicifyName = true) where T : UnityEngine.Object
         {
             if (nicifyName)
                 name = name.TrimStart('_').Nicify();

@@ -295,17 +295,17 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         SetAudioMute(_savedMuteState);
     }
 
+    public void FadeVolume()
+    {
+        StartFadeVolumeTween(_volumeSlider.Slider.value, 0f);
+    }
+
     private void StartFadeVolumeTween(float startValue, float endValue)
     {
         if (_activeVolumeTween != null)
             _activeVolumeTween.Kill();
 
         _activeVolumeTween = DOVirtual.Float(startValue, endValue, _slideDuration, SetAudioVolume);
-    }
-
-    public void FadeVolume()
-    {
-        StartFadeVolumeTween(_volumeSlider.Slider.value, 0f);
     }
 
     private void FadePlayPauseOverlaySymbol()
