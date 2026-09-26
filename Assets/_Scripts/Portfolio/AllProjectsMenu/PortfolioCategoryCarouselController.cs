@@ -8,7 +8,7 @@ using OnVerticalDragEvent = Snek.EndlessCarousel.SnekEndlessCarousel.OnVerticalD
 
 [RequireComponent(typeof(SnekEndlessCarousel))]
 [UseSnekInspector]
-public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekInitializableExternal<PortfolioCategoryCarouselController.Data>
+public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioCategoryCarouselController.Data>
 {
     public readonly struct Data
     {
@@ -31,14 +31,14 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
     private OnVerticalDragEvent _onVerticalDrag;
     private PortfolioProjectButton _buttonPrefab;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _projects = data.Projects;
         _onVerticalDrag = data.OnVerticalDrag;
         _buttonPrefab = data.ButtonPrefab;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         SnekSingletonManager.GetSingleton(out _eventManager);
 
@@ -67,7 +67,7 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
         foreach (PortfolioProjectData project in _projects)
             CreateProjectButton(project);
 
-        _projectButtonsCarousel.RunInitialization();
+        _projectButtonsCarousel.Initialize();
     }
 
     private void OnDestroy()
@@ -79,7 +79,7 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
     {
         PortfolioProjectButton button = Instantiate(_buttonPrefab, _projectButtonsCarousel.ElementContainer.transform);
 
-        button.InitializeExternally(new PortfolioProjectButton.Data(project, _eventManager));
+        button.Initialize(new PortfolioProjectButton.Data(project, _eventManager));
     }
 
     public bool IsDraggingCarousel()

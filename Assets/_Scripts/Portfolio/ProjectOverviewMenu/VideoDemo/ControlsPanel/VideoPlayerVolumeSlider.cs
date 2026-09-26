@@ -4,7 +4,7 @@ using Snek.Utilities;
 using UnityEngine;
 
 [UseSnekInspector]
-public class VideoPlayerVolumeSlider : SnekUISlider, ISnekInitializableExternal<VideoPlayerVolumeSlider.Data>
+public class VideoPlayerVolumeSlider : SnekUISlider, ISnekInitializableWithData<VideoPlayerVolumeSlider.Data>
 {
     public readonly struct Data
     {
@@ -18,7 +18,7 @@ public class VideoPlayerVolumeSlider : SnekUISlider, ISnekInitializableExternal<
 
     private Action<float> _onValueChange;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _onValueChange = data.OnValueChange;
     }

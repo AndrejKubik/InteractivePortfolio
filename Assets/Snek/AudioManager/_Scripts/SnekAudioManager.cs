@@ -10,7 +10,7 @@ namespace Snek.AudioManager
 
         protected AudioSource _audioSource;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             _audioSource = GetComponent<AudioSource>();
         }

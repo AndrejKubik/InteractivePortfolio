@@ -15,11 +15,11 @@ namespace Snek.Utilities
 
         private List<SnekEssentialComponentReference> _essentialComponents = new List<SnekEssentialComponentReference>();
 
-        public void RunInitialization()
+        public void Initialize()
         {
             _isValid = true;
 
-            Initialize();
+            OnInitialize();
             ValidateEssentialComponents();
 
             if (_isValid)
@@ -27,7 +27,7 @@ namespace Snek.Utilities
 
             if (!_isValid)
             {
-                Debug.LogError(InvalidSetupMessage(name), gameObject);
+                Debug.LogError(GetInvalidSetupMessage(), gameObject);
 
                 OnFailValidation();
 
@@ -44,13 +44,13 @@ namespace Snek.Utilities
         protected virtual void Awake()
         {
             if (!IsManuallyInitialized() && !IsInitializedInStart())
-                RunInitialization();
+                Initialize();
         }
 
         protected virtual void Start()
         {
             if (!IsManuallyInitialized() && IsInitializedInStart())
-                RunInitialization();
+                Initialize();
         }
 
         /// <summary>
@@ -67,20 +67,20 @@ namespace Snek.Utilities
             return this is ISnekInitializableManual;
         }
 
-        public void InitializeExternally<TData>(TData data)
+        public void Initialize<TData>(TData data)
         {
-            if (this is ISnekInitializableExternal<TData> behaviour)
-                behaviour.RunInitialization(data);
+            if (this is ISnekInitializableWithData<TData> initializable)
+                initializable.RunInitialization(data);
             else
                 Debug.LogError(
-                    $"{GetType().Name} is not of type {nameof(ISnekInitializableExternal<TData>)}.\n" +
+                    $"{GetType().Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
                     $"Cannot initialize externally.");
         }
 
         /// <summary>
         /// Use for getting components through code, called in <c>Awake()</c> or <c>Start()</c> before <c>Validate()</c>
         /// </summary>
-        protected virtual void Initialize()
+        protected virtual void OnInitialize()
         {
 
         }
@@ -151,9 +151,9 @@ namespace Snek.Utilities
             Debug.LogError(message, gameObject);
         }
 
-        private string InvalidSetupMessage(string gameObjectName)
+        private string GetInvalidSetupMessage()
         {
-            return $"Component setup invalid, disabling game object <b>[{gameObjectName}]</b>";
+            return $"Component setup invalid, disabling game object <b>[{name}]</b>";
         }
     }
 }

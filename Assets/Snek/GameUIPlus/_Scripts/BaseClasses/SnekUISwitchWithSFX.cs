@@ -16,9 +16,9 @@ namespace Snek.GameUIPlus
         [SerializeField] private AudioClip _switchEnableSound;
         [SerializeField] private AudioClip _switchDisableSound;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            base.OnInitialize();
 
             _sfxManager = SnekSingletonManager.GetSingleton<SnekSFXManager>();
         }

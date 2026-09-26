@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement, ISnekInitializableExternal<PortfolioProjectButton.Data>
+public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement, ISnekInitializableWithData<PortfolioProjectButton.Data>
 {
     public readonly struct Data
     {
@@ -26,15 +26,15 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
     private EventManager _eventManager;
     private PortfolioProject _project;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _project = new PortfolioProject(data.ProjectData);
         _eventManager = data.EventManager;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
-        base.Initialize();
+        base.OnInitialize();
 
         GetEssentialComponent(out _image);
     }

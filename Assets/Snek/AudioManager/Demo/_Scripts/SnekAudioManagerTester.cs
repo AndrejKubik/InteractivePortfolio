@@ -13,7 +13,7 @@ namespace SnekEditor.AudioManager
 
         [SerializeField] private AudioClip _testClip;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             _sfxManager = SnekSingletonManager.GetSingleton<SnekSFXManager>();
             _musicManager = SnekSingletonManager.GetSingleton<SnekMusicManager>();

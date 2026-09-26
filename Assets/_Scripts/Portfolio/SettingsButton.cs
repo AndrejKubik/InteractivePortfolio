@@ -8,9 +8,9 @@ public class SettingsButton : SnekUIButton
 {
     private SnekSettingsMenu _settingsMenu;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
-        base.Initialize();
+        base.OnInitialize();
 
         SnekSingletonManager.GetSingleton(out _settingsMenu);
     }

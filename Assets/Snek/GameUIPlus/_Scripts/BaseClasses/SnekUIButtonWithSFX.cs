@@ -13,9 +13,9 @@ namespace Snek.GameUIPlus
 
         [SerializeField] private bool _useUnmutableAudioSource;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            base.OnInitialize();
 
             _sfxManager = SnekSingletonManager.GetSingleton<SnekSFXManager>();
         }

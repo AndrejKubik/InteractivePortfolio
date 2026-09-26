@@ -19,9 +19,9 @@ namespace Snek.GameUIPlus
 
         private float _sfxRemainingCooldown = 0f;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            base.OnInitialize();
 
             _sfxManager = SnekSingletonManager.GetSingleton<SnekSFXManager>();
         }

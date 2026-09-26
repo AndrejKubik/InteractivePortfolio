@@ -18,7 +18,7 @@ namespace SnekEditor.SettingsMenu
         [SerializeField] private SnekUIButtonWithSFX _nextTrackButton;
         [SerializeField] private SnekUIButtonWithSFX _previousTrackButton;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             _musicManager = SnekSingletonManager.GetSingleton<SnekMusicManager>();
         }

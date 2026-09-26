@@ -3,7 +3,7 @@ using Snek.GameUI;
 using Snek.Utilities;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializableExternal<PortfolioProjectVideoDemoTimeline.Data>
+public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializableWithData<PortfolioProjectVideoDemoTimeline.Data>
 {
     public readonly struct Data
     {
@@ -17,7 +17,7 @@ public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializabl
 
     private Action<float> _onUserMoveSlider = null;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _onUserMoveSlider = data.OnUserMoveSlider;
     }

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExternal<PortfolioProjectOverview.Data>
+public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectOverview.Data>
 {
     public readonly struct Data
     {
@@ -49,14 +49,14 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
     private float _slideDuration = 0f;
     private Action _onPrepareDemoVideo = null;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _project = data.Project;
         _slideDuration = data.SlideDuration;
         _onPrepareDemoVideo = data.OnPrepareDemoVideo;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         _eventManager = SnekSingletonManager.GetSingleton<EventManager>();
     }
@@ -95,7 +95,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableExt
 
         _projectName.SetText(_project.GetProjectName());
 
-        _videoDemo.InitializeExternally(new PortfolioProjectVideoDemo.Data(
+        _videoDemo.Initialize(new PortfolioProjectVideoDemo.Data(
             _project.GetVideoDemoUrl(),
             _slideDuration,
             OnVideoDemoPrepared));

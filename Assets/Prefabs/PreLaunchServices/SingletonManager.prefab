@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
       propertyPath: SingletonPrefabs.Array.size
       value: 4
       objectReference: {fileID: 0}

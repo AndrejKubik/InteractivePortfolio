@@ -11,7 +11,7 @@ namespace SnekEditor.SettingsMenu
 
         [SerializeField] private KeyCode _menuToggleHotkey = KeyCode.Escape;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             _settingsMenu = SnekSingletonManager.GetSingleton<SnekSettingsMenu>();
         }

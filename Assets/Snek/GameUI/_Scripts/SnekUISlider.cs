@@ -32,7 +32,7 @@ namespace Snek.GameUI
 
         public bool IsHandleHeld { get; private set; }
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             Slider = GetComponent<Slider>();
             _handle = GetComponentInChildren<SnekUISliderHandle>(true);

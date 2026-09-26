@@ -14,9 +14,9 @@ namespace Snek.SettingsMenu
 
         [SerializeField] private SnekAudioType _audioType = SnekAudioType.SFX;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            base.OnInitialize();
 
             if (_audioType == SnekAudioType.SFX)
                 _targetAudioManager = SnekSingletonManager.GetSingleton<SnekSFXManager>();

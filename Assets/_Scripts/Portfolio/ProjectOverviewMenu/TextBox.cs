@@ -11,7 +11,7 @@ public class TextBox : SnekMonoBehaviour
     [SerializeField] private RectTransform _header;
     [SerializeField] private TextMeshProUGUI _textMesh;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         GetEssentialComponent(out _rectTransform);
     }

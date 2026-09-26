@@ -28,7 +28,7 @@ public class PortfolioMenuController : SnekMonoBehaviour
         return true;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         SnekSingletonManager.GetSingleton(out _eventManager);
         SnekSingletonManager.GetSingleton(out _musicManager);
@@ -77,7 +77,7 @@ public class PortfolioMenuController : SnekMonoBehaviour
         _projectOverviewMenuTransform.anchoredPosition = new Vector2(_backgroundWidth, 0f);
         _projectOverviewMenu.gameObject.SetActive(true);
 
-        _projectOverviewMenu.InitializeExternally(new PortfolioProjectOverview.Data(
+        _projectOverviewMenu.Initialize(new PortfolioProjectOverview.Data(
             project,
             _menuSlideDuration,
             OnPrepareProjectOverviewDemoVideo));

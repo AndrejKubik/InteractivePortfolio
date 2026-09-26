@@ -9,7 +9,7 @@ namespace Snek.GameUI
 
         public bool IsOn { get; private set; }
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             SnekUISwitchButton[] buttons = GetComponentsInChildren<SnekUISwitchButton>(true);
 

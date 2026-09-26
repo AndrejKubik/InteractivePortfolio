@@ -21,7 +21,7 @@ public class HoverOverlay : SnekMonoBehaviour
     private float _currentAlpha = 0f;
     private float _currentFadeProgress = 0f;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         GetEssentialComponent(out _image);
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);

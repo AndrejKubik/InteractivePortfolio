@@ -40,7 +40,7 @@ namespace Snek.EndlessCarousel
         public event OnHorizontalDragEvent OnHorizontalDrag;
         public event OnVerticalDragEvent OnVerticalDrag;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             GetEssentialComponent(out _rectTransform);
         }
@@ -55,7 +55,7 @@ namespace Snek.EndlessCarousel
         {
             FindAllElements();
 
-            ElementContainer.InitializeExternally(new SnekEndlessCarouselElementContainer.Data(IsScrollingAllowed()));
+            ElementContainer.Initialize(new SnekEndlessCarouselElementContainer.Data(IsScrollingAllowed()));
         }
 
         private void Update()

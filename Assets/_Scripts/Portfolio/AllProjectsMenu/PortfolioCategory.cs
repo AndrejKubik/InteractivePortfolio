@@ -44,7 +44,7 @@ public class PortfolioCategory : SnekMonoBehaviour
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform); //enforces correct rect calculations down the line
 
-        _projectButtonsCarouselController.InitializeExternally(new PortfolioCategoryCarouselController.Data(
+        _projectButtonsCarouselController.Initialize(new PortfolioCategoryCarouselController.Data(
             _projects,
             OnEndlessCarouselVerticalDrag,
             _projectButtonPrefab));

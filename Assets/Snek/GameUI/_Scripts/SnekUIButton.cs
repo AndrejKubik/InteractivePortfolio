@@ -15,7 +15,7 @@ namespace Snek.GameUI
 
         private Action _externalCallback;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             _button = GetComponent<Button>();
         }

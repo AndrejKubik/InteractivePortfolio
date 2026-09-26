@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableExternal<PortfolioProjectVideoDemo.Data>
+public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoDemo.Data>
 {
     public readonly struct Data
     {
@@ -99,14 +99,14 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
 
     private bool _isPlayPauseButtonClicked = false;
 
-    public void OnBeforeInitialize(Data data)
+    public void PrepareInitializationData(Data data)
     {
         _videoURL = data.VideoUrl;
         _slideDuration = data.SlideDuration;
         _onVideoPrepared = data.OnVideoPrepared;
     }
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
@@ -169,8 +169,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableEx
             _videoPlayer.seekCompleted += OnVideoSeekCompleted;
         }
 
-        _videoTimeline.InitializeExternally(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
-        _volumeSlider.InitializeExternally(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
+        _videoTimeline.Initialize(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
+        _volumeSlider.Initialize(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
 
         _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
 

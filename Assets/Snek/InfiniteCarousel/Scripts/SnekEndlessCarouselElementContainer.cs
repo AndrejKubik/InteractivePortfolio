@@ -6,7 +6,7 @@ namespace Snek.EndlessCarousel
 {
     [UseSnekInspector]
     [RequireComponent(typeof(RectTransform), typeof(GridLayoutGroup), typeof(ContentSizeFitter))]
-    public class SnekEndlessCarouselElementContainer : SnekMonoBehaviour, ISnekInitializableExternal<SnekEndlessCarouselElementContainer.Data>
+    public class SnekEndlessCarouselElementContainer : SnekMonoBehaviour, ISnekInitializableWithData<SnekEndlessCarouselElementContainer.Data>
     {
         public readonly struct Data
         {
@@ -27,12 +27,12 @@ namespace Snek.EndlessCarousel
 
         private bool _isScrollable = true;
 
-        public void OnBeforeInitialize(Data data)
+        public void PrepareInitializationData(Data data)
         {
             _isScrollable = data.IsScrollable;
         }
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             GetEssentialComponent(out _rectTransform);
             GetEssentialComponent(out _gridLayoutGroup);

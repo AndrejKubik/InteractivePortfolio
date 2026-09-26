@@ -14,7 +14,7 @@ namespace Snek.SingletonManager
 
         private static bool _isInstanceCreationComplete = false;
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             if (_instance != null)
                 Destroy(gameObject);
@@ -58,7 +58,7 @@ namespace Snek.SingletonManager
         private void InitializeSingletonInstances()
         {
             foreach (SnekMonoSingleton singletonInstance in Singletons)
-                singletonInstance.RunInitialization();
+                singletonInstance.Initialize();
         }
 
         private void CreateSingletonInstance(SnekMonoSingleton prefab)

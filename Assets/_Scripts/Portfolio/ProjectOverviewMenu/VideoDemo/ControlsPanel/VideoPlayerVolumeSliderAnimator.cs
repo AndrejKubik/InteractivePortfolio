@@ -22,7 +22,7 @@ public class VideoPlayerVolumeSliderAnimator : SnekMonoBehaviour
     private float _currentAnimationTime = 0f;
     private float _currentUnhoverGraceTime = 0f;
 
-    protected override void Initialize()
+    protected override void OnInitialize()
     {
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
