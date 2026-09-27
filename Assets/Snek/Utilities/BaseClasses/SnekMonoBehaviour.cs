@@ -74,7 +74,7 @@ namespace Snek.Utilities
             OnDispose();
 
             foreach (SnekMonoSubcomponent subcomponent in _subcomponents)
-                subcomponent.OnDispose();
+                subcomponent.Dispose();
         }
 
         protected virtual void OnDispose()
@@ -105,9 +105,9 @@ namespace Snek.Utilities
             _subcomponents.Add(subcomponent);
         }
 
-        protected void InitializeSubcomponent<T, TData>(out T subcomponent, TData data) where T : SnekMonoSubcomponent
+        protected void InitializeSubcomponent<T, TData>(out T subcomponent, TData data) where T : SnekMonoSubcomponent, new()
         {
-            subcomponent = new SnekMonoSubcomponent() as T;
+            subcomponent = new T();
 
             if(subcomponent is ISnekInitializableWithData<TData> initializable)
             {

@@ -73,7 +73,12 @@ namespace Snek.Utilities
 
         }
 
-        internal virtual void OnDispose()
+        internal void Dispose()
+        {
+            OnDispose();
+        }
+
+        protected virtual void OnDispose()
         {
 
         }
