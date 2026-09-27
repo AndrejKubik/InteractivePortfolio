@@ -75,6 +75,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private float _slideDuration = 0f;
     private Action<VideoAspectForm> _onVideoPrepared = null;
 
+    private PortfolioProjectVideoPlayerController _videoPlayerController;
+
     private RectTransform _horizontalLayoutGroupTransform;
     private float _headerHeight = 0f;
     private float _controlsPanelHeight = 0f;
@@ -82,17 +84,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private RenderTexture _renderTexture;
 
-    private float _videoTotalTime = 0f;
-    private float _videoProgress = 0f;
-
     private float _playPauseOverlaySymbolAlpha = 0f;
 
     private Tween _activeVolumeTween = null;
 
     private float _savedVolume = 0f;
     private bool _savedMuteState = false;
-
-    private bool _isVideoPlayerSeeking = false;
 
     private bool _isFullscreen = false;
     private float _fullscreenHoverControlsPanelShowTime = 0f;
@@ -149,6 +146,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void OnInitializationSuccess()
     {
+        InitializeSubcomponent(out _videoPlayerController, new PortfolioProjectVideoPlayerController.Data(
+            _videoPlayer,
+            _videoURL,
+            OnVideoPrepared));
+
         _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
 
         _headerHeight = _videoPreviewHeader.rect.size.y;
@@ -159,15 +161,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _isFullscreen = false;
 
         SetVideoPlayerTransformAnchors();
-
-        _videoPlayer.url = _videoURL;
-
-        if (!_isInitializedOnce)
-        {
-            _videoPlayer.prepareCompleted += OnVideoPrepared;
-            _videoPlayer.errorReceived += OnVideoErrorReceived;
-            _videoPlayer.seekCompleted += OnVideoSeekCompleted;
-        }
 
         _videoTimeline.Initialize(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.Initialize(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
@@ -183,8 +176,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _toggleFullScreenButton.SetExternalCallback(OnToggleFullscreenButtonClick);
 
         LoadAudioSettings();
-
-        _videoPlayer.Prepare();
     }
 
     private void SetVideoPlayerTransformAnchors()
@@ -196,22 +187,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerContainer);
     }
 
-    private void OnDestroy()
-    {
-        if (!_isValid)
-            return;
-
-        _videoPlayer.prepareCompleted -= OnVideoPrepared;
-        _videoPlayer.errorReceived -= OnVideoErrorReceived;
-        _videoPlayer.seekCompleted -= OnVideoSeekCompleted;
-    }
-
     private void Update()
     {
         if (_playPauseOverlaySymbolAlpha > 0f)
             FadePlayPauseOverlaySymbol();
 
-        if (!_isVideoPlayerSeeking && !_videoTimeline.IsHandleHeld)
+        if (!_videoPlayerController.IsVideoSeeking && !_videoTimeline.IsHandleHeld)
             UpdateTimelineSlider();
 
         _hoverOverlay.HandleMouseHover(
@@ -268,21 +249,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void UpdateTimelineSlider()
     {
-        _videoProgress = Mathf.InverseLerp(0f, _videoTotalTime, (float)_videoPlayer.time);
-
-        _videoTimeline.SetValue(_videoProgress, false);
-    }
-
-    private void OnVideoSeekCompleted(VideoPlayer source)
-    {
-        StartCoroutine(StopSeekingSequence());
-    }
-
-    private IEnumerator StopSeekingSequence() //smoother feedback when waiting for the end of frame
-    {
-        yield return new WaitForEndOfFrame();
-
-        _isVideoPlayerSeeking = false;
+        _videoTimeline.SetValue(_videoPlayerController.GetVideoProgress(), false);
     }
 
     private void LoadAudioSettings()
@@ -320,19 +287,19 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void OnPlayPauseButtonClick()
     {
-        if (_videoPlayer.isPaused)
+        if (_videoPlayerController.IsVideoPaused())
         {
-            _videoPlayer.Play();
+            _videoPlayerController.PlayVideo();
             _playPauseControlButton.SetSymbol(_pauseSymbol);
 
             ShowFadingOverlay(_playSymbol);
         }
         else
         {
-            _videoPlayer.Pause();
-            _playPauseControlButton.SetSymbol(_playSymbol);
+            _videoPlayerController.PauseVideo();
+            _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-            ShowFadingOverlay(_pauseSymbol);
+            ShowFadingOverlay(_playSymbol);
         }
 
         _isPlayPauseButtonClicked = true;
@@ -358,12 +325,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void OnUserMoveTimeline(float newTime)
     {
-        if (_isVideoPlayerSeeking)
-            return;
-
-        _videoPlayer.time = Mathf.Lerp(0f, _videoTotalTime, newTime);
-
-        _isVideoPlayerSeeking = true;
+        _videoPlayerController.SeekVideo(newTime);
     }
 
     private void OnVolumeChange(float newValue)
@@ -375,22 +337,19 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void SetAudioVolume(float newValue)
     {
-        _videoPlayer.SetDirectAudioVolume(0, newValue);
+        _videoPlayerController.SetAudioVolume(newValue);
         _volumeMuteButton.MatchSpriteWithVolume(newValue);
 
         SetAudioMute(false);
     }
 
-    private float GetAudioVolume()
-    {
-        return _videoPlayer.GetDirectAudioVolume(0);
-    }
-
     private void OnMuteButtonClick()
     {
-        SetAudioMute(!IsAudioMuted());
+        bool newState = !_videoPlayerController.IsAudioMuted();
 
-        if (IsAudioMuted()) //this has a different value due to change above
+        SetAudioMute(newState);
+
+        if (newState == true)
             ShowFadingOverlay(_mutedSymbol);
         else
             ShowFadingOverlay(_unmutedSymbol);
@@ -423,41 +382,27 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _toggleFullScreenButton.SetSymbol(fullscreenButtonSymbol);
     }
 
-    private bool IsAudioMuted()
-    {
-        return _videoPlayer.GetDirectAudioMute(0);
-    }
-
     private void SetAudioMute(bool newState)
     {
-        _videoPlayer.SetDirectAudioMute(0, newState);
+        _videoPlayerController.SetAudioMute(newState);
 
         if (newState == true)
             _volumeMuteButton.SetMutedSymbol();
         else
-            _volumeMuteButton.MatchSpriteWithVolume(GetAudioVolume());
+            _volumeMuteButton.MatchSpriteWithVolume(_videoPlayerController.GetAudioVolume());
 
         PlayerPrefs.SetInt(SaveKeys.VideoDemoMute, Convert.ToInt32(newState));
     }
 
     private void OnVideoPrepared(VideoPlayer source)
     {
-        _videoTotalTime = (float)_videoPlayer.length;
-
         CreateAndApplyRenderTexture(source);
         ApplyAspectRatioToVideoRectSize(source);
         FitVideoPreviewToScreen();
 
         _onVideoPrepared?.Invoke(GetVideoAspectForm());
 
-        _videoPlayer.Play();
-
         StartFadeVolumeTween(0f, _savedVolume);
-    }
-
-    private void OnVideoErrorReceived(VideoPlayer source, string message)
-    {
-        Debug.LogError(message);
     }
 
     private void CreateAndApplyRenderTexture(VideoPlayer source)
