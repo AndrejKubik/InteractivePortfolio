@@ -33,6 +33,13 @@ namespace Snek.Utilities
 
         public void Initialize()
         {
+            if(this is ISnekInitializableManual manualInitializable && manualInitializable.IsDataRequiredForInitialization())
+            {
+                Debug.LogError("This component requires data for initialization, use Initialize(TData data) overload instead.");
+
+                return;
+            }
+
             _isValid = true;
 
             OnInitialize();
