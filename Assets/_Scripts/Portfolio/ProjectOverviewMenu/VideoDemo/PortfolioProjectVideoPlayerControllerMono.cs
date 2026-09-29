@@ -1,28 +1,27 @@
-using System;
 using System.Collections;
 using Snek.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
-public class PortfolioProjectVideoPlayerController : SnekMonoSubcomponent, ISnekInitializableWithData<PortfolioProjectVideoPlayerController.Data>
+
+[UseSnekInspector]
+public class PortfolioProjectVideoPlayerControllerMono : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoPlayerControllerMono.Data>
 {
     public delegate void OnVideoPreparedCallback(VideoPlayer source);
 
     public readonly struct Data
     {
-        public readonly VideoPlayer VideoPlayer;
         public readonly string VideoURL;
         public readonly OnVideoPreparedCallback OnVideoPrepared;
 
-        public Data(VideoPlayer videoPlayer, string videoURL, OnVideoPreparedCallback onVideoPrepared)
+        public Data(string videoURL, OnVideoPreparedCallback onVideoPrepared)
         {
-            VideoPlayer = videoPlayer;
             VideoURL = videoURL;
             OnVideoPrepared = onVideoPrepared;
         }
     }
 
-    private VideoPlayer _videoPlayer;
+    [SerializeField] private VideoPlayer _videoPlayer;
+
     private string _videoURL = string.Empty;
     private OnVideoPreparedCallback _onVideoPrepared;
 
@@ -31,7 +30,6 @@ public class PortfolioProjectVideoPlayerController : SnekMonoSubcomponent, ISnek
 
     public void PrepareInitializationData(Data data)
     {
-        _videoPlayer = data.VideoPlayer;
         _videoURL = data.VideoURL;
         _onVideoPrepared = data.OnVideoPrepared;
     }
@@ -57,7 +55,7 @@ public class PortfolioProjectVideoPlayerController : SnekMonoSubcomponent, ISnek
         }
 
         _videoPlayer.url = _videoURL;
-        
+
         _videoPlayer.Prepare();
     }
 
@@ -132,7 +130,7 @@ public class PortfolioProjectVideoPlayerController : SnekMonoSubcomponent, ISnek
 
     private void OnVideoSeekCompleted(VideoPlayer source)
     {
-        _parentComponent.StartCoroutine(StopSeekingSequence());
+        StartCoroutine(StopSeekingSequence());
     }
 
     private IEnumerator StopSeekingSequence() //smoother feedback when waiting for the end of frame

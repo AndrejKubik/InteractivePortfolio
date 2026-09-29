@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
+[RequireComponent(typeof(PortfolioProjectVideoPlayerControllerMono))]
 [UseSnekInspector]
 public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoDemo.Data>
 {
@@ -75,7 +76,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private float _slideDuration = 0f;
     private Action<VideoAspectForm> _onVideoPrepared = null;
 
-    private PortfolioProjectVideoPlayerController _videoPlayerController;
+    private PortfolioProjectVideoPlayerControllerMono _videoPlayerController;
 
     private RectTransform _horizontalLayoutGroupTransform;
     private float _headerHeight = 0f;
@@ -107,6 +108,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     {
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
+        GetEssentialComponent(out _videoPlayerController);
     }
 
     protected override void Validate()
@@ -142,12 +144,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         ValidateEssentialComponent(_aspectRatioFitterFullscreen, nameof(_aspectRatioFitterFullscreen));
         ValidateEssentialComponent(_fullscreenOnSymbol, nameof(_fullscreenOnSymbol));
         ValidateEssentialComponent(_fullscreenOffSymbol, nameof(_fullscreenOffSymbol));
+
+        ValidateEssentialComponent(_videoPlayerController, nameof(_videoPlayerController));
     }
 
     protected override void OnInitializationSuccess()
     {
-        InitializeSubcomponent(out _videoPlayerController, new PortfolioProjectVideoPlayerController.Data(
-            _videoPlayer,
+        _videoPlayerController.Initialize(new PortfolioProjectVideoPlayerControllerMono.Data(
             _videoURL,
             OnVideoPrepared));
 
