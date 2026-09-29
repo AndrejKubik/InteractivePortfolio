@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 
 [RequireComponent(typeof(PortfolioProjectVideoPlayerControllerMono))]
+[RequireComponent(typeof(PortfolioProjectVideoPreviewController))]
 [UseSnekInspector]
 public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoDemo.Data>
 {
@@ -25,19 +26,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         }
     }
 
-    private const float VideoTopPadding = 15f;
-
-    private Canvas _canvas;
-    private LayoutElement _layoutElement;
-
-    [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
-    [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
-
     [Space(10f)]
-    [SerializeField] private RectTransform _videoPlayerContainer;
     [SerializeField] private VideoPlayer _videoPlayer;
-    [SerializeField] private RawImage _videoPreview;
-    [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private RectTransform _controlsPanel;
     [SerializeField] private PortfolioProjectVideoDemoTimeline _videoTimeline;
     [SerializeField] private VideoPlayerVolumeSlider _volumeSlider;
@@ -64,11 +54,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     [Space(10f)]
     [SerializeField] private VideoPlayerToggleFullScreenButton _toggleFullScreenButton;
-    [SerializeField] private RectTransform _videoPlayerContainerMini;
-    [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
-    [SerializeField] private RectTransform _videoPlayerContainerFullscreenBackground;
-    [SerializeField] private AspectRatioFitter _aspectRatioFitterMini;
-    [SerializeField] private AspectRatioFitter _aspectRatioFitterFullscreen;
     [SerializeField] private Sprite _fullscreenOnSymbol;
     [SerializeField] private Sprite _fullscreenOffSymbol;
 
@@ -77,13 +62,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private Action<VideoAspectForm> _onVideoPrepared = null;
 
     private PortfolioProjectVideoPlayerControllerMono _videoPlayerController;
+    private PortfolioProjectVideoPreviewController _videoPreviewController;
 
-    private RectTransform _horizontalLayoutGroupTransform;
-    private float _headerHeight = 0f;
+
+
     private float _controlsPanelHeight = 0f;
-    private float _videoVerticalPadding = 0f;
-
-    private RenderTexture _renderTexture;
 
     private float _playPauseOverlaySymbolAlpha = 0f;
 
@@ -106,9 +89,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void OnInitialize()
     {
-        GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
-        GetEssentialComponent(out _layoutElement);
         GetEssentialComponent(out _videoPlayerController);
+        GetEssentialComponent(out _videoPreviewController);
     }
 
     protected override void Validate()
@@ -116,13 +98,12 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         if (string.IsNullOrEmpty(_videoURL))
             FailValidation("Invalid video URL provided.");
 
-        ValidateEssentialComponent(_videoPlayerContainer, nameof(_videoPlayerContainer));
+        
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
-        ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
-        ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
+        
         ValidateEssentialComponent(_controlsPanel, nameof(_controlsPanel));
-        ValidateEssentialComponent(_horizontalLayoutGroup, nameof(_horizontalLayoutGroup));
-        ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
+        
+        
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
         ValidateEssentialComponent(_volumeSlider, nameof(_volumeSlider));
 
@@ -137,11 +118,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
 
         ValidateEssentialComponent(_toggleFullScreenButton, nameof(_toggleFullScreenButton));
-        ValidateEssentialComponent(_videoPlayerContainerMini, nameof(_videoPlayerContainerMini));
-        ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
-        ValidateEssentialComponent(_videoPlayerContainerFullscreenBackground, nameof(_videoPlayerContainerFullscreenBackground));
-        ValidateEssentialComponent(_aspectRatioFitterMini, nameof(_aspectRatioFitterMini));
-        ValidateEssentialComponent(_aspectRatioFitterFullscreen, nameof(_aspectRatioFitterFullscreen));
+        
         ValidateEssentialComponent(_fullscreenOnSymbol, nameof(_fullscreenOnSymbol));
         ValidateEssentialComponent(_fullscreenOffSymbol, nameof(_fullscreenOffSymbol));
 
@@ -154,16 +131,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoURL,
             OnVideoPrepared));
 
-        _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
-
-        _headerHeight = _videoPreviewHeader.rect.size.y;
-        _controlsPanelHeight = _controlsPanel.rect.size.y;
-        _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
-
-        _aspectRatioFitterMini.enabled = false;
+        
+        
         _isFullscreen = false;
 
-        SetVideoPlayerTransformAnchors();
+        _videoPreviewController.Initialize();
 
         _videoTimeline.Initialize(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.Initialize(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
@@ -181,14 +153,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         LoadAudioSettings();
     }
 
-    private void SetVideoPlayerTransformAnchors()
-    {
-        _videoPlayerContainer.ResetAnchorOffset();
-        _videoPlayerContainer.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
-        _videoPlayerContainer.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerContainer);
-    }
 
     private void Update()
     {
@@ -362,15 +326,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     {
         _isFullscreen = !_isFullscreen;
 
-        RectTransform targetParent = _isFullscreen ?
-            _videoPlayerContainerFullscreen : _videoPlayerContainerMini;
-
-        var videoPlayerTransform = _videoPlayer.transform as RectTransform;
-
-        videoPlayerTransform.SetParent(targetParent, true);
-        videoPlayerTransform.ResetAnchorOffset();
-
-        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(_isFullscreen);
+        _videoPreviewController.SetFullscreenMode(_isFullscreen);
 
         float targetControlsPanelPositionY = _isFullscreen ?
             _controlsPanelHeight : 0f;
@@ -399,105 +355,26 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void OnVideoPrepared(VideoPlayer source)
     {
-        CreateAndApplyRenderTexture(source);
-        ApplyAspectRatioToVideoRectSize(source);
-        FitVideoPreviewToScreen();
+        RenderTexture renderTexture = CreateRenderTexture((int)source.width, (int)source.height);
 
-        _onVideoPrepared?.Invoke(GetVideoAspectForm());
+        _videoPlayer.targetTexture = renderTexture;
+
+        _videoPreviewController.ApplyAspectRatioToVideoRect(source.width, source.height);
+        _videoPreviewController.SetRenderTexture(renderTexture);
+        _videoPreviewController.FitVideoPreviewToScreen();
+
+        _onVideoPrepared?.Invoke(_videoPreviewController.GetVideoAspectForm());
 
         StartFadeVolumeTween(0f, _savedVolume);
     }
 
-    private void CreateAndApplyRenderTexture(VideoPlayer source)
+    private RenderTexture CreateRenderTexture(int width, int height)
     {
-        _renderTexture = new RenderTexture((int)source.width, (int)source.height, 0);
+        var texture = new RenderTexture(width, height, 0);
 
-        _renderTexture.Create();
+        texture.Create();
 
-        _videoPlayer.targetTexture = _renderTexture;
-        _videoPreview.texture = _renderTexture;
-    }
-
-    private void ApplyAspectRatioToVideoRectSize(VideoPlayer source)
-    {
-        float aspectRatio = (float)source.width / (float)source.height;
-
-        _aspectRatioFitterMini.aspectRatio = aspectRatio;
-        _aspectRatioFitterFullscreen.aspectRatio = aspectRatio;
-
-        AspectRatioFitter.AspectMode aspectMode = aspectRatio > 1f ?
-            AspectRatioFitter.AspectMode.WidthControlsHeight : AspectRatioFitter.AspectMode.HeightControlsWidth;
-
-        _aspectRatioFitterMini.aspectMode = aspectMode;
-
-        _aspectRatioFitterMini.enabled = true;
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitterMini.transform as RectTransform);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_aspectRatioFitterFullscreen.transform as RectTransform);
-    }
-
-    private void FitVideoPreviewToScreen()
-    {
-        ResetHorizontalLayoutGroupHeight();
-
-        switch (GetVideoAspectForm())
-        {
-            case VideoAspectForm.Landscape:
-
-                FitVideoPreviewToScreenLandscape();
-                break;
-
-            case VideoAspectForm.Portrait:
-
-                FitVideoPreviewToScreenPortrait();
-                break;
-
-            default:
-
-                Debug.LogError("Unsupported aspect mode provided, cannot fit video preview to screen.", gameObject);
-                break;
-        }
-    }
-
-    private VideoAspectForm GetVideoAspectForm()
-    {
-        return _aspectRatioFitterMini.aspectMode switch
-        {
-            AspectRatioFitter.AspectMode.WidthControlsHeight => VideoAspectForm.Landscape,
-            AspectRatioFitter.AspectMode.HeightControlsWidth => VideoAspectForm.Portrait,
-            _ => VideoAspectForm.Unsupported,
-        };
-    }
-
-    private void ResetHorizontalLayoutGroupHeight()
-    {
-        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-    }
-
-    private void FitVideoPreviewToScreenLandscape()
-    {
-        float targetWidth = _horizontalLayoutGroupTransform.rect.size.x / 2f;
-        targetWidth -= 2f * VideoTopPadding;
-
-        _layoutElement.preferredWidth = targetWidth;
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-    }
-
-    private void FitVideoPreviewToScreenPortrait()
-    {
-        float screenHeight = (float)Screen.height / _canvas.scaleFactor;
-        float targetHeight = screenHeight - 2f * _videoVerticalPadding;
-
-        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-
-        _layoutElement.preferredWidth = _videoPlayerContainer.rect.size.x;
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+        return texture;
     }
 
     public RectTransform GetRectTransform()

@@ -148,8 +148,10 @@ GameObject:
   - component: {fileID: 28997848192584357}
   - component: {fileID: 3199986800449345438}
   - component: {fileID: 2842492938128536602}
-  - component: {fileID: 6070668801398973591}
   - component: {fileID: 8980434437558856437}
+  - component: {fileID: 6070668801398973591}
+  - component: {fileID: 7034795860249873091}
+  - component: {fileID: 2253525754988258284}
   m_Layer: 5
   m_Name: VideoDemo
   m_TagString: Untagged
@@ -216,6 +218,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8980434437558856437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786155341494635762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 600
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!114 &6070668801398973591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,12 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150e2f332ba39214799b6ccee6476087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoDemo
-  _horizontalLayoutGroup: {fileID: 0}
-  _scrollRectContentLayoutGroup: {fileID: 0}
-  _videoPlayerContainer: {fileID: 3696471186925387911}
   _videoPlayer: {fileID: 179511740938479375}
-  _videoPreview: {fileID: 1713233322463601211}
-  _videoPreviewHeader: {fileID: 6166773008592682523}
   _controlsPanel: {fileID: 5809681728907727446}
   _videoTimeline: {fileID: 5235894426067751768}
   _volumeSlider: {fileID: 4651308478419652481}
@@ -245,6 +262,7 @@ MonoBehaviour:
   _overlayButton: {fileID: 5505824749699410216}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
   _pauseSymbol: {fileID: 21300000, guid: df0d421cbdf8c104e92fb633e9774e17, type: 3}
+  _overlayButtonSymbolFadeTime: 0.5
   _fullscreenHoverControlsPanelShowTimeMax: 1.5
   _fullscreenControlsPanelHideCurve:
     serializedVersion: 2
@@ -280,14 +298,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _toggleFullScreenButton: {fileID: 5944349526471412662}
-  _videoPlayerContainerMini: {fileID: 3696471186925387911}
-  _videoPlayerContainerFullscreen: {fileID: 0}
-  _videoPlayerContainerFullscreenBackground: {fileID: 0}
-  _aspectRatioFitterMini: {fileID: 5804224893378992192}
-  _aspectRatioFitterFullscreen: {fileID: 0}
   _fullscreenOnSymbol: {fileID: 21300000, guid: 4471fb2763b90ce4ab053601b0f07049, type: 3}
   _fullscreenOffSymbol: {fileID: 21300000, guid: f8a9ddb7e6f96a145851c93011ad3d46, type: 3}
---- !u!114 &8980434437558856437
+--- !u!114 &7034795860249873091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,17 +309,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 2786155341494635762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Script: {fileID: 11500000, guid: 30dcdbc7704a1e94f8927dcee4277bb4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 600
-  m_PreferredHeight: -1
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: 1
-  m_LayoutPriority: 1
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoPlayerControllerMono
+  _videoPlayer: {fileID: 179511740938479375}
+--- !u!114 &2253525754988258284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786155341494635762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa0257861500664dafe40cadfa106ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoPreviewController
+  _scrollRectContentLayoutGroup: {fileID: 0}
+  _horizontalLayoutGroupTransform: {fileID: 0}
+  _videoPreview: {fileID: 1713233322463601211}
+  _videoPreviewHeader: {fileID: 6166773008592682523}
+  _videoPlayerContainerMini: {fileID: 3696471186925387911}
+  _aspectRatioFitterMini: {fileID: 5804224893378992192}
+  _controlsPanelTransform: {fileID: 5809681728907727446}
+  _videoPlayerContainerFullscreen: {fileID: 0}
+  _videoPlayerContainerFullscreenBackground: {fileID: 0}
+  _aspectRatioFitterFullscreen: {fileID: 0}
 --- !u!1 &4713357560697007623
 GameObject:
   m_ObjectHideFlags: 0
