@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using DG.Tweening;
 using Snek.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 [RequireComponent(typeof(PortfolioProjectVideoPlayerControllerMono))]
 [RequireComponent(typeof(PortfolioProjectVideoPreviewController))]
+[RequireComponent(typeof(PortfolioProjectVideoHoverOverlayController))]
 [UseSnekInspector]
 public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoDemo.Data>
 {
@@ -38,14 +36,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     [SerializeField] private Sprite _unmutedSymbol;
 
     [Space(10f)]
-    [SerializeField] private HoverOverlay _hoverOverlay;
     [SerializeField] private PortfolioProjectVideoDemoOverlayButton _playPauseControlButton;
-    [SerializeField] private PortfolioProjectVideoDemoOverlayButton _overlayButton;
     [SerializeField] private Sprite _playSymbol;
     [SerializeField] private Sprite _pauseSymbol;
-
-    [Min(0f)]
-    [SerializeField] private float _overlayButtonSymbolFadeTime = 0.5f;
 
     [Min(0f)]
     [SerializeField] private float _fullscreenHoverControlsPanelShowTimeMax = 3f;
@@ -63,12 +56,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private PortfolioProjectVideoPlayerControllerMono _videoPlayerController;
     private PortfolioProjectVideoPreviewController _videoPreviewController;
-
+    private PortfolioProjectVideoHoverOverlayController _videoHoverOverlayController;
 
 
     private float _controlsPanelHeight = 0f;
-
-    private float _playPauseOverlaySymbolAlpha = 0f;
 
     private Tween _activeVolumeTween = null;
 
@@ -91,29 +82,22 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     {
         GetEssentialComponent(out _videoPlayerController);
         GetEssentialComponent(out _videoPreviewController);
+        GetEssentialComponent(out _videoHoverOverlayController);
     }
 
     protected override void Validate()
     {
         if (string.IsNullOrEmpty(_videoURL))
             FailValidation("Invalid video URL provided.");
-
         
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
-        
         ValidateEssentialComponent(_controlsPanel, nameof(_controlsPanel));
-        
-        
         ValidateEssentialComponent(_videoTimeline, nameof(_videoTimeline));
         ValidateEssentialComponent(_volumeSlider, nameof(_volumeSlider));
-
         ValidateEssentialComponent(_volumeMuteButton, nameof(_volumeMuteButton));
         ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
         ValidateEssentialComponent(_unmutedSymbol, nameof(_unmutedSymbol));
-
-        ValidateEssentialComponent(_hoverOverlay, nameof(_hoverOverlay));
         ValidateEssentialComponent(_playPauseControlButton, nameof(_playPauseControlButton));
-        ValidateEssentialComponent(_overlayButton, nameof(_overlayButton));
         ValidateEssentialComponent(_playSymbol, nameof(_playSymbol));
         ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
 
@@ -121,8 +105,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         
         ValidateEssentialComponent(_fullscreenOnSymbol, nameof(_fullscreenOnSymbol));
         ValidateEssentialComponent(_fullscreenOffSymbol, nameof(_fullscreenOffSymbol));
-
-        ValidateEssentialComponent(_videoPlayerController, nameof(_videoPlayerController));
     }
 
     protected override void OnInitializationSuccess()
@@ -131,24 +113,20 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoURL,
             OnVideoPrepared));
 
-        
-        
-        _isFullscreen = false;
-
         _videoPreviewController.Initialize();
+        _videoHoverOverlayController.Initialize(new HoverOverlay.Data(OnShowHoverOverlay));
 
         _videoTimeline.Initialize(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.Initialize(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
 
         _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
 
-        _playPauseControlButton.SetExternalCallback(OnPlayPauseButtonClick);
+        _playPauseControlButton.SetExternalCallback(OnOverlayButtonClick);
         _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-        _overlayButton.SetExternalCallback(OnPlayPauseButtonClick);
-        _overlayButton.SetSymbol(_playSymbol);
-
         _toggleFullScreenButton.SetExternalCallback(OnToggleFullscreenButtonClick);
+
+        _isFullscreen = false;
 
         LoadAudioSettings();
     }
@@ -156,16 +134,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void Update()
     {
-        if (_playPauseOverlaySymbolAlpha > 0f)
-            FadePlayPauseOverlaySymbol();
-
         if (!_videoPlayerController.IsVideoSeeking && !_videoTimeline.IsHandleHeld)
             UpdateTimelineSlider();
 
-        _hoverOverlay.HandleMouseHover(
-            _isFullscreen,
-            IsControlsPanelRequired() || _isPlayPauseButtonClicked,
-            OnShowHoverOverlay);
+        _videoHoverOverlayController.HandleMouseHover(_isFullscreen, IsHoverOverlayFadeAllowed());
 
         if (_isPlayPauseButtonClicked)
             _isPlayPauseButtonClicked = false;
@@ -174,6 +146,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             HandleFullscreenControlsPanelAnimation();
         else
             _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, 0f);
+    }
+
+    private bool IsHoverOverlayFadeAllowed()
+    {
+        return !IsControlsPanelRequired() && !_isPlayPauseButtonClicked;
     }
 
     private void HandleFullscreenControlsPanelAnimation()
@@ -242,31 +219,21 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _activeVolumeTween = DOVirtual.Float(startValue, endValue, _slideDuration, SetAudioVolume);
     }
 
-    private void FadePlayPauseOverlaySymbol()
-    {
-        _playPauseOverlaySymbolAlpha = Mathf.MoveTowards(
-            _playPauseOverlaySymbolAlpha,
-            0f,
-            Time.deltaTime / _overlayButtonSymbolFadeTime);
-
-        _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
-    }
-
-    private void OnPlayPauseButtonClick()
+    private void OnOverlayButtonClick()
     {
         if (_videoPlayerController.IsVideoPaused())
         {
             _videoPlayerController.PlayVideo();
             _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-            ShowFadingOverlay(_playSymbol);
+            _videoHoverOverlayController.ShowFadingOverlay(_playSymbol);
         }
         else
         {
             _videoPlayerController.PauseVideo();
             _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-            ShowFadingOverlay(_playSymbol);
+            _videoHoverOverlayController.ShowFadingOverlay(_playSymbol);
         }
 
         _isPlayPauseButtonClicked = true;
@@ -278,16 +245,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private void ShowFullscreenControlPanel()
     {
         _fullscreenHoverControlsPanelShowTime = 0f;
-    }
-
-    private void ShowFadingOverlay(Sprite sprite)
-    {
-        _playPauseOverlaySymbolAlpha = 1f;
-
-        _overlayButton.SetSymbol(sprite);
-        _overlayButton.SetSymbolAlpha(_playPauseOverlaySymbolAlpha);
-
-        _hoverOverlay.Show();
     }
 
     private void OnUserMoveTimeline(float newTime)
@@ -317,9 +274,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         SetAudioMute(newState);
 
         if (newState == true)
-            ShowFadingOverlay(_mutedSymbol);
+            _videoHoverOverlayController.ShowFadingOverlay(_mutedSymbol);
         else
-            ShowFadingOverlay(_unmutedSymbol);
+            _videoHoverOverlayController.ShowFadingOverlay(_unmutedSymbol);
     }
 
     private void OnToggleFullscreenButtonClick()

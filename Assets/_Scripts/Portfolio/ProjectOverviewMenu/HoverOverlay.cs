@@ -5,8 +5,18 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class HoverOverlay : SnekMonoBehaviour
+public class HoverOverlay : SnekMonoBehaviour, ISnekInitializableWithData<HoverOverlay.Data>
 {
+    public readonly struct Data
+    {
+        public readonly Action OnShow;
+
+        public Data(Action onShow)
+        {
+            OnShow = onShow;
+        }
+    }
+
     private Image _image;
     private Canvas _canvas;
 
@@ -18,8 +28,15 @@ public class HoverOverlay : SnekMonoBehaviour
 
     [SerializeField] private AnimationCurve _fadeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
+    private Action _onShow;
+
     private float _currentAlpha = 0f;
     private float _currentFadeProgress = 0f;
+
+    public void PrepareInitializationData(Data data)
+    {
+        _onShow = data.OnShow;
+    }
 
     protected override void OnInitialize()
     {
@@ -27,30 +44,20 @@ public class HoverOverlay : SnekMonoBehaviour
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
     }
 
-    public void HandleMouseHover(bool isFullscreen, bool isFullAlphaLocked, Action onShowOverlay)
+    public void HandleMouseHoverUserActivityBased(bool isFadeAllowed)
     {
-        if (isFullscreen)
-        {
-            if (IsHovered() && IsMouseMoved())
-            {
-                Show();
+        if (IsHovered() && IsMouseMoved())
+            Show();
+        else if (IsOverlayVisible() && isFadeAllowed)
+            FadeAlpha();
+    }
 
-                onShowOverlay.Invoke();
-            }
-            else if (IsOverlayVisible() && !isFullAlphaLocked)
-                FadeAlpha();
-        }
-        else
-        {
-            if (IsHovered())
-            {
-                Show();
-
-                onShowOverlay.Invoke();
-            }
-            else if (IsOverlayVisible())
-                FadeAlpha();
-        }
+    public void HandleMouseHoverConstant()
+    {
+        if (IsHovered())
+            Show();
+        else if (IsOverlayVisible())
+            FadeAlpha();
     }
 
     private bool IsHovered()
@@ -80,6 +87,8 @@ public class HoverOverlay : SnekMonoBehaviour
         _currentFadeProgress = 1f;
 
         UpdateImageAlpha();
+
+        _onShow?.Invoke();
     }
 
     private void FadeAlpha()

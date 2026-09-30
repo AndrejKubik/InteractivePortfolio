@@ -17,13 +17,47 @@ namespace Snek.Utilities
         private List<SnekEssentialComponentReference> _essentialComponents = new();
         private List<SnekMonoSubcomponent> _subcomponents = new();
 
+        protected virtual void Awake()
+        {
+            if (!IsManuallyInitialized() && !IsInitializedInStart())
+                Initialize(false, false);
+        }
+
+        protected virtual void Start()
+        {
+            if (!IsManuallyInitialized() && IsInitializedInStart())
+                Initialize(false, false);
+        }
+
+        private void OnDestroy()
+        {
+            OnDispose();
+
+            foreach (SnekMonoSubcomponent subcomponent in _subcomponents)
+                subcomponent.Dispose();
+        }
+
+        /// <summary>
+        /// <list type="bullet"><c>True</c> = you can completely override the <c>Awake()</c></list>
+        /// <list type="bullet"><c>False</c> = you can completely override <c>Start()</c></list> 
+        /// </summary>
+        protected virtual bool IsInitializedInStart()
+        {
+            return false;
+        }
+
+        protected virtual bool IsManuallyInitialized()
+        {
+            return this is ISnekInitializableManual;
+        }
+
         public void Initialize<TData>(TData data)
         {
             if (this is ISnekInitializableWithData<TData> initializable)
             {
                 initializable.PrepareInitializationData(data);
 
-                Initialize();
+                Initialize(true, true);
             }
             else
                 Debug.LogError(
@@ -33,9 +67,16 @@ namespace Snek.Utilities
 
         public void Initialize()
         {
-            if(this is ISnekInitializableManual manualInitializable && manualInitializable.IsDataRequiredForInitialization())
+            Initialize(true, false);
+        }
+
+        private void Initialize(bool isManualInitialization, bool isDataPrepared)
+        {
+            if (isManualInitialization && IsDataRequiredForInitialization() && !isDataPrepared) //fix this
             {
-                Debug.LogError("This component requires data for initialization, use Initialize(TData data) overload instead.");
+                Debug.LogError(
+                    $"This component requires data for initialization, use Initialize(TData data) overload instead.\n" +
+                    $"Type: {GetType().Name}");
 
                 return;
             }
@@ -64,43 +105,9 @@ namespace Snek.Utilities
             }
         }
 
-        protected virtual void Awake()
+        private bool IsDataRequiredForInitialization()
         {
-            if (!IsManuallyInitialized() && !IsInitializedInStart())
-                Initialize();
-        }
-
-        protected virtual void Start()
-        {
-            if (!IsManuallyInitialized() && IsInitializedInStart())
-                Initialize();
-        }
-
-        private void OnDestroy()
-        {
-            OnDispose();
-
-            foreach (SnekMonoSubcomponent subcomponent in _subcomponents)
-                subcomponent.Dispose();
-        }
-
-        protected virtual void OnDispose()
-        {
-
-        }
-
-        /// <summary>
-        /// <list type="bullet"><c>True</c> = you can completely override the <c>Awake()</c></list>
-        /// <list type="bullet"><c>False</c> = you can completely override <c>Start()</c></list> 
-        /// </summary>
-        protected virtual bool IsInitializedInStart()
-        {
-            return false;
-        }
-
-        protected virtual bool IsManuallyInitialized()
-        {
-            return this is ISnekInitializableManual;
+            return this is ISnekInitializableManual manualInitializable && manualInitializable.IsDataRequiredForInitialization();
         }
 
         protected void InitializeSubcomponent<T>(out T subcomponent) where T : SnekMonoSubcomponent
@@ -116,7 +123,7 @@ namespace Snek.Utilities
         {
             subcomponent = new T();
 
-            if(subcomponent is ISnekInitializableWithData<TData> initializable)
+            if (subcomponent is ISnekInitializableWithData<TData> initializable)
             {
                 initializable.PrepareInitializationData(data);
                 subcomponent.Initialize(this);
@@ -133,14 +140,6 @@ namespace Snek.Utilities
             }
         }
 
-        /// <summary>
-        /// Use for getting components through code, called in <c>Awake()</c> or <c>Start()</c> before <c>Validate()</c>
-        /// </summary>
-        protected virtual void OnInitialize()
-        {
-
-        }
-
         private void ValidateEssentialComponents()
         {
             foreach (SnekEssentialComponentReference essentialComponent in _essentialComponents)
@@ -152,6 +151,9 @@ namespace Snek.Utilities
                 }
         }
 
+        /// <summary>
+        /// Use this to check if an Object type reference is populated, works only in <c>Validate()</c> method
+        /// </summary>
         protected void ValidateEssentialComponent<T>(T value, string name, bool nicifyName = true) where T : UnityEngine.Object
         {
             if (nicifyName)
@@ -159,30 +161,6 @@ namespace Snek.Utilities
 
             if (value == null)
                 FailValidation($"<b>{name}</b> is not assigned.");
-        }
-
-        /// <summary>
-        /// Use for checking if data setup is correct, called in <c>Awake()</c> or <c>Start()</c> after <c>Initialize()</c>
-        /// </summary>
-        protected virtual void Validate()
-        {
-
-        }
-
-        /// <summary>
-        /// Use for custom logic right before GameObject gets disabled in addition to error logs in the developer console
-        /// </summary>
-        protected virtual void OnFailValidation()
-        {
-
-        }
-
-        /// <summary>
-        /// Called in <c>Awake()</c> or <c>Start()</c> after <c>Validate()</c> if it was successful
-        /// </summary>
-        protected virtual void OnInitializationSuccess()
-        {
-
         }
 
         protected void GetEssentialComponent<T>(out T componentReference, SnekGetComponentContext searchContext = SnekGetComponentContext.Self) where T : Component
@@ -200,6 +178,9 @@ namespace Snek.Utilities
             _essentialComponents.Add(essentialReference);
         }
 
+        /// <summary>
+        /// Prints an error message in the console while making sure the <c>OnFailInitialization()</c> instead of <c>OnInitializationSuccess()</c> is called after <c>Validate()</c>, 
+        /// </summary>
         protected void FailValidation(string message)
         {
             _isValid = false;
@@ -211,5 +192,30 @@ namespace Snek.Utilities
         {
             return $"Component setup invalid, disabling game object <b>[{name}]</b>";
         }
+
+        /// <summary>
+        /// Use for getting component references through code
+        /// </summary>
+        protected virtual void OnInitialize() { }
+
+        /// <summary>
+        /// Use for checking if data setup is correct, relevant methods for validation: <c>ValidateEssentialComponent()</c>, <c>FailValidation()</c>
+        /// </summary>
+        protected virtual void Validate() { }
+
+        /// <summary>
+        /// Use for custom logic right before GameObject gets disabled in addition to error logs in the developer console
+        /// </summary>
+        protected virtual void OnFailValidation() { }
+
+        /// <summary>
+        /// Use this method as the logic entry point instead of Start() or Awake() methods
+        /// </summary>
+        protected virtual void OnInitializationSuccess() { }
+
+        /// <summary>
+        /// Called when the component instance(or its game object) is destroyed
+        /// </summary>
+        protected virtual void OnDispose() { }
     }
 }

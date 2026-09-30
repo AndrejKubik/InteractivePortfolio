@@ -24,6 +24,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private Canvas _canvas;
     private LayoutElement _layoutElement;
+
     private RectTransform _videoPreviewTransform;
 
     private const float VideoTopPadding = 15f;
@@ -36,8 +37,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     {
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
-
-        _videoPreviewTransform = _videoPreview.transform as RectTransform;
     }
 
     protected override void Validate()
@@ -56,13 +55,13 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         ValidateEssentialComponent(_videoPlayerContainerFullscreenBackground, nameof(_videoPlayerContainerFullscreenBackground));
         ValidateEssentialComponent(_aspectRatioFitterFullscreen, nameof(_aspectRatioFitterFullscreen));
         
-        ValidateEssentialComponent(_canvas, nameof(_canvas));
-        ValidateEssentialComponent(_layoutElement, nameof(_layoutElement));
         ValidateEssentialComponent(_videoPreviewTransform, nameof(_videoPreviewTransform));
     }
 
     protected override void OnInitializationSuccess()
     {
+        _videoPreviewTransform = _videoPreview.transform as RectTransform;
+
         _headerHeight = _videoPreviewHeader.rect.size.y;
         _controlsPanelHeight = _controlsPanelTransform.rect.size.y;
         _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
