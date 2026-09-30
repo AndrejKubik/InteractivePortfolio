@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 6070668801398973591}
   - component: {fileID: 7034795860249873091}
   - component: {fileID: 2253525754988258284}
+  - component: {fileID: 3969993505453379275}
   m_Layer: 5
   m_Name: VideoDemo
   m_TagString: Untagged
@@ -257,12 +258,9 @@ MonoBehaviour:
   _volumeMuteButton: {fileID: 8631796209477525130}
   _mutedSymbol: {fileID: 21300000, guid: 376774b881777b245afaea4e43c8ddbe, type: 3}
   _unmutedSymbol: {fileID: 21300000, guid: 52ba06715f9eb8244ac14e98e3c79dff, type: 3}
-  _hoverOverlay: {fileID: 1942104746884637577}
   _playPauseControlButton: {fileID: 214527747161454585}
-  _overlayButton: {fileID: 5505824749699410216}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
   _pauseSymbol: {fileID: 21300000, guid: df0d421cbdf8c104e92fb633e9774e17, type: 3}
-  _overlayButtonSymbolFadeTime: 0.5
   _fullscreenHoverControlsPanelShowTimeMax: 1.5
   _fullscreenControlsPanelHideCurve:
     serializedVersion: 2
@@ -335,6 +333,21 @@ MonoBehaviour:
   _videoPlayerContainerFullscreen: {fileID: 0}
   _videoPlayerContainerFullscreenBackground: {fileID: 0}
   _aspectRatioFitterFullscreen: {fileID: 0}
+--- !u!114 &3969993505453379275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786155341494635762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19da4968ec1d3314489d4ea41f9af260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoHoverOverlayController
+  _hoverOverlay: {fileID: 1942104746884637577}
+  _overlayButton: {fileID: 5505824749699410216}
+  _overlayButtonSymbolFadeTime: 0.5
 --- !u!1 &4713357560697007623
 GameObject:
   m_ObjectHideFlags: 0

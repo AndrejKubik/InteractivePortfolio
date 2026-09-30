@@ -62,7 +62,8 @@ namespace Snek.Utilities
             else
                 Debug.LogError(
                     $"{GetType().Name} is not of type {nameof(ISnekInitializableWithData<TData>)}.\n" +
-                    $"Cannot initialize with data.");
+                    $"Cannot initialize with data.\n" +
+                    $"Check if the provided initialization data type is correct.");
         }
 
         public void Initialize()
@@ -185,7 +186,7 @@ namespace Snek.Utilities
         {
             _isValid = false;
 
-            Debug.LogError(message, gameObject);
+            Debug.LogError($"[{GetType().Name}] {message}", gameObject);
         }
 
         private string GetInvalidSetupMessage()

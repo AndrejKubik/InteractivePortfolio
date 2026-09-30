@@ -7,15 +7,11 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
 {
     public readonly struct Data
     {
-        public readonly Sprite PlaySymbol;
-        public readonly Sprite PauseSymbol;
         public readonly Action OnOverlayButtonClick;
         public readonly Action OnShowOverlay;
 
-        public Data(Sprite playSymbol, Sprite pauseSymbol, Action onOverlayButtonClick, Action onShowOverlay)
+        public Data(Action onOverlayButtonClick, Action onShowOverlay)
         {
-            PlaySymbol = playSymbol;
-            PauseSymbol = pauseSymbol;
             OnOverlayButtonClick = onOverlayButtonClick;
             OnShowOverlay = onShowOverlay;
         }
@@ -27,8 +23,6 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
     [Min(0f)]
     [SerializeField] private float _overlayButtonSymbolFadeTime = 0.5f;
 
-    private Sprite _playSymbol;
-    private Sprite _pauseSymbol;
     private Action _onOverlayButtonClick;
     private Action _onShowOverlay;
 
@@ -36,8 +30,6 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
 
     public void PrepareInitializationData(Data data)
     {
-        _playSymbol = data.PlaySymbol;
-        _pauseSymbol = data.PauseSymbol;
         _onOverlayButtonClick = data.OnOverlayButtonClick;
         _onShowOverlay = data.OnShowOverlay;
     }
@@ -46,9 +38,6 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
     {
         ValidateEssentialComponent(_hoverOverlay, nameof(_hoverOverlay));
         ValidateEssentialComponent(_overlayButton, nameof(_overlayButton));
-
-        ValidateEssentialComponent(_playSymbol, nameof(_playSymbol));
-        ValidateEssentialComponent(_pauseSymbol, nameof(_pauseSymbol));
     }
 
     protected override void OnInitializationSuccess()
@@ -56,7 +45,6 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
         _hoverOverlay.Initialize(new HoverOverlay.Data(_onShowOverlay));
 
         _overlayButton.SetExternalCallback(_onOverlayButtonClick);
-        _overlayButton.SetSymbol(_playSymbol);
     }
 
     private void Update()

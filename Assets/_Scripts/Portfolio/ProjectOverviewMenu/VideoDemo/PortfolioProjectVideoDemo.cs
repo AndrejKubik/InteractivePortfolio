@@ -114,19 +114,23 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             OnVideoPrepared));
 
         _videoPreviewController.Initialize();
-        _videoHoverOverlayController.Initialize(new HoverOverlay.Data(OnShowHoverOverlay));
+
+        _videoHoverOverlayController.Initialize(new PortfolioProjectVideoHoverOverlayController.Data(
+            OnPlayPauseButtonClick,
+            OnShowHoverOverlay));
 
         _videoTimeline.Initialize(new PortfolioProjectVideoDemoTimeline.Data(OnUserMoveTimeline));
         _volumeSlider.Initialize(new VideoPlayerVolumeSlider.Data(OnVolumeChange));
 
         _volumeMuteButton.SetExternalCallback(OnMuteButtonClick);
 
-        _playPauseControlButton.SetExternalCallback(OnOverlayButtonClick);
+        _playPauseControlButton.SetExternalCallback(OnPlayPauseButtonClick);
         _playPauseControlButton.SetSymbol(_pauseSymbol);
 
         _toggleFullScreenButton.SetExternalCallback(OnToggleFullscreenButtonClick);
 
         _isFullscreen = false;
+        _controlsPanelHeight = _controlsPanel.rect.height;
 
         LoadAudioSettings();
     }
@@ -219,7 +223,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _activeVolumeTween = DOVirtual.Float(startValue, endValue, _slideDuration, SetAudioVolume);
     }
 
-    private void OnOverlayButtonClick()
+    private void OnPlayPauseButtonClick()
     {
         if (_videoPlayerController.IsVideoPaused())
         {
@@ -233,7 +237,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoPlayerController.PauseVideo();
             _playPauseControlButton.SetSymbol(_pauseSymbol);
 
-            _videoHoverOverlayController.ShowFadingOverlay(_playSymbol);
+            _videoHoverOverlayController.ShowFadingOverlay(_pauseSymbol);
         }
 
         _isPlayPauseButtonClicked = true;

@@ -54,8 +54,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
         ValidateEssentialComponent(_videoPlayerContainerFullscreenBackground, nameof(_videoPlayerContainerFullscreenBackground));
         ValidateEssentialComponent(_aspectRatioFitterFullscreen, nameof(_aspectRatioFitterFullscreen));
-        
-        ValidateEssentialComponent(_videoPreviewTransform, nameof(_videoPreviewTransform));
     }
 
     protected override void OnInitializationSuccess()
