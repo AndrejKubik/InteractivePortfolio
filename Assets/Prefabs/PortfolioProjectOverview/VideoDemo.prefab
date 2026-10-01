@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 7034795860249873091}
   - component: {fileID: 2253525754988258284}
   - component: {fileID: 3969993505453379275}
+  - component: {fileID: 3949651399616262936}
   m_Layer: 5
   m_Name: VideoDemo
   m_TagString: Untagged
@@ -252,7 +253,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoDemo
   _videoPlayer: {fileID: 179511740938479375}
-  _controlsPanel: {fileID: 5809681728907727446}
   _videoTimeline: {fileID: 5235894426067751768}
   _volumeSlider: {fileID: 4651308478419652481}
   _volumeMuteButton: {fileID: 8631796209477525130}
@@ -261,40 +261,6 @@ MonoBehaviour:
   _playPauseControlButton: {fileID: 214527747161454585}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
   _pauseSymbol: {fileID: 21300000, guid: df0d421cbdf8c104e92fb633e9774e17, type: 3}
-  _fullscreenHoverControlsPanelShowTimeMax: 1.5
-  _fullscreenControlsPanelHideCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9009474
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -10.095645
-      outSlope: -10.095645
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _toggleFullScreenButton: {fileID: 5944349526471412662}
   _fullscreenOnSymbol: {fileID: 21300000, guid: 4471fb2763b90ce4ab053601b0f07049, type: 3}
   _fullscreenOffSymbol: {fileID: 21300000, guid: f8a9ddb7e6f96a145851c93011ad3d46, type: 3}
@@ -348,6 +314,53 @@ MonoBehaviour:
   _hoverOverlay: {fileID: 1942104746884637577}
   _overlayButton: {fileID: 5505824749699410216}
   _overlayButtonSymbolFadeTime: 0.5
+--- !u!114 &3949651399616262936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786155341494635762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1a7da80d8c8f24691ebf333f89d026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoControlsPanelController
+  _controlsPanel: {fileID: 5809681728907727446}
+  _fullscreenHoverControlsPanelShowTimeMax: 1.5
+  _fullscreenControlsPanelHideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9009474
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -10.095645
+      outSlope: -10.095645
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4713357560697007623
 GameObject:
   m_ObjectHideFlags: 0
