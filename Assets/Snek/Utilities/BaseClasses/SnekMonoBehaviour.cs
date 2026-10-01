@@ -169,8 +169,8 @@ namespace Snek.Utilities
             componentReference = searchContext switch
             {
                 SnekGetComponentContext.Self => GetComponent<T>(),
-                SnekGetComponentContext.Children => GetComponentInChildren<T>(),
-                SnekGetComponentContext.Parents => GetComponentInParent<T>(),
+                SnekGetComponentContext.Children => GetComponentInChildren<T>(true),
+                SnekGetComponentContext.Parents => GetComponentInParent<T>(true),
                 _ => GetComponent<T>(),
             };
 

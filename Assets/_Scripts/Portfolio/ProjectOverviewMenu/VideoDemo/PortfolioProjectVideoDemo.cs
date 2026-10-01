@@ -173,7 +173,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     public void FadeVolume()
     {
-        StartFadeVolumeTween(_volumeSlider.Slider.value, 0f);
+        StartFadeVolumeTween(_volumeSlider.GetValue(), 0f);
     }
 
     private void StartFadeVolumeTween(float startValue, float endValue)

@@ -33,7 +33,7 @@ namespace Snek.SettingsMenu
 
         private void OnEnable()
         {
-            Slider.SetValueWithoutNotify(_audioSourceManager.GetVolume());
+            _slider.SetValueWithoutNotify(_audioSourceManager.GetVolume());
         }
 
         protected override void OnSliderMove(float newValue)

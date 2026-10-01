@@ -52,7 +52,7 @@ public class SnekUISliderTester : SnekUISlider
 
     private void UpdateValueText()
     {
-        float textValue = MathF.Round(Slider.value, 2);
+        float textValue = MathF.Round(_slider.value, 2);
 
         _valueTextMesh.SetText(textValue.ToString());
     }

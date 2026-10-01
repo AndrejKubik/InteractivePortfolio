@@ -7,9 +7,9 @@ namespace Snek.GameUI
 {
     [UseSnekInspector]
     [RequireComponent(typeof(Slider))]
-    public abstract class SnekUISlider : SnekMonoBehaviour
+    public abstract class SnekUISlider : SnekMonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        public Slider Slider { get; private set; }
+        protected Slider _slider;
 
         private SnekUISliderHandle _handle;
 
@@ -34,13 +34,13 @@ namespace Snek.GameUI
 
         protected override void OnInitialize()
         {
-            Slider = GetComponent<Slider>();
-            _handle = GetComponentInChildren<SnekUISliderHandle>(true);
+            GetEssentialComponent(out _slider);
+            GetEssentialComponent(out _handle, SnekGetComponentContext.Children);
         }
 
         protected override void Validate()
         {
-            if (!Slider)
+            if (!_slider)
                 FailValidation("Cannot find Slider component.");
 
             if (!_handle)
@@ -49,28 +49,28 @@ namespace Snek.GameUI
 
         protected override void OnInitializationSuccess()
         {
-            Slider.wholeNumbers = SetupData.UseWholeNumbers;
-            Slider.minValue = SetupData.MinValue;
-            Slider.maxValue = SetupData.MaxValue;
+            _slider.wholeNumbers = SetupData.UseWholeNumbers;
+            _slider.minValue = SetupData.MinValue;
+            _slider.maxValue = SetupData.MaxValue;
 
-            Slider.onValueChanged.AddListener(OnSliderMoveInternal);
-
+            _slider.onValueChanged.AddListener(OnSliderMoveInternal);
+            
             _handle.SetUserActionCallbacks(
                 OnHandleGrabInternal,
                 OnHandleDragInternal,
                 OnHandleReleaseInternal);
 
             if (UseDragThreshold)
-                _dragThresholdManager = new SnekUISliderDragThresholdManager(Slider, DragThresholdPercent, OnDragThresholdReach);
+                _dragThresholdManager = new SnekUISliderDragThresholdManager(_slider, DragThresholdPercent, OnDragThresholdReach);
 
             if (UseDragAreas)
-                _dragAreaManager = new SnekUISliderDragAreaManager(Slider, DragAreaCount, OnDragAreaChange);
+                _dragAreaManager = new SnekUISliderDragAreaManager(_slider, DragAreaCount, OnDragAreaChange);
         }
 
         protected virtual void OnDestroy()
         {
             if (_isValid)
-                Slider.onValueChanged.RemoveListener(OnSliderMove);
+                _slider.onValueChanged.RemoveListener(OnSliderMove);
         }
 
         private void OnSliderMoveInternal(float newValue)
@@ -87,34 +87,19 @@ namespace Snek.GameUI
                 _dragAreaManager.OnSliderMove();
         }
 
-        protected virtual void OnSliderMove(float newValue)
+        public void OnPointerDown(PointerEventData eventData)
         {
-
+            IsHandleHeld = true;
         }
 
-        protected virtual void OnHandleGrab()
+        public void OnPointerUp(PointerEventData eventData)
         {
-
-        }
-
-        protected virtual void OnDragThresholdReach()
-        {
-
-        }
-
-        protected virtual void OnDragAreaChange()
-        {
-
-        }
-
-        protected virtual void OnHandleRelease()
-        {
-
+            IsHandleHeld = false;
         }
 
         private void OnHandleGrabInternal(PointerEventData eventData)
         {
-            Slider.OnPointerDown(eventData);
+            _slider.OnPointerDown(eventData);
 
             OnHandleGrabBase();
             OnHandleGrab();
@@ -133,12 +118,12 @@ namespace Snek.GameUI
 
         private void OnHandleDragInternal(PointerEventData eventData)
         {
-            Slider.OnDrag(eventData);
+            _slider.OnDrag(eventData);
         }
 
         private void OnHandleReleaseInternal(PointerEventData eventData)
         {
-            Slider.OnPointerUp(eventData);
+            _slider.OnPointerUp(eventData);
 
             IsHandleHeld = false;
 
@@ -155,14 +140,24 @@ namespace Snek.GameUI
             }
 
             if (notifySliderMove)
-                Slider.value = newValue;
+                _slider.value = newValue;
             else
-                Slider.SetValueWithoutNotify(newValue);
+                _slider.SetValueWithoutNotify(newValue);
         }
 
         public float GetValue()
         {
-            return Slider.value;
+            return _slider.value;
         }
+
+        protected virtual void OnSliderMove(float newValue) { }
+
+        protected virtual void OnHandleGrab() { }
+
+        protected virtual void OnDragThresholdReach() { }
+
+        protected virtual void OnDragAreaChange() { }
+
+        protected virtual void OnHandleRelease() { }
     }
 }
