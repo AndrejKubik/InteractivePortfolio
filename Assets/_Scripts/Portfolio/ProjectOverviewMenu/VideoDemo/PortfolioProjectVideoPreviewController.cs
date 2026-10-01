@@ -1,5 +1,6 @@
 using Snek.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 [UseSnekInspector]
@@ -83,15 +84,24 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         _videoPreview.texture = texture;
     }
 
-    public void SetFullscreenMode(bool newState)
+    public void ActivateFullscreenPreview()
     {
-        RectTransform targetParent = newState ?
-            _videoPlayerContainerFullscreen : _videoPlayerContainerMini;
+        MovePreviewToNewParent(_videoPlayerContainerFullscreen);
 
-        _videoPreviewTransform.SetParent(targetParent, true);
+        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(true);
+    }
+
+    public void ActivateMiniPreview()
+    {
+        MovePreviewToNewParent(_videoPlayerContainerMini);
+
+        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(false);
+    }
+
+    private void MovePreviewToNewParent(RectTransform rectTransform)
+    {
+        _videoPreviewTransform.SetParent(rectTransform, true);
         _videoPreviewTransform.ResetAnchorOffset();
-
-        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(newState);
     }
 
     public void ApplyAspectRatioToVideoRect(float videoWidth, float videoHeight)

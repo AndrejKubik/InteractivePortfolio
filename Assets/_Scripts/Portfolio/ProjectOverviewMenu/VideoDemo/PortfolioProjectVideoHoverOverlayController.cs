@@ -53,12 +53,14 @@ public class PortfolioProjectVideoHoverOverlayController : SnekMonoBehaviour, IS
             FadeOverlaySymbol();
     }
 
-    public void HandleMouseHover(bool isFullscreen, bool isFadeAllowed)
+    public void ControlHoverOverlayUserActivityBased(bool isFadeAllowed)
     {
-        if(isFullscreen)
-            _hoverOverlay.HandleMouseHoverUserActivityBased(isFadeAllowed);
-        else
-            _hoverOverlay.HandleMouseHoverConstant();
+        _hoverOverlay.HandleMouseHoverUserActivityBased(isFadeAllowed);
+    }
+
+    public void ControlHoverOverlayConstant()
+    {
+        _hoverOverlay.HandleMouseHoverConstant();
     }
 
     private void FadeOverlaySymbol()

@@ -14,8 +14,6 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour
     private float _controlsPanelHeight = 0f;
     private float _fullscreenHoverControlsPanelShowTime = 0f;
 
-    private bool _isFullscreenMode = false;
-
     protected override void Validate()
     {
         ValidateEssentialComponent(_controlsPanel, nameof(_controlsPanel));
@@ -26,13 +24,7 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour
         _controlsPanelHeight = _controlsPanel.rect.height;
     }
 
-    private void Update()
-    {
-        if (_isFullscreenMode)
-            HandleFullscreenControlsPanelAnimation();
-    }
-
-    public void HandleFullscreenControlsPanelAnimation()
+    public void ControllFullscreenControlsPanelAnimation()
     {
         float showProgress = _fullscreenHoverControlsPanelShowTime / _fullscreenHoverControlsPanelShowTimeMax;
         float showProgressCurved = _fullscreenControlsPanelHideCurve.Evaluate(showProgress);
@@ -51,16 +43,6 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour
             _fullscreenHoverControlsPanelShowTimeMax);
     }
 
-    public void SetFullscreenMode(bool newState)
-    {
-        _isFullscreenMode = newState;
-
-        if (_isFullscreenMode)
-            ShowFullscreenControlPanel();
-        else
-            MoveControlsPanelToMiniPlayerDefaultPosition();
-    }
-
     public void ShowFullscreenControlPanel()
     {
         MoveControlsPanelToFullscreenPlayerDefaultPosition();
@@ -73,7 +55,7 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour
         _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, 0f);
     }
 
-    public void MoveControlsPanelToFullscreenPlayerDefaultPosition()
+    private void MoveControlsPanelToFullscreenPlayerDefaultPosition()
     {
         _controlsPanel.anchoredPosition = new Vector2(_controlsPanel.anchoredPosition.x, _controlsPanelHeight);
     }

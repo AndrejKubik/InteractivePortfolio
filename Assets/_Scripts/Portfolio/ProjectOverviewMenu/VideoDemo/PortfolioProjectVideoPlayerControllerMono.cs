@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 
 [UseSnekInspector]
-public class PortfolioProjectVideoPlayerControllerMono : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoPlayerControllerMono.Data>
+public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectVideoPlayerController.Data>
 {
     public delegate void OnVideoPreparedCallback(VideoPlayer source);
 

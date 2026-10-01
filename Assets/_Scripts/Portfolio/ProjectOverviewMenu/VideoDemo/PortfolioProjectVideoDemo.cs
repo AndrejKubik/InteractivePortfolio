@@ -4,7 +4,7 @@ using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.Video;
 
-[RequireComponent(typeof(PortfolioProjectVideoPlayerControllerMono))]
+[RequireComponent(typeof(PortfolioProjectVideoPlayerController))]
 [RequireComponent(typeof(PortfolioProjectVideoPreviewController))]
 [RequireComponent(typeof(PortfolioProjectVideoHoverOverlayController))]
 [RequireComponent(typeof(PortfolioProjectVideoControlsPanelController))]
@@ -50,7 +50,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private float _slideDuration = 0f;
     private Action<VideoAspectForm> _onVideoPrepared = null;
 
-    private PortfolioProjectVideoPlayerControllerMono _videoPlayerController;
+    private PortfolioProjectVideoPlayerController _videoPlayerController;
     private PortfolioProjectVideoPreviewController _videoPreviewController;
     private PortfolioProjectVideoHoverOverlayController _videoHoverOverlayController;
     private PortfolioProjectVideoControlsPanelController _videoControlsPanelController;
@@ -103,7 +103,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void OnInitializationSuccess()
     {
-        _videoPlayerController.Initialize(new PortfolioProjectVideoPlayerControllerMono.Data(
+        _videoPlayerController.Initialize(new PortfolioProjectVideoPlayerController.Data(
             _videoURL,
             OnVideoPrepared));
 
@@ -133,7 +133,13 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         if (!_videoPlayerController.IsVideoSeeking && !_videoTimeline.IsHandleHeld)
             UpdateTimelineSlider();
 
-        _videoHoverOverlayController.HandleMouseHover(_isFullscreen, IsHoverOverlayFadeAllowed());
+        if (_isFullscreen)
+        {
+            _videoHoverOverlayController.ControlHoverOverlayUserActivityBased(IsHoverOverlayFadeAllowed());
+            _videoControlsPanelController.ControllFullscreenControlsPanelAnimation();
+        }
+        else
+            _videoHoverOverlayController.ControlHoverOverlayConstant();
 
         if (_isPlayPauseButtonClicked)
             _isPlayPauseButtonClicked = false;
@@ -237,8 +243,16 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     {
         _isFullscreen = !_isFullscreen;
 
-        _videoPreviewController.SetFullscreenMode(_isFullscreen);
-        _videoControlsPanelController.SetFullscreenMode(_isFullscreen);
+        if(_isFullscreen)
+        {
+            _videoPreviewController.ActivateFullscreenPreview();
+            _videoControlsPanelController.ShowFullscreenControlPanel();
+        }
+        else
+        {
+            _videoPreviewController.ActivateMiniPreview();
+            _videoControlsPanelController.MoveControlsPanelToMiniPlayerDefaultPosition();
+        }
 
         Sprite fullscreenButtonSymbol = _isFullscreen ?
             _fullscreenOffSymbol : _fullscreenOnSymbol;
