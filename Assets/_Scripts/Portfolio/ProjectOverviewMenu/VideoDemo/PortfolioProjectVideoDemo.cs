@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.Video;
@@ -54,7 +55,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     private float _savedVolume = 0f;
     private bool _savedMuteState = false;
 
-    private bool _isFullscreen = false;
+    public bool IsFullscreen { get; private set; }
 
     private bool _isPlayPauseButtonClicked = false;
 
@@ -89,6 +90,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         if (string.IsNullOrEmpty(_videoURL))
             FailValidation("Invalid video URL provided.");
 
+        if (_onVideoPrepared == null)
+            FailValidation("Video prepared callback not assigned.");
+
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
 
         ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
@@ -121,7 +125,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void OnInitializationSuccess()
     {
-        _isFullscreen = false;
+        IsFullscreen = false;
 
         LoadAudioSettings();
     }
@@ -131,7 +135,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         if (IsVideoTimelineAutoUpdateAllowed())
             _videoControlsPanelController.SetTimelineProgress(_videoPlayerController.GetVideoProgress());
 
-        if (_isFullscreen)
+        if (IsFullscreen)
         {
             _videoHoverOverlayController.ControlHoverOverlayUserActivityBased(IsHoverOverlayFadeAllowed());
             _videoControlsPanelController.ControllFullscreenControlsPanelAnimation();
@@ -155,7 +159,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private void OnShowHoverOverlay()
     {
-        if (_isFullscreen)
+        if (IsFullscreen)
             _videoControlsPanelController.ShowFullscreenControlPanel();
     }
 
@@ -201,7 +205,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
         _isPlayPauseButtonClicked = true;
 
-        if (_isFullscreen)
+        if (IsFullscreen)
             _videoControlsPanelController.ShowFullscreenControlPanel();
     }
 
@@ -225,11 +229,11 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoHoverOverlayController.ShowFadingOverlay(_unmutedSymbol);
     }
 
-    private void ToggleFullscreenMode()
+    public void ToggleFullscreenMode()
     {
-        _isFullscreen = !_isFullscreen;
+        IsFullscreen = !IsFullscreen;
 
-        if (_isFullscreen)
+        if (IsFullscreen)
         {
             _videoPreviewController.ActivateFullscreenPreview();
             _videoControlsPanelController.ShowFullscreenControlPanel();
@@ -240,7 +244,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoControlsPanelController.MoveControlsPanelToMiniPlayerDefaultPosition();
         }
 
-        Sprite fullscreenButtonSymbol = _isFullscreen ?
+        Sprite fullscreenButtonSymbol = IsFullscreen ?
             _fullscreenOffSymbol : _fullscreenOnSymbol;
 
         _videoControlsPanelController.SetToggleFullscreenButtonSymbol(fullscreenButtonSymbol);

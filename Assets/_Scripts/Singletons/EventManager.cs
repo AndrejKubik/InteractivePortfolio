@@ -1,6 +1,7 @@
 using System;
 using Snek.SingletonManager;
 using Snek.Utilities;
+using UnityEngine.InputSystem;
 
 [UseSnekInspector]
 public class EventManager : SnekMonoSingleton
@@ -16,5 +17,13 @@ public class EventManager : SnekMonoSingleton
     public void RequestShowAllProjects()
     {
         OnRequestShowAllProjects?.Invoke();
+    }
+
+    public event Action OnPressEscapeKey;
+
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            OnPressEscapeKey?.Invoke();
     }
 }

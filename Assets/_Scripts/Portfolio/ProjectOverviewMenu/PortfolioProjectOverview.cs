@@ -91,6 +91,9 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     protected override void OnInitializationSuccess()
     {
+        if (!_isInitializedOnce)
+            _eventManager.OnPressEscapeKey += OnPressEscapeKey;
+
         _thumbnail.sprite = _project.GetThumbnail();
 
         _projectName.SetText(_project.GetProjectName());
@@ -101,6 +104,19 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
             OnVideoDemoPrepared));
 
         _backToAllProjectsButton.SetExternalCallback(_eventManager.RequestShowAllProjects);
+    }
+
+    protected override void OnDispose()
+    {
+        _eventManager.OnPressEscapeKey -= OnPressEscapeKey;
+    }
+
+    private void OnPressEscapeKey()
+    {
+        if (_videoDemo.IsFullscreen)
+            _videoDemo.ToggleFullscreenMode();
+        else
+            _eventManager.RequestShowAllProjects();
     }
 
     private void OnVideoDemoPrepared(VideoAspectForm videoAspectForm)

@@ -61,12 +61,6 @@ public class PortfolioMenuController : SnekMonoBehaviour
         _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
     }
 
-    private void Update()
-    {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            _eventManager.RequestShowAllProjects();
-    }
-
     private void OnRequestProjectOverview(PortfolioProject project)
     {
         ShowProjectOverviewMenu(project);
