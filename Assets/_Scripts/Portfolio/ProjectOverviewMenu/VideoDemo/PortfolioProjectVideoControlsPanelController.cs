@@ -90,6 +90,8 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour, I
         _volumeMuteButton.SetExternalCallback(_onMuteAudioButtonClick);
         _playPauseControlButton.SetExternalCallback(_onPlayPauseButtonClick);
         _toggleFullScreenButton.SetExternalCallback(_onToggleFullscreenButtonClick);
+
+        _videoTimeline.SetValue(0f);
     }
 
     private void OnVolumeChange(float newValue)
