@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverOverlay
   _maxAlpha: 0.8
-  _fadeTime: 1.5
+  _fadeTime: 2
   _fadeCurve:
     serializedVersion: 2
     m_Curve:

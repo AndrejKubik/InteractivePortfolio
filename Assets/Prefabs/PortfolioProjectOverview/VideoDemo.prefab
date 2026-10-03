@@ -253,15 +253,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoDemo
   _videoPlayer: {fileID: 179511740938479375}
-  _videoTimeline: {fileID: 5235894426067751768}
-  _volumeSlider: {fileID: 4651308478419652481}
-  _volumeMuteButton: {fileID: 8631796209477525130}
   _mutedSymbol: {fileID: 21300000, guid: 376774b881777b245afaea4e43c8ddbe, type: 3}
   _unmutedSymbol: {fileID: 21300000, guid: 52ba06715f9eb8244ac14e98e3c79dff, type: 3}
-  _playPauseControlButton: {fileID: 214527747161454585}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
   _pauseSymbol: {fileID: 21300000, guid: df0d421cbdf8c104e92fb633e9774e17, type: 3}
-  _toggleFullScreenButton: {fileID: 5944349526471412662}
   _fullscreenOnSymbol: {fileID: 21300000, guid: 4471fb2763b90ce4ab053601b0f07049, type: 3}
   _fullscreenOffSymbol: {fileID: 21300000, guid: f8a9ddb7e6f96a145851c93011ad3d46, type: 3}
 --- !u!114 &7034795860249873091
@@ -327,6 +322,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoControlsPanelController
   _controlsPanel: {fileID: 5809681728907727446}
+  _videoTimeline: {fileID: 5235894426067751768}
+  _volumeSlider: {fileID: 4651308478419652481}
+  _volumeMuteButton: {fileID: 8631796209477525130}
+  _playPauseControlButton: {fileID: 214527747161454585}
+  _toggleFullScreenButton: {fileID: 5944349526471412662}
   _fullscreenHoverControlsPanelShowTimeMax: 1.5
   _fullscreenControlsPanelHideCurve:
     serializedVersion: 2

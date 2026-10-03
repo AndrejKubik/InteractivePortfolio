@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,16 +18,20 @@ namespace Snek.Utilities
         private List<SnekEssentialComponentReference> _essentialComponents = new();
         private List<SnekMonoSubcomponent> _subcomponents = new();
 
+        private SnekMonoBehaviour[] _subdependencies = null;
+
+        private Coroutine _initializationProcess = null;
+
         protected virtual void Awake()
         {
             if (!IsManuallyInitialized() && !IsInitializedInStart())
-                Initialize(false, false);
+                StartCoroutine(Initialize(false, false));
         }
 
         protected virtual void Start()
         {
             if (!IsManuallyInitialized() && IsInitializedInStart())
-                Initialize(false, false);
+                StartCoroutine(Initialize(false, false));
         }
 
         private void OnDestroy()
@@ -35,6 +40,9 @@ namespace Snek.Utilities
 
             foreach (SnekMonoSubcomponent subcomponent in _subcomponents)
                 subcomponent.Dispose();
+
+            if (_initializationProcess != null)
+                StopCoroutine(_initializationProcess);
         }
 
         /// <summary>
@@ -57,7 +65,7 @@ namespace Snek.Utilities
             {
                 initializable.PrepareInitializationData(data);
 
-                Initialize(true, true);
+                _initializationProcess = StartCoroutine(Initialize(true, true));
             }
             else
                 Debug.LogError(
@@ -68,18 +76,18 @@ namespace Snek.Utilities
 
         public void Initialize()
         {
-            Initialize(true, false);
+            _initializationProcess = StartCoroutine(Initialize(true, false));
         }
 
-        private void Initialize(bool isManualInitialization, bool isDataPrepared)
+        private IEnumerator Initialize(bool isManualInitialization, bool isDataPrepared)
         {
-            if (isManualInitialization && IsDataRequiredForInitialization() && !isDataPrepared) //fix this
+            if (isManualInitialization && IsDataRequiredForInitialization() && !isDataPrepared)
             {
                 Debug.LogError(
                     $"This component requires data for initialization, use Initialize(TData data) overload instead.\n" +
                     $"Type: {GetType().Name}");
 
-                return;
+                yield break;
             }
 
             _isValid = true;
@@ -90,6 +98,22 @@ namespace Snek.Utilities
             if (_isValid)
                 Validate();
 
+            if(_isValid)
+            {
+                _subdependencies = GetSubdependencies();
+
+                if (IsUsingSubdependencies())
+                {
+                    OnInitializeSubdependencies();
+
+                    while (!IsEverySubdependencyInitialized())
+                        yield return null;
+
+                    if (!IsEverySubdependencyValid())
+                        FailValidation("Not all subdependencies were initialized successfully.");
+                }
+            }
+
             if (!_isValid)
             {
                 Debug.LogError(GetInvalidSetupMessage(), gameObject);
@@ -97,18 +121,48 @@ namespace Snek.Utilities
                 OnFailValidation();
 
                 gameObject.SetActive(false);
-            }
-            else
-            {
-                OnInitializationSuccess();
 
-                _isInitializedOnce = true;
+                yield break;
             }
+
+            OnInitializationSuccess();
+
+            _isInitializedOnce = true;
         }
 
         private bool IsDataRequiredForInitialization()
         {
             return this is ISnekInitializableManual manualInitializable && manualInitializable.IsDataRequiredForInitialization();
+        }
+
+        private bool IsUsingSubdependencies()
+        {
+            return _subdependencies != null && _subdependencies.Length > 0;
+        }
+
+        private bool IsEverySubdependencyInitialized()
+        {
+            if (IsUsingSubdependencies())
+                foreach (SnekMonoBehaviour dependency in _subdependencies)
+                    if (!dependency._isInitializedOnce)
+                        return false;
+
+            return true;
+        }
+
+        private bool IsEverySubdependencyValid()
+        {
+            if (IsUsingSubdependencies())
+                foreach (SnekMonoBehaviour dependency in _subdependencies)
+                    if (!dependency._isValid)
+                        return false;
+
+            return true;
+        }
+
+        protected virtual SnekMonoBehaviour[] GetSubdependencies()
+        {
+            return null;
         }
 
         protected void InitializeSubcomponent<T>(out T subcomponent) where T : SnekMonoSubcomponent
@@ -210,7 +264,12 @@ namespace Snek.Utilities
         protected virtual void OnFailValidation() { }
 
         /// <summary>
-        /// Use this method as the logic entry point instead of Start() or Awake() methods
+        /// Use for initializing subdependency SnekMonoBehaviour components, called after validation was successful
+        /// </summary>
+        protected virtual void OnInitializeSubdependencies() { }
+
+        /// <summary>
+        /// Use as the logic entry point instead of Start() or Awake() methods
         /// </summary>
         protected virtual void OnInitializationSuccess() { }
 
