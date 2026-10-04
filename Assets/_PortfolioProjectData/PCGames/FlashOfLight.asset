@@ -30,6 +30,4 @@ MonoBehaviour:
   - Name: 
     Text: Character animations with blend trees and animation rigging
   - Name: 
-    Text: Character animations with blend trees and animation rigging
-  - Name: 
     Text: Map system with landmarks, which trigger narrator voice lines
