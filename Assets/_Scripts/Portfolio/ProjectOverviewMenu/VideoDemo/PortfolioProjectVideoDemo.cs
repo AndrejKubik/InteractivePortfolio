@@ -116,7 +116,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             OnShowHoverOverlay));
 
         _videoControlsPanelController.Initialize(new PortfolioProjectVideoControlsPanelController.Data(
-            _videoPlayerController.SeekVideo,
+            _videoPlayerController.TrySeekVideo,
             SetAudioVolume,
             ToggleAudioMuteMode,
             ToggleFullscreenMode,

@@ -1,6 +1,7 @@
 using System;
 using Snek.GameUI;
 using Snek.Utilities;
+using Unity.Collections.LowLevel.Unsafe;
 
 [UseSnekInspector]
 public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializableWithData<PortfolioProjectVideoDemoTimeline.Data>
@@ -33,5 +34,10 @@ public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializabl
     protected override void OnSliderMove(float newValue)
     {
         _onUserMoveSlider.Invoke(newValue);
+    }
+
+    protected override void OnHandleRelease()
+    {
+        _onUserMoveSlider.Invoke(GetValue());
     }
 }

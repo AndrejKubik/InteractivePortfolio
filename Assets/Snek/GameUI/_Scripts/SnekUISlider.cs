@@ -67,10 +67,9 @@ namespace Snek.GameUI
                 _dragAreaManager = new SnekUISliderDragAreaManager(_slider, DragAreaCount, OnDragAreaChange);
         }
 
-        protected virtual void OnDestroy()
+        protected override void OnDispose()
         {
-            if (_isValid)
-                _slider.onValueChanged.RemoveListener(OnSliderMove);
+            _slider.onValueChanged.RemoveListener(OnSliderMoveInternal);
         }
 
         private void OnSliderMoveInternal(float newValue)
@@ -89,12 +88,12 @@ namespace Snek.GameUI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            IsHandleHeld = true;
+            OnHandleGrabInternal(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            IsHandleHeld = false;
+            OnHandleReleaseInternal(eventData);
         }
 
         private void OnHandleGrabInternal(PointerEventData eventData)

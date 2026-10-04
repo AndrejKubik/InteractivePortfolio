@@ -28,6 +28,8 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     private float _videoTotalTime = 0f;
     public bool IsVideoSeeking { get; private set; }
 
+    private float? _videoSeekTargetTime = null;
+
     public void PrepareInitializationData(Data data)
     {
         _videoURL = data.VideoURL;
@@ -61,9 +63,6 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
 
     protected override void OnDispose()
     {
-        if (!_isValid)
-            return;
-
         _videoPlayer.prepareCompleted -= OnVideoPrepared;
         _videoPlayer.errorReceived -= OnVideoErrorReceived;
         _videoPlayer.seekCompleted -= OnVideoSeekCompleted;
@@ -104,11 +103,22 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
         _videoPlayer.Pause();
     }
 
-    public void SeekVideo(float newTime)
+    public void TrySeekVideo(float newTime)
     {
         if (IsVideoSeeking)
-            return;
+        {
+            _videoSeekTargetTime = newTime;
 
+            return;
+        }
+
+        _videoSeekTargetTime = null;
+
+        SeekVideo(newTime);
+    }
+
+    private void SeekVideo(float newTime)
+    {
         _videoPlayer.time = Mathf.Lerp(0f, _videoTotalTime, newTime);
 
         IsVideoSeeking = true;
@@ -137,7 +147,14 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     {
         yield return new WaitForEndOfFrame();
 
-        IsVideoSeeking = false;
+        if (_videoSeekTargetTime != null)
+        {
+            SeekVideo(_videoSeekTargetTime.Value);
+            
+            _videoSeekTargetTime = null;
+        }
+        else
+            IsVideoSeeking = false;
     }
 
     private void OnVideoErrorReceived(VideoPlayer source, string message)
