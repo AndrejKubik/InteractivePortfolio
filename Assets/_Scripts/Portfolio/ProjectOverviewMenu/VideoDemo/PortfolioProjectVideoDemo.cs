@@ -186,12 +186,29 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _activeVolumeTween = DOVirtual.Float(startValue, endValue, _slideDuration, SetAudioVolume);
     }
 
+    private void OnVideoPrepared(VideoPlayer source)
+    {
+        RenderTexture renderTexture = CreateRenderTexture((int)source.width, (int)source.height);
+
+        _videoPlayer.targetTexture = renderTexture;
+
+        _videoPreviewController.ApplyAspectRatioToVideoRect(source.width, source.height);
+        _videoPreviewController.SetRenderTexture(renderTexture);
+        _videoPreviewController.FitVideoPreviewToScreen();
+
+        _onVideoPrepared?.Invoke(_videoPreviewController.GetVideoAspectForm());
+
+        StartFadeVolumeTween(0f, _savedVolume);
+
+        _videoPlayerController.PlayVideo();
+        _videoControlsPanelController.SetPlayPauseButtonSymbol(_pauseSymbol);
+    }
+
     private void OnPlayPauseButtonClick()
     {
         if (_videoPlayerController.IsVideoPaused())
         {
             _videoPlayerController.PlayVideo();
-
             _videoControlsPanelController.SetPlayPauseButtonSymbol(_pauseSymbol);
             _videoHoverOverlayController.ShowFadingOverlay(_playSymbol);
         }
@@ -260,21 +277,6 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
             _videoControlsPanelController.MatchMuteAudioButtonSymbolWithVolume();
 
         PlayerPrefs.SetInt(SaveKeys.VideoDemoMute, Convert.ToInt32(newState));
-    }
-
-    private void OnVideoPrepared(VideoPlayer source)
-    {
-        RenderTexture renderTexture = CreateRenderTexture((int)source.width, (int)source.height);
-
-        _videoPlayer.targetTexture = renderTexture;
-
-        _videoPreviewController.ApplyAspectRatioToVideoRect(source.width, source.height);
-        _videoPreviewController.SetRenderTexture(renderTexture);
-        _videoPreviewController.FitVideoPreviewToScreen();
-
-        _onVideoPrepared?.Invoke(_videoPreviewController.GetVideoAspectForm());
-
-        StartFadeVolumeTween(0f, _savedVolume);
     }
 
     private RenderTexture CreateRenderTexture(int width, int height)

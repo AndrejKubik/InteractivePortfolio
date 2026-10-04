@@ -138,8 +138,6 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
         _videoTotalTime = (float)_videoPlayer.length;
 
         _onVideoPrepared.Invoke(source);
-
-        PlayVideo();
     }
 
     private void OnVideoSeekCompleted(VideoPlayer source)
