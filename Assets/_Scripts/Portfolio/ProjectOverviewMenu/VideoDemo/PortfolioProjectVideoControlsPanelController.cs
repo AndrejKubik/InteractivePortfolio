@@ -7,14 +7,14 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour, I
 {
     public readonly struct Data
     {
-        public readonly Action<float> OnMoveTimeline;
+        public readonly PortfolioProjectVideoDemoTimeline.OnUserInteractCallback OnMoveTimeline;
         public readonly Action<float> OnChangeAudioVolume;
         public readonly Action OnMuteAudioButtonClick;
         public readonly Action OnToggleFullscreenButtonClick;
         public readonly Action OnPlayPauseButtonClick;
 
         public Data(
-            Action<float> onMoveTimeline,
+            PortfolioProjectVideoDemoTimeline.OnUserInteractCallback onMoveTimeline,
             Action<float> onChangeAudioVolume,
             Action onMuteAudioButtonClick,
             Action onToggleFullscreenButtonClick,
@@ -42,7 +42,7 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour, I
 
     [SerializeField] private AnimationCurve _fullscreenControlsPanelHideCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
-    private Action<float> _onMoveTimeline;
+    private PortfolioProjectVideoDemoTimeline.OnUserInteractCallback _onMoveTimeline;
     private Action<float> _onChangeAudioVolume;
     private Action _onMuteAudioButtonClick;
     private Action _onToggleFullscreenButtonClick;

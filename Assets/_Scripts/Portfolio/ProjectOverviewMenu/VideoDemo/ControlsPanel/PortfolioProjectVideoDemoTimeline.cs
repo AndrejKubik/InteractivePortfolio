@@ -1,22 +1,23 @@
 using System;
 using Snek.GameUI;
 using Snek.Utilities;
-using Unity.Collections.LowLevel.Unsafe;
 
 [UseSnekInspector]
 public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializableWithData<PortfolioProjectVideoDemoTimeline.Data>
 {
+    public delegate void OnUserInteractCallback(float sliderValue, bool isReleaseInput);
+
     public readonly struct Data
     {
-        public readonly Action<float> OnUserMoveSlider;
+        public readonly OnUserInteractCallback OnUserMoveSlider;
 
-        public Data(Action<float> onUserMoveSlider)
+        public Data(OnUserInteractCallback onUserMoveSlider)
         {
             OnUserMoveSlider = onUserMoveSlider;
         }
     }
 
-    private Action<float> _onUserMoveSlider = null;
+    private OnUserInteractCallback _onUserMoveSlider = null;
 
     public void PrepareInitializationData(Data data)
     {
@@ -33,11 +34,11 @@ public class PortfolioProjectVideoDemoTimeline : SnekUISlider, ISnekInitializabl
 
     protected override void OnSliderMove(float newValue)
     {
-        _onUserMoveSlider.Invoke(newValue);
+        _onUserMoveSlider.Invoke(newValue, false);
     }
 
     protected override void OnHandleRelease()
     {
-        _onUserMoveSlider.Invoke(GetValue());
+        _onUserMoveSlider.Invoke(GetValue(), true);
     }
 }

@@ -29,6 +29,7 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     public bool IsVideoSeeking { get; private set; }
 
     private float? _videoSeekTargetTime = null;
+    private bool _isForcingChange = false;
 
     public void PrepareInitializationData(Data data)
     {
@@ -103,8 +104,11 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
         _videoPlayer.Pause();
     }
 
-    public void TrySeekVideo(float newTime)
+    public void TrySeekVideo(float newTime, bool forceChange)
     {
+        if (forceChange)
+            _isForcingChange = true;
+
         if (IsVideoSeeking)
         {
             _videoSeekTargetTime = newTime;
@@ -147,11 +151,12 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     {
         yield return new WaitForEndOfFrame();
 
-        if (_videoSeekTargetTime != null)
+        if (_isForcingChange && _videoSeekTargetTime != null)
         {
             SeekVideo(_videoSeekTargetTime.Value);
             
             _videoSeekTargetTime = null;
+            _isForcingChange = false;
         }
         else
             IsVideoSeeking = false;
