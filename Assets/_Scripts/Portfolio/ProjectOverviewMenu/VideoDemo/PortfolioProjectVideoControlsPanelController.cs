@@ -142,7 +142,7 @@ public class PortfolioProjectVideoControlsPanelController : SnekMonoBehaviour, I
 
     public void SetTimelineProgress(float newValue)
     {
-        _videoTimeline.SetValue(newValue);
+        _videoTimeline.SetValue(newValue, false);
     }
 
     public bool IsTimelineSliderHandleHeld()

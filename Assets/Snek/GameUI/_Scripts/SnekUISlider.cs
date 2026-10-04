@@ -40,11 +40,8 @@ namespace Snek.GameUI
 
         protected override void Validate()
         {
-            if (!_slider)
-                FailValidation("Cannot find Slider component.");
-
-            if (!_handle)
-                FailValidation("Cannot find SnekUISliderHandle component.");
+            ValidateEssentialComponent(_slider, nameof(_slider));
+            ValidateEssentialComponent(_handle, nameof(_handle));
         }
 
         protected override void OnInitializationSuccess()
@@ -61,7 +58,10 @@ namespace Snek.GameUI
                 OnHandleReleaseInternal);
 
             if (UseDragThreshold)
-                _dragThresholdManager = new SnekUISliderDragThresholdManager(_slider, DragThresholdPercent, OnDragThresholdReach);
+                _dragThresholdManager = new SnekUISliderDragThresholdManager(
+                    _slider,
+                    DragThresholdPercent,
+                    OnDragThresholdReach);
 
             if (UseDragAreas)
                 _dragAreaManager = new SnekUISliderDragAreaManager(_slider, DragAreaCount, OnDragAreaChange);
