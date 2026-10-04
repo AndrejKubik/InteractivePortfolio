@@ -114,7 +114,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     private void OnPressEscapeKey()
     {
         if (_videoDemo.IsFullscreen)
-            _videoDemo.ToggleFullscreenMode();
+            _videoDemo.SetFullscreenMode(false);
         else
             _eventManager.RequestShowAllProjects();
     }
