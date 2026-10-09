@@ -294,6 +294,55 @@ MonoBehaviour:
   _videoPlayerContainerFullscreen: {fileID: 0}
   _videoPlayerContainerFullscreenBackground: {fileID: 0}
   _aspectRatioFitterFullscreen: {fileID: 0}
+  _modeSwitchAnimationDuration: 0.35
+  _activateFullscreenModeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -1.4520342
+      outSlope: -1.4520342
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.036175705
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -2.5097663
+      outSlope: -2.5097663
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.028843164
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _activateMiniModeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -1.4520342
+      outSlope: -1.4520342
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.036175705
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.005176026
+      outSlope: 0.005176026
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.059431612
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3969993505453379275
 MonoBehaviour:
   m_ObjectHideFlags: 0

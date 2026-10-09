@@ -1,6 +1,7 @@
+using DG.Tweening;
 using Snek.Utilities;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 [UseSnekInspector]
@@ -22,6 +23,13 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
     [SerializeField] private RectTransform _videoPlayerContainerFullscreenBackground;
     [SerializeField] private AspectRatioFitter _aspectRatioFitterFullscreen;
+
+    [Space(10f)]
+    [Min(0f)]
+    [SerializeField] private float _modeSwitchAnimationDuration = 0.25f;
+    
+    [SerializeField] private AnimationCurve _activateFullscreenModeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+    [SerializeField] private AnimationCurve _activateMiniModeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
 
     private Canvas _canvas;
     private LayoutElement _layoutElement;
@@ -68,6 +76,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         _aspectRatioFitterMini.enabled = false;
 
         SetMiniPlayerTransformAnchors();
+        Selection.activeObject = gameObject;
     }
 
     private void SetMiniPlayerTransformAnchors()
@@ -88,20 +97,22 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     {
         MovePreviewToNewParent(_videoPlayerContainerFullscreen);
 
-        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(true);
+        _videoPreviewTransform.DOResetAnchorOffsetAndPosition(_modeSwitchAnimationDuration, _activateFullscreenModeCurve)
+             .OnComplete(() => _videoPlayerContainerFullscreenBackground.gameObject.SetActive(true));
     }
 
     public void ActivateMiniPreview()
     {
         MovePreviewToNewParent(_videoPlayerContainerMini);
-
         _videoPlayerContainerFullscreenBackground.gameObject.SetActive(false);
+
+        _videoPreviewTransform.DOResetAnchorOffsetAndPosition(_modeSwitchAnimationDuration, _activateMiniModeCurve);
     }
 
     private void MovePreviewToNewParent(RectTransform rectTransform)
     {
         _videoPreviewTransform.SetParent(rectTransform, true);
-        _videoPreviewTransform.ResetAnchorOffset();
+        //_videoPreviewTransform.ResetAnchorOffset();
     }
 
     public void ApplyAspectRatioToVideoRect(float videoWidth, float videoHeight)
