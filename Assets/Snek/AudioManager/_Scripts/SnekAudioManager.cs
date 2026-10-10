@@ -1,4 +1,5 @@
-﻿using Snek.SingletonManager;
+﻿using System;
+using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Snek.AudioManager
         protected const float DefaultVolume = 0.5f;
 
         protected AudioSource _audioSource;
+
+        public bool DefaultMuteState = false;
 
         protected override void OnInitialize()
         {
@@ -36,6 +39,11 @@ namespace Snek.AudioManager
         public void SetMute(bool newState)
         {
             _audioSource.mute = newState;
+        }
+
+        protected int GetDefaultMuteStateAsInt()
+        {
+            return Convert.ToInt32(DefaultMuteState);
         }
 
         public bool IsMuted()

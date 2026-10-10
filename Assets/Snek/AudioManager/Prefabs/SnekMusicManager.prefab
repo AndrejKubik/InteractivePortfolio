@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e311822f0084e44184d0ca7c6f3f73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultMuteState: 1
   MusicTracks:
   - {fileID: 8300000, guid: 230f799b8dbb621459aebeb962d9e702, type: 3}
   - {fileID: 8300000, guid: 4cf0037f9e12ca8449f0bb233e1f07d9, type: 3}

@@ -18,14 +18,15 @@ namespace SnekEditor.AudioManager
         private SerializedProperty sp_FadeBetweenTracks;
         private SerializedProperty sp_FadeTransitionDuration;
         private SerializedProperty sp_ShuffleTracks;
+        private SerializedProperty sp_DefaultMuteState;
 
         private SnekMusicManagerPlaylist list_MusicTracks;
 
-        private SnekInputField _fadeTransitionDurationField;
-
-        private SnekBoolField _shuffleTracksField;
         private SnekBoolField _randomDefaultTrackField;
         private SnekBoolField _fadeBetweenTracksField;
+        private SnekInputField _fadeTransitionDurationField;
+        private SnekBoolField _shuffleTracksField;
+        private SnekBoolField _defaultMuteStateField;
 
         protected override void OnCreateInspectorInstance()
         {
@@ -35,19 +36,20 @@ namespace SnekEditor.AudioManager
             sp_FadeBetweenTracks = serializedObject.FindProperty(nameof(SnekMusicManager.FadeBetweenTracks));
             sp_FadeTransitionDuration = serializedObject.FindProperty(nameof(SnekMusicManager.FadeTransitionDuration));
             sp_ShuffleTracks = serializedObject.FindProperty(nameof(SnekMusicManager.ShuffleTracks));
+            sp_DefaultMuteState = serializedObject.FindProperty(nameof(SnekMusicManager.DefaultMuteState));
+
+            _randomDefaultTrackField = new SnekBoolField(sp_RandomDefaultTrack, "Random Default Track");
+            _fadeBetweenTracksField = new SnekBoolField(sp_FadeBetweenTracks, "Fade Between Tracks");
+            _fadeTransitionDurationField = new SnekInputField(sp_FadeTransitionDuration, "Transition Duration", false);
+            _shuffleTracksField = new SnekBoolField(sp_ShuffleTracks, "Shuffle Playback");
+            _defaultMuteStateField = new SnekBoolField(sp_DefaultMuteState, "Default Mute State");
 
             list_MusicTracks = new SnekMusicManagerPlaylist(
                 serializedObject,
                 sp_MusicTracks,
                 sp_DefaultTrack,
                 sp_RandomDefaultTrack);
-
-            _fadeTransitionDurationField = new SnekInputField(sp_FadeTransitionDuration, "Transition Duration", false);
-            _shuffleTracksField = new SnekBoolField(sp_ShuffleTracks, "Shuffle Playback");
-            _randomDefaultTrackField = new SnekBoolField(sp_RandomDefaultTrack, "Random Default Track");
-            _fadeBetweenTracksField = new SnekBoolField(sp_FadeBetweenTracks, "Fade Between Tracks");
         }
-
 
         protected override bool Initialize()
         {
@@ -138,6 +140,10 @@ namespace SnekEditor.AudioManager
             GUILayout.Space(10f);
 
             DrawPlaybackSettings();
+
+            GUILayout.Space(10f);
+
+            DrawDefaultMuteStateSettings();
         }
 
         private void DrawFadeTransitionSettings()
@@ -189,6 +195,15 @@ namespace SnekEditor.AudioManager
                             GUILayout.Label(defaultTrackName, _sectionHeaderStyle);
                     }
                 }
+            }
+        }
+
+        private void DrawDefaultMuteStateSettings()
+        {
+            using (new SnekGUISectionScope(GUIContent.none, _sectionHeaderStyle, _sectionStyle))
+            {
+                using (new SnekGUIHorizontalScope(SnekGUIScopeAnchor.Center))
+                    _defaultMuteStateField.Draw();
             }
         }
     }

@@ -52,7 +52,7 @@ namespace Snek.AudioManager
         protected override void OnInitializationSuccess()
         {
             float savedVolume = PlayerPrefs.GetFloat(PlayerPrefsVolumeID, DefaultVolume);
-            bool savedMuteState = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefsMuteID, 0));
+            bool savedMuteState = Convert.ToBoolean(PlayerPrefs.GetInt(PlayerPrefsMuteID, GetDefaultMuteStateAsInt()));
 
             SetVolume(savedVolume);
             SetMute(savedMuteState);
