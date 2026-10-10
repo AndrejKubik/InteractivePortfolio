@@ -5,23 +5,87 @@ using UnityEngine;
 
 public static class SnekDOTweenExtensions
 {
-    public static Tween DOResetAnchorOffsetAndPosition(this RectTransform rectTransform, float duration, AnimationCurve curve)
+    public static Tween DOSnekAnchoredPosition(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
     {
-        rectTransform.DOKill();
+        Vector2 startValue = rectTransform.anchoredPosition;
 
-        Vector2 startOffsetMin = rectTransform.offsetMin;
-        Vector2 startOffsetMax = rectTransform.offsetMax;
-        Vector2 startPosition = rectTransform.anchoredPosition;
+        return DOTween.To(animateValue, 0f, 1f, duration);
 
-        return DOTween.To(animateValues, 0f, 1f, duration);
-
-        void animateValues(float t)
+        void animateValue(float t)
         {
             float value = curve.Evaluate(t);
 
-            rectTransform.offsetMin = Vector2.LerpUnclamped(startOffsetMin, Vector2.zero, value);
-            rectTransform.offsetMax = Vector2.LerpUnclamped(startOffsetMax, Vector2.zero, value);
-            rectTransform.anchoredPosition = Vector2.LerpUnclamped(startPosition, Vector2.zero, value);
+            rectTransform.anchoredPosition = Vector2.LerpUnclamped(startValue, targetValue, value);
+        }
+    }
+
+    public static Tween DOSnekAnchorOffsetMin(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
+    {
+        Vector2 startValue = rectTransform.offsetMin;
+
+        return DOTween.To(animateValue, 0f, 1f, duration);
+
+        void animateValue(float t)
+        {
+            float value = curve.Evaluate(t);
+
+            rectTransform.offsetMin = Vector2.LerpUnclamped(startValue, targetValue, value);
+        }
+    }
+
+    public static Tween DOSnekAnchorOffsetMax(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
+    {
+        Vector2 startValue = rectTransform.offsetMax;
+
+        return DOTween.To(animateValue, 0f, 1f, duration);
+
+        void animateValue(float t)
+        {
+            float value = curve.Evaluate(t);
+
+            rectTransform.offsetMax = Vector2.LerpUnclamped(startValue, targetValue, value);
+        }
+    }
+
+    public static Tween DOSnekScale(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
+    {
+        Vector2 startValue = rectTransform.localScale;
+
+        return DOTween.To(animateValue, 0f, 1f, duration);
+
+        void animateValue(float t)
+        {
+            float value = curve.Evaluate(t);
+
+            rectTransform.localScale = Vector2.LerpUnclamped(startValue, targetValue, value);
+        }
+    }
+
+    public static Tween DoSnekAnchorMin(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
+    {
+        Vector2 startValue = rectTransform.anchorMin;
+
+        return DOTween.To(animateValue, 0f, 1f, duration);
+
+        void animateValue(float t)
+        {
+            float value = curve.Evaluate(t);
+
+            rectTransform.anchorMin = Vector2.LerpUnclamped(startValue, targetValue, value);
+        }
+    }
+
+    public static Tween DoSnekAnchorMax(this RectTransform rectTransform, Vector2 targetValue, float duration, AnimationCurve curve)
+    {
+        Vector2 startValue = rectTransform.anchorMax;
+
+        return DOTween.To(animateValue, 0f, 1f, duration);
+
+        void animateValue(float t)
+        {
+            float value = curve.Evaluate(t);
+
+            rectTransform.anchorMax = Vector2.LerpUnclamped(startValue, targetValue, value);
         }
     }
 }

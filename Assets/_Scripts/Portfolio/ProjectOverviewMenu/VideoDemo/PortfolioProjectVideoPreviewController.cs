@@ -1,9 +1,10 @@
-using DG.Tweening;
+using System;
 using Snek.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PortfolioProjectVideoPreviewAnimator))]
 [UseSnekInspector]
 public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekInitializableManual
 {
@@ -23,16 +24,10 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
     [SerializeField] private RectTransform _videoPlayerContainerFullscreenBackground;
     [SerializeField] private AspectRatioFitter _aspectRatioFitterFullscreen;
-
-    [Space(10f)]
-    [Min(0f)]
-    [SerializeField] private float _modeSwitchAnimationDuration = 0.25f;
     
-    [SerializeField] private AnimationCurve _activateFullscreenModeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-    [SerializeField] private AnimationCurve _activateMiniModeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-
     private Canvas _canvas;
     private LayoutElement _layoutElement;
+    private PortfolioProjectVideoPreviewAnimator _videoPreviewAnimator;
 
     private RectTransform _videoPreviewTransform;
 
@@ -46,6 +41,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     {
         GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
+        GetEssentialComponent(out _videoPreviewAnimator);
     }
 
     protected override void Validate()
@@ -75,7 +71,14 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
         _aspectRatioFitterMini.enabled = false;
 
+        _videoPreviewAnimator.Initialize(new PortfolioProjectVideoPreviewAnimator.Data(
+            _videoPreviewTransform,
+            _videoPlayerContainerFullscreenBackground,
+            _videoPlayerContainerFullscreen,
+            _videoPlayerContainerMini));
+
         SetMiniPlayerTransformAnchors();
+
         Selection.activeObject = gameObject;
     }
 
@@ -95,24 +98,12 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     public void ActivateFullscreenPreview()
     {
-        MovePreviewToNewParent(_videoPlayerContainerFullscreen);
-
-        _videoPreviewTransform.DOResetAnchorOffsetAndPosition(_modeSwitchAnimationDuration, _activateFullscreenModeCurve)
-             .OnComplete(() => _videoPlayerContainerFullscreenBackground.gameObject.SetActive(true));
+        _videoPreviewAnimator.PlayFullscreenEnterAnimation();
     }
 
     public void ActivateMiniPreview()
     {
-        MovePreviewToNewParent(_videoPlayerContainerMini);
-        _videoPlayerContainerFullscreenBackground.gameObject.SetActive(false);
-
-        _videoPreviewTransform.DOResetAnchorOffsetAndPosition(_modeSwitchAnimationDuration, _activateMiniModeCurve);
-    }
-
-    private void MovePreviewToNewParent(RectTransform rectTransform)
-    {
-        _videoPreviewTransform.SetParent(rectTransform, true);
-        //_videoPreviewTransform.ResetAnchorOffset();
+        _videoPreviewAnimator.PlayFullscreenExitAnimation();
     }
 
     public void ApplyAspectRatioToVideoRect(float videoWidth, float videoHeight)
