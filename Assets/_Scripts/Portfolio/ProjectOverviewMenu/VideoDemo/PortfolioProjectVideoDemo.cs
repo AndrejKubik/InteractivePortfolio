@@ -125,7 +125,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void OnInitializationSuccess()
     {
-        SetFullscreenMode(false);
+        SetFullscreenMode(false, false);
         LoadAudioSettings();
     }
 
@@ -247,28 +247,28 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     public void ToggleFullscreenMode()
     {
-        SetFullscreenMode(!IsFullscreen);
+        SetFullscreenMode(!IsFullscreen, true);
     }
 
-    public void SetFullscreenMode(bool isFullscreen)
+    public void SetFullscreenMode(bool newFullscreenState, bool useAnimation)
     {
-        if (isFullscreen)
+        if (newFullscreenState == true)
         {
-            _videoPreviewController.ActivateFullscreenPreview();
+            _videoPreviewController.ActivateFullscreenPreview(useAnimation);
             _videoControlsPanelController.ShowFullscreenControlPanel();
         }
         else
         {
-            _videoPreviewController.ActivateMiniPreview();
+            _videoPreviewController.ActivateMiniPreview(useAnimation);
             _videoControlsPanelController.MoveControlsPanelToMiniPlayerDefaultPosition();
         }
 
-        Sprite fullscreenButtonSymbol = isFullscreen ?
+        Sprite fullscreenButtonSymbol = newFullscreenState ?
             _fullscreenOffSymbol : _fullscreenOnSymbol;
 
         _videoControlsPanelController.SetToggleFullscreenButtonSymbol(fullscreenButtonSymbol);
 
-        IsFullscreen = isFullscreen;
+        IsFullscreen = newFullscreenState;
     }
 
     private void SetAudioMute(bool newState)

@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategory
   _projectButtonsCarouselController: {fileID: 2538997410608521907}
-  _projectButtonPrefab: {fileID: -918560943884779937, guid: b3e5dfbaa28135b4db5cca0e6e5e73fa, type: 3}
+  _projectButtonPrefab: {fileID: -918560943884779937, guid: fef2e332d64fa744896571abb3a0aa3c, type: 3}
   _usedInScrollRect: 1
   _parentScrollRect: {fileID: 0}
   _pointerInputDispatcher: {fileID: 0}

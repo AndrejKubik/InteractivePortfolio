@@ -1,0 +1,296 @@
+{
+ "buttons/button_large_primary_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_primary_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_primary_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_secondary_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_secondary_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_secondary_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_danger_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_danger_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_danger_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_success_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_success_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_success_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_large_disabled_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_primary_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_primary_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_primary_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_secondary_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_secondary_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_secondary_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_danger_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_danger_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_danger_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_success_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_success_hover": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_success_pressed": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "buttons/button_small_disabled_normal": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "panels/panel": {
+  "left": 16,
+  "top": 16,
+  "right": 16,
+  "bottom": 16
+ },
+ "panels/panel_inset": {
+  "left": 13,
+  "top": 13,
+  "right": 13,
+  "bottom": 13
+ },
+ "panels/title_plate": {
+  "left": 14,
+  "top": 14,
+  "right": 14,
+  "bottom": 14
+ },
+ "panels/tooltip": {
+  "left": 10,
+  "top": 10,
+  "right": 10,
+  "bottom": 10
+ },
+ "panels/divider": {
+  "left": 4,
+  "top": 0,
+  "right": 4,
+  "bottom": 0
+ },
+ "fields/input_normal": {
+  "left": 11,
+  "top": 11,
+  "right": 11,
+  "bottom": 11
+ },
+ "fields/input_focus": {
+  "left": 11,
+  "top": 11,
+  "right": 11,
+  "bottom": 11
+ },
+ "bars/bar_track": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_red": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_purple": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_yellow": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_green": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_blue": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "bars/bar_fill_accent": {
+  "left": 12,
+  "top": 0,
+  "right": 12,
+  "bottom": 0
+ },
+ "controls/slider_track": {
+  "left": 8,
+  "top": 0,
+  "right": 8,
+  "bottom": 0
+ },
+ "controls/slider_fill": {
+  "left": 8,
+  "top": 0,
+  "right": 8,
+  "bottom": 0
+ },
+ "controls/tab_bar": {
+  "left": 12,
+  "top": 25,
+  "right": 12,
+  "bottom": 25
+ },
+ "controls/tab_active": {
+  "left": 10,
+  "top": 20,
+  "right": 10,
+  "bottom": 20
+ },
+ "controls/tab_hover": {
+  "left": 10,
+  "top": 20,
+  "right": 10,
+  "bottom": 20
+ },
+ "controls/scrollbar_track": {
+  "left": 0,
+  "top": 7,
+  "right": 0,
+  "bottom": 7
+ },
+ "controls/scrollbar_thumb": {
+  "left": 0,
+  "top": 7,
+  "right": 0,
+  "bottom": 7
+ },
+ "items/badge_pill": {
+  "left": 14,
+  "top": 0,
+  "right": 14,
+  "bottom": 0
+ },
+ "items/hud_pill": {
+  "left": 14,
+  "top": 14,
+  "right": 14,
+  "bottom": 14
+ }
+}

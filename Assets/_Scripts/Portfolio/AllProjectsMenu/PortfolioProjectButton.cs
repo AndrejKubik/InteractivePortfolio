@@ -19,8 +19,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         }
     }
 
-    private Image _image;
-
+    [SerializeField] private Image _contentImage;
     [SerializeField] private GameObject _loadingOverlay;
 
     private EventManager _eventManager;
@@ -32,15 +31,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         _eventManager = data.EventManager;
     }
 
-    protected override void OnInitialize()
-    {
-        base.OnInitialize();
-
-        GetEssentialComponent(out _image);
-    }
-
     protected override void Validate()
     {
+        ValidateEssentialComponent(_contentImage, nameof(_contentImage));
         ValidateEssentialComponent(_loadingOverlay, nameof(_loadingOverlay));
         
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
@@ -55,7 +48,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
     protected override void OnInitializationSuccess()
     {
-        _image.sprite = _project.GetThumbnail();
+        _contentImage.sprite = _project.GetThumbnail();
 
         base.OnInitializationSuccess();
     }
