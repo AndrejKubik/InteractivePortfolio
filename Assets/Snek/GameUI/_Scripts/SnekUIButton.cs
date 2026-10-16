@@ -7,6 +7,7 @@ namespace Snek.GameUI
 {
     [UseSnekInspector]
     [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(RectTransform))]
     public class SnekUIButton : SnekMonoBehaviour
     {
         protected Button _button { get; private set; }

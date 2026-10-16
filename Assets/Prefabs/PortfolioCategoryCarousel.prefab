@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1006420509610661562, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       propertyPath: m_CellSize.x
-      value: 325
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1006420509610661562, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       propertyPath: m_CellSize.y
-      value: 325
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1673190594966448903, guid: c2045b5bcdae70f4d89a42bf1e6b0c4a, type: 3}
       propertyPath: m_Name
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioCategoryCarousel
   ElementContainer: {fileID: 8036349010216729368}
-  ElementWidth: 325
-  ElementHeight: 325
+  ElementWidth: 600
+  ElementHeight: 300
   ElementSpacing: 10
 --- !u!114 &3995270009028962650
 MonoBehaviour:

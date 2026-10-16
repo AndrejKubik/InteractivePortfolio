@@ -11,10 +11,14 @@ namespace Snek.EndlessCarousel
         public readonly struct Data
         {
             public readonly bool IsScrollable;
+            public readonly float ElementWidth;
+            public readonly float ElementHeight;
 
-            public Data(bool isScrollable)
+            public Data(bool isScrollable, float elementWidth, float elementHeight)
             {
                 IsScrollable = isScrollable;
+                ElementWidth = elementWidth;
+                ElementHeight = elementHeight;
             }
         }
 
@@ -26,10 +30,14 @@ namespace Snek.EndlessCarousel
         private ContentSizeFitter _contentSizeFitter;
 
         private bool _isScrollable = true;
+        private float _elementWidth = 0f;
+        private float _elementHeight = 0f;
 
         public void PrepareInitializationData(Data data)
         {
             _isScrollable = data.IsScrollable;
+            _elementWidth = data.ElementWidth;
+            _elementHeight = data.ElementHeight;
         }
 
         protected override void OnInitialize()
@@ -50,6 +58,8 @@ namespace Snek.EndlessCarousel
 
         protected override void OnInitializationSuccess()
         {
+            _gridLayoutGroup.cellSize = new Vector2(_elementWidth, _elementHeight);
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); //enforces element position distribution before disabling the layout group
 
             _contentSizeFitter.enabled = false;
@@ -66,6 +76,11 @@ namespace Snek.EndlessCarousel
         public float GetTotalWidth()
         {
             return _rectTransform.rect.width;
+        }
+
+        public void SetElementSize(float width, float height)
+        {
+            _gridLayoutGroup.cellSize = new Vector2(width, height);
         }
     }
 }

@@ -67,7 +67,11 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
         foreach (PortfolioProjectData project in _projects)
             CreateProjectButton(project);
 
-        _projectButtonsCarousel.Initialize();
+        RectTransform buttonPrefabRectTransform = _buttonPrefab.GetComponent<RectTransform>();
+        float elementWidth = buttonPrefabRectTransform.rect.width;
+        float elementHeight = buttonPrefabRectTransform.rect.height;
+
+        _projectButtonsCarousel.Initialize(new PortfolioCategoryCarousel.Data(elementWidth, elementHeight));
     }
 
     private void OnDestroy()

@@ -1,6 +1,7 @@
 using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.Utilities;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         }
     }
 
+    [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _contentImage;
+    [SerializeField] private GameObject _publishedTag;
     [SerializeField] private GameObject _loadingOverlay;
 
     private EventManager _eventManager;
@@ -33,7 +36,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
     protected override void Validate()
     {
+        ValidateEssentialComponent(_projectName, nameof(_projectName));
         ValidateEssentialComponent(_contentImage, nameof(_contentImage));
+        ValidateEssentialComponent(_publishedTag, nameof(_publishedTag));
         ValidateEssentialComponent(_loadingOverlay, nameof(_loadingOverlay));
         
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
@@ -49,6 +54,9 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
     protected override void OnInitializationSuccess()
     {
         _contentImage.sprite = _project.GetThumbnail();
+        
+        _projectName.SetText(_project.GetProjectName());
+        _publishedTag.SetActive(_project.IsPublished());
 
         base.OnInitializationSuccess();
     }

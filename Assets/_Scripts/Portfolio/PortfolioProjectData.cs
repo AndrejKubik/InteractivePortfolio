@@ -12,6 +12,9 @@ public class PortfolioProjectData : SnekScriptableObject
     public Sprite Thumbnail;
 
     [Space(10f)]
+    public bool IsPublished = false;
+
+    [Space(10f)]
     [TextArea]
     public string VideoDemoUrl = string.Empty;
 

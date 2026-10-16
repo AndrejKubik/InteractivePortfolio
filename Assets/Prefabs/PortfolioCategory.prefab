@@ -388,6 +388,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.15294118
       objectReference: {fileID: 0}
+    - target: {fileID: 3105019122925745541, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
+      propertyPath: m_CellSize.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105019122925745541, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
+      propertyPath: m_CellSize.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3120858508142831800, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
+      propertyPath: ElementWidth
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 3591873130248112184, guid: 09efdbb007a9c7a42a5f3c7a64d988d2, type: 3}
       propertyPath: m_Name
       value: PortfolioCategoryCarousel

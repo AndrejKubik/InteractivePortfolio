@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c348c123eb80c5445b6c0342acf5a4f0
+guid: cd18a03884984cf468e332e49912f0f2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Thumnbail_InnerColor_0
+      name: RoundedSquare_Background_Thin
       rect:
         serializedVersion: 2
         x: 115
@@ -145,7 +145,7 @@ TextureImporter:
         height: 490
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 164, y: 164, z: 164, w: 164}
+      border: {x: 50, y: 50, z: 50, w: 50}
       customData: 
       outline: []
       physicsShape: []
@@ -171,7 +171,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Thumnbail_InnerColor_0: -517579302
+      RoundedSquare_Background_Thin: -517579302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -47,15 +47,17 @@ namespace Snek.EndlessCarousel
 
         protected override void Validate()
         {
-            if (!ElementContainer)
-                FailValidation("Element Container is not assigned.");
+            ValidateEssentialComponent(ElementContainer, nameof(ElementContainer));
         }
 
         protected override void OnInitializationSuccess()
         {
             FindAllElements();
 
-            ElementContainer.Initialize(new SnekEndlessCarouselElementContainer.Data(IsScrollingAllowed()));
+            ElementContainer.Initialize(new SnekEndlessCarouselElementContainer.Data(
+                IsScrollingAllowed(),
+                ElementWidth,
+                ElementHeight));
         }
 
         private void Update()
