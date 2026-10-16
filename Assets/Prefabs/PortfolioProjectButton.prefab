@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 1180400052327046206}
   - component: {fileID: 1129831551941819480}
   m_Layer: 5
-  m_Name: TagsContainer
+  m_Name: TagsContainers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 5
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -797,6 +797,7 @@ GameObject:
   - component: {fileID: 8355298628115058000}
   - component: {fileID: 3886148917687361385}
   - component: {fileID: -918560943884779937}
+  - component: {fileID: 6816634730185930109}
   m_Layer: 5
   m_Name: PortfolioProjectButton
   m_TagString: Untagged
@@ -924,6 +925,22 @@ MonoBehaviour:
   _contentImage: {fileID: 5480609857896771592}
   _publishedTag: {fileID: 1495432268470581615}
   _loadingOverlay: {fileID: 7781548778974567398}
+--- !u!114 &6816634730185930109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206856482197562814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d78e68ff3adbce4aafe5cc944bbd2d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectButtonTagController
+  _tagPrefab: {fileID: 8772569497912749459, guid: a08708bfd97e91944bea13e77bb00ac8, type: 3}
+  _tagContainers:
+  - {fileID: 3072824440200894496}
+  - {fileID: 5861363517256258790}
 --- !u!1 &8613051091841762152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,8 +1168,8 @@ PrefabInstance:
       value: PUBLISHED
       objectReference: {fileID: 0}
     - target: {fileID: 8910127865282337512, guid: a08708bfd97e91944bea13e77bb00ac8, type: 3}
-      propertyPath: m_fontSize
-      value: 18.5
+      propertyPath: m_fontSizeBase
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

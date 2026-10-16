@@ -9,6 +9,7 @@ public class PortfolioProject
     private readonly string _projectName = string.Empty;
     private readonly Sprite _thumbnail;
     private readonly bool _isPublished = false;
+    private readonly List<string> _tags = new();
     private readonly string _videoDemoUrl = string.Empty;
     private readonly string _descriptionText = string.Empty;
     private readonly List<PortfolioProjectDevelopmentHighlight> _developmentHighlights;
@@ -18,6 +19,7 @@ public class PortfolioProject
         _projectName = data.ProjectName;
         _thumbnail = data.Thumbnail;
         _isPublished = data.IsPublished;
+        _tags = data.Tags;
         _videoDemoUrl = data.VideoDemoUrl;
         _descriptionText = data.Description;
         _developmentHighlights = data.DevelopmentHighlights;
@@ -77,6 +79,11 @@ public class PortfolioProject
     public bool IsPublished()
     {
         return _isPublished;
+    }
+
+    public List<string> GetTags()
+    {
+        return _tags;
     }
 
     public string GetVideoDemoUrl()

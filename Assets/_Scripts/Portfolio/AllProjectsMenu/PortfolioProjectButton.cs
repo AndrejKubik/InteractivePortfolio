@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PortfolioProjectButtonTagController))]
 [UseSnekInspector]
 public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement, ISnekInitializableWithData<PortfolioProjectButton.Data>
 {
@@ -26,12 +27,20 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
     [SerializeField] private GameObject _loadingOverlay;
 
     private EventManager _eventManager;
+    private PortfolioProjectButtonTagController _tagController;
     private PortfolioProject _project;
 
     public void PrepareInitializationData(Data data)
     {
         _project = new PortfolioProject(data.ProjectData);
         _eventManager = data.EventManager;
+    }
+
+    protected override void OnInitialize()
+    {
+        GetEssentialComponent(out _tagController);
+
+        base.OnInitialize();
     }
 
     protected override void Validate()
@@ -42,6 +51,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         ValidateEssentialComponent(_loadingOverlay, nameof(_loadingOverlay));
         
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+        ValidateEssentialComponent(_tagController, nameof(_tagController));
         
         if (_project == null)
             FailValidation("Portfolio project not created.");
@@ -54,18 +64,20 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
     protected override void OnInitializationSuccess()
     {
         _contentImage.sprite = _project.GetThumbnail();
-        
+
         _projectName.SetText(_project.GetProjectName());
         _publishedTag.SetActive(_project.IsPublished());
+
+        CreateProjectTags();
 
         base.OnInitializationSuccess();
     }
 
-    protected override void OnDestroy()
+    protected override void OnDispose()
     {
-        base.OnDestroy();
-
         _eventManager.OnRequestShowAllProjects -= OnRequestShowAllProjects;
+
+        base.OnDispose();
     }
 
     protected override void OnButtonClick()
@@ -75,6 +87,12 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         _eventManager.OnRequestShowAllProjects += OnRequestShowAllProjects;
 
         _eventManager.RequestProjectOverview(_project);
+    }
+
+    private void CreateProjectTags()
+    {
+        foreach (string tag in _project.GetTags())
+            _tagController.CreateTag(tag);
     }
 
     private void OnRequestShowAllProjects()

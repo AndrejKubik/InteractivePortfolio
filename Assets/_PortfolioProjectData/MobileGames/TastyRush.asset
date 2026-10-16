@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Tasty Rush
   Thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
+  IsPublished: 0
+  Tags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Clicker-Idle
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
   Description: 'Clicker-Idle game in which you are an owner of a fast food restaurant.
 

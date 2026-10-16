@@ -37,10 +37,9 @@ namespace Snek.GameUI
             _buttonImage = _button.targetGraphic as Image;
         }
 
-        protected virtual void OnDestroy()
+        protected override void OnDispose()
         {
-            if (_isValid)
-                _button.onClick.RemoveListener(OnButtonClickInternal);
+            _button.onClick.RemoveListener(OnButtonClickInternal);
         }
 
         public void SetExternalCallback(Action callback)

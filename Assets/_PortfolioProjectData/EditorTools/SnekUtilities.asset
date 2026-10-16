@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Snek Utilities
   Thumbnail: {fileID: 21300000, guid: 046638a532cfb814cb570fb172dc8819, type: 3}
+  IsPublished: 0
+  Tags:
+  - Runtime Utilities
+  - In-Editor Utilities
+  - Editor Windows
+  - Editor Inspectors
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Snek.Utilities.Store.Page.Slides.mp4
   Description: Package with utilities designed to help developers create their own
     editor tools faster and easier using the IMGUI.

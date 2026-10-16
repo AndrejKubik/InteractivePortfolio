@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Grid Level Editor
   Thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
+  IsPublished: 0
+  Tags:
+  - Level Creation
+  - Prefab Placement
+  - JSON files
+  - Editor Windows
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
   Description: Level editor tool for a mobile game project.
   DevelopmentHighlights:

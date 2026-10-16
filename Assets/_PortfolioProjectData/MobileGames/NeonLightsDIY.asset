@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Neon Lights DIY
   Thumbnail: {fileID: 21300000, guid: 29840edd40df8f24a9d388f7d7ef7999, type: 3}
+  IsPublished: 0
+  Tags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Simulation
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Neon.Lights.DIY.mp4
   Description: 'Simulation game where you create LED signs.
 

@@ -14,6 +14,8 @@ public class PortfolioProjectData : SnekScriptableObject
     [Space(10f)]
     public bool IsPublished = false;
 
+    public List<string> Tags = new();
+
     [Space(10f)]
     [TextArea]
     public string VideoDemoUrl = string.Empty;
