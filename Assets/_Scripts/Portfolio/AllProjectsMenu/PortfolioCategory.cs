@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Snek.GameUI;
 using Snek.Utilities;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 public class PortfolioCategory : SnekMonoBehaviour
 {
     [SerializeField] private PortfolioCategoryCarouselController _projectButtonsCarouselController;
+    [SerializeField] private TextMeshProUGUI _categoryTitle;
+
+    [Space(10f)]
     [SerializeField] private PortfolioProjectButton _projectButtonPrefab;
 
     [Space(10f)]
@@ -28,6 +32,8 @@ public class PortfolioCategory : SnekMonoBehaviour
     protected override void Validate()
     {
         ValidateEssentialComponent(_projectButtonsCarouselController, nameof(_projectButtonsCarouselController));
+        ValidateEssentialComponent(_categoryTitle, nameof(_categoryTitle));
+
         ValidateEssentialComponent(_projectButtonPrefab, nameof(_projectButtonPrefab));
 
         if (_projects.Count < 1)
@@ -43,6 +49,8 @@ public class PortfolioCategory : SnekMonoBehaviour
     protected override void OnInitializationSuccess()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform); //enforces correct rect calculations down the line
+
+        _categoryTitle.SetText(gameObject.name.Nicify());
 
         _projectButtonsCarouselController.Initialize(new PortfolioCategoryCarouselController.Data(
             _projects,
