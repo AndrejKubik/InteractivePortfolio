@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Sausage Escape
   Thumbnail: {fileID: 21300000, guid: 0b133bbaa48670b4a848f82153c3f574, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - Unity
+  - 3D
+  - Runner
+  BigButtonTags:
   - Unity
   - 3D
   - Prototype

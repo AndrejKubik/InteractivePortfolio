@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Epoxy Table DIY
   Thumbnail: {fileID: 21300000, guid: 1223ae8fce5a87b4099e3c8bc84a668e, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - Unity
+  - 3D
+  - Simulation
+  BigButtonTags:
   - Unity
   - 3D
   - Prototype

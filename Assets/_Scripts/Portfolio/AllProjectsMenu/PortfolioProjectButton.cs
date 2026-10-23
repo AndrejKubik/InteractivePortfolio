@@ -21,10 +21,20 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         }
     }
 
+    private enum ButtonType
+    {
+        SmallButton,
+        BigButton
+    }
+
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _contentImage;
     [SerializeField] private GameObject _publishedTag;
+    [SerializeField] private GameObject _prototypeTag;
     [SerializeField] private GameObject _loadingOverlay;
+
+    [Space(10f)]
+    [SerializeField] private ButtonType _buttonType = ButtonType.SmallButton;
 
     private EventManager _eventManager;
     private PortfolioProjectButtonTagController _tagController;
@@ -48,11 +58,12 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         ValidateEssentialComponent(_projectName, nameof(_projectName));
         ValidateEssentialComponent(_contentImage, nameof(_contentImage));
         ValidateEssentialComponent(_publishedTag, nameof(_publishedTag));
+        ValidateEssentialComponent(_prototypeTag, nameof(_prototypeTag));
         ValidateEssentialComponent(_loadingOverlay, nameof(_loadingOverlay));
-        
+
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
         ValidateEssentialComponent(_tagController, nameof(_tagController));
-        
+
         if (_project == null)
             FailValidation("Portfolio project not created.");
         else if (!_project.IsDataValid())
@@ -67,6 +78,7 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
         _projectName.SetText(_project.GetProjectName());
         _publishedTag.SetActive(_project.IsPublished());
+        _prototypeTag.SetActive(!_project.IsPublished());
 
         CreateProjectTags();
 
@@ -91,7 +103,21 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
     private void CreateProjectTags()
     {
-        foreach (string tag in _project.GetTags())
+        var tagsList = _buttonType switch
+        {
+            ButtonType.SmallButton => _project.GetSmallButtonTags(),
+            ButtonType.BigButton => _project.GetBigButtonTags(),
+            _ => null
+        };
+
+        if(tagsList == null)
+        {
+            Debug.LogError("Invalid button type assigned, cannot create tags.");
+
+            return;
+        }
+
+        foreach (string tag in tagsList)
             _tagController.CreateTag(tag);
     }
 

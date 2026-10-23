@@ -15,12 +15,17 @@ MonoBehaviour:
   ProjectName: Clean Machine
   Thumbnail: {fileID: 21300000, guid: d57b9e62269984b449a4a24796b95fcf, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
   - Unity
   - 3D
-  - Prototype
+  - Arcade-Idle
+  BigButtonTags:
+  - Unity
+  - 3D
   - Hyper-Casual
   - Arcade-Idle
+  - Vacuum
+  - Stacking
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/CleanMachine.mp4
   Description: 'Arcade-idle game about cleaning the nature.
 

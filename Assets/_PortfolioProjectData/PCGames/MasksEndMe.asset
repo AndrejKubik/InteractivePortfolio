@@ -15,10 +15,13 @@ MonoBehaviour:
   ProjectName: Masks, end me!
   Thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
   - Unity
   - 3D
-  - Prototype
+  - Shooter
+  BigButtonTags:
+  - Unity
+  - 3D
   - Action
   - 3rd Person
   - Shooter

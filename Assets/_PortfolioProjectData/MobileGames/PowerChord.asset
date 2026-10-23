@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Power Chord
   Thumbnail: {fileID: 21300000, guid: f0610ead20b5abb4c87a09901a3af761, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - Unity
+  - 3D
+  - Puzzle
+  BigButtonTags:
   - Unity
   - 3D
   - Prototype

@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Paint Without Numbers
   Thumbnail: {fileID: 21300000, guid: 96fdd87c35e85ee48a07a838789eb33c, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - Unity
+  - 2D
+  - Painting
+  BigButtonTags:
   - Unity
   - 2D
   - Prototype

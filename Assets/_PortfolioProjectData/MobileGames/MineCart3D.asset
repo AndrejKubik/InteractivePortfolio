@@ -15,12 +15,17 @@ MonoBehaviour:
   ProjectName: Mine Cart 3D
   Thumbnail: {fileID: 21300000, guid: e1d8c387a9392f944805655a4d2b91a2, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
   - Unity
   - 3D
-  - Prototype
+  - Puzzle
+  BigButtonTags:
+  - Unity
+  - 3D
   - Hyper-Casual
   - Puzzle
+  - Snake
+  - Mining
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Mine.Cart.3D.mp4
   Description: 'Puzzle game with a snake game element.
 

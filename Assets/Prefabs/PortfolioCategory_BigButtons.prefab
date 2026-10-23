@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2014126863710451812}
   - component: {fileID: 4350337518913574070}
   m_Layer: 5
-  m_Name: PortfolioCategory
+  m_Name: PortfolioCategory_BigButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

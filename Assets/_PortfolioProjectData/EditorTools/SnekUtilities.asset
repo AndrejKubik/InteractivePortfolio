@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Snek Utilities
   Thumbnail: {fileID: 21300000, guid: 046638a532cfb814cb570fb172dc8819, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - In-Game
+  - In-Editor
+  - Utilities
+  BigButtonTags:
   - Runtime Utilities
   - In-Editor Utilities
   - Editor Windows

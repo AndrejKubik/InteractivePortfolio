@@ -15,10 +15,13 @@ MonoBehaviour:
   ProjectName: Flash of light
   Thumbnail: {fileID: 21300000, guid: 9b687cc607115ab4ea1f31dd04cc09d9, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
   - Unity
   - 3D
-  - Prototype
+  - Horror
+  BigButtonTags:
+  - Unity
+  - 3D
   - Horror
   - Exploration
   - Top-Down

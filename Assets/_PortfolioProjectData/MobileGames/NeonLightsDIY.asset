@@ -15,7 +15,11 @@ MonoBehaviour:
   ProjectName: Neon Lights DIY
   Thumbnail: {fileID: 21300000, guid: 29840edd40df8f24a9d388f7d7ef7999, type: 3}
   IsPublished: 0
-  Tags:
+  SmallButtonTags:
+  - Unity
+  - 3D
+  - Simulation
+  BigButtonTags:
   - Unity
   - 3D
   - Prototype
