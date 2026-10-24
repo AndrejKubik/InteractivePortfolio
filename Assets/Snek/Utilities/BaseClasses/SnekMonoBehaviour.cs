@@ -21,7 +21,25 @@ namespace Snek.Utilities
         private SnekMonoBehaviour[] _subdependencies = null;
 
         private Coroutine _initializationProcess = null;
+
+        private bool _isStartingInitialization = false;
         private bool _isValidating = false;
+
+        private class InitializationStartScope : IDisposable
+        {
+            private readonly SnekMonoBehaviour _component;
+
+            public InitializationStartScope(SnekMonoBehaviour component)
+            {
+                _component = component;
+                _component._isStartingInitialization = true;
+            }
+
+            public void Dispose()
+            {
+                _component._isStartingInitialization = false;
+            }
+        }
 
         private class ValidationScope : IDisposable
         {
@@ -127,7 +145,8 @@ namespace Snek.Utilities
 
             _isValid = true;
 
-            OnInitialize();
+            using (new InitializationStartScope(this))
+                OnInitialize();
 
             using (new ValidationScope(this))
             {
@@ -265,6 +284,16 @@ namespace Snek.Utilities
                 SnekGetComponentContext.Parents => GetComponentInParent<T>(true),
                 _ => GetComponent<T>(),
             };
+
+            if (!_isStartingInitialization)
+            {
+                Debug.Log(
+                    $"Using {nameof(GetEssentialComponent)} outside of {nameof(OnInitialize)} skips the validation of the reference value.\n" +
+                    $"This could cause unexpected results, since it is intended to be used within {nameof(OnInitialize)} only.",
+                    gameObject);
+
+                return;
+            }
 
             var essentialReference = new SnekEssentialComponentReference(typeof(T), componentReference);
 
