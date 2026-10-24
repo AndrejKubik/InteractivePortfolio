@@ -12,8 +12,9 @@ public class PortfolioProjectData : SnekScriptableObject
     public Sprite Thumbnail;
 
     [Space(10f)]
-    public bool IsPublished = false;
+    public PortfolioProjectDevelopmentState DevelopmentState = PortfolioProjectDevelopmentState.Prototype;
 
+    [Space(10f)]
     public List<string> SmallButtonTags = new();
     public List<string> BigButtonTags = new();
 

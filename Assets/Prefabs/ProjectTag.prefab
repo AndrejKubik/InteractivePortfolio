@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6165589e2af4234598cc69a52272c51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectButtonTag
+  _background: {fileID: 2807063891283787233}
   _textMesh: {fileID: 8910127865282337512}
 --- !u!1 &7520251431520710874
 GameObject:

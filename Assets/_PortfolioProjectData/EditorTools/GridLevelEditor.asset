@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Grid Level Editor
   Thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
   IsPublished: 0
+  DevelopmentState: 3
   SmallButtonTags:
   - In-Editor
   - Level Creation

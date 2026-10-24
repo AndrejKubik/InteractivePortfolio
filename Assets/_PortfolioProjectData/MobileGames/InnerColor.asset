@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Inner Color
   Thumbnail: {fileID: -517579302, guid: 131b11d8ecb072243b4df4b8134f261a, type: 3}
   IsPublished: 1
+  DevelopmentState: 1
   SmallButtonTags:
   - Unity
   - 2D

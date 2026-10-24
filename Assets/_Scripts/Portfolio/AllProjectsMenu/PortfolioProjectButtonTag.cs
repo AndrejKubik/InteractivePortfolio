@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [UseSnekInspector]
 public class PortfolioProjectButtonTag : SnekMonoBehaviour
 {
+    [SerializeField] private Image _background;
     [SerializeField] private TextMeshProUGUI _textMesh;
 
     private RectTransform _rectTransform;
@@ -21,6 +22,7 @@ public class PortfolioProjectButtonTag : SnekMonoBehaviour
 
     protected override void Validate()
     {
+        ValidateEssentialComponent(_background, nameof(_background));
         ValidateEssentialComponent(_textMesh, nameof(_textMesh));
     }
 
@@ -32,15 +34,21 @@ public class PortfolioProjectButtonTag : SnekMonoBehaviour
         _paddingRight = -textMeshTransform.offsetMax.x;
     }
 
+    public void SetColor(Color newColor)
+    {
+        _background.color = newColor;
+    }
+
     public void SetText(string text)
     {
         _textMesh.SetText(text);
-        AdjustWidthToFitText(text);
+
+        AdjustWidthToFitText();
     }
 
-    private void AdjustWidthToFitText(string text)
+    private void AdjustWidthToFitText()
     {
-        float requiredWidth = _textMesh.GetPreferredValues(text, Mathf.Infinity, Mathf.Infinity).x;
+        float requiredWidth = _textMesh.GetPreferredValues(_textMesh.text, Mathf.Infinity, Mathf.Infinity).x;
         requiredWidth += _paddingLeft + _paddingRight;
 
         _rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, requiredWidth);

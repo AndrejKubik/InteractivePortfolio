@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Snek Utilities
   Thumbnail: {fileID: 21300000, guid: 046638a532cfb814cb570fb172dc8819, type: 3}
   IsPublished: 0
+  DevelopmentState: 2
   SmallButtonTags:
   - Runtime & Editor
   - Utilities

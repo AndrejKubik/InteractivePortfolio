@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Customer-Employee system
   Thumbnail: {fileID: 21300000, guid: daab18e1c4b187f4a9c3ce1f0d8edd2f, type: 3}
   IsPublished: 1
+  DevelopmentState: 1
   SmallButtonTags:
   - Gameplay
   - Plug & Play

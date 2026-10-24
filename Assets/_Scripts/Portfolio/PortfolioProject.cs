@@ -8,7 +8,7 @@ public class PortfolioProject
 
     private readonly string _projectName = string.Empty;
     private readonly Sprite _thumbnail;
-    private readonly bool _isPublished = false;
+    private readonly PortfolioProjectDevelopmentState _developmentState;
     private readonly List<string> _smallButtonTags = new();
     private readonly List<string> _bigButtonTags = new();
     private readonly string _videoDemoUrl = string.Empty;
@@ -19,7 +19,7 @@ public class PortfolioProject
     {
         _projectName = data.ProjectName;
         _thumbnail = data.Thumbnail;
-        _isPublished = data.IsPublished;
+        _developmentState = data.DevelopmentState;
         _smallButtonTags = data.SmallButtonTags;
         _bigButtonTags = data.BigButtonTags;
         _videoDemoUrl = data.VideoDemoUrl;
@@ -49,7 +49,6 @@ public class PortfolioProject
             FailValidation("Empty development highlights found inside project data.", out isDataValid);
 
         return isDataValid;
-
     }
 
     private bool IsEveryDevelopmentHighlightValid()
@@ -78,9 +77,9 @@ public class PortfolioProject
         return _thumbnail;
     }
 
-    public bool IsPublished()
+    public PortfolioProjectDevelopmentState GetDevelopmentState()
     {
-        return _isPublished;
+        return _developmentState;
     }
 
     public List<string> GetSmallButtonTags()

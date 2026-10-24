@@ -2206,7 +2206,7 @@ PrefabInstance:
       objectReference: {fileID: 990974716}
     - target: {fileID: 2014126863710451812, guid: f75e75365e7286743b5d005bb35ed3bd, type: 3}
       propertyPath: _projects.Array.size
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2014126863710451812, guid: f75e75365e7286743b5d005bb35ed3bd, type: 3}
       propertyPath: _pointerInputDispatcher
@@ -2255,6 +2255,10 @@ PrefabInstance:
     - target: {fileID: 4116608605278974681, guid: f75e75365e7286743b5d005bb35ed3bd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564792012587204204, guid: f75e75365e7286743b5d005bb35ed3bd, type: 3}
+      propertyPath: m_CellSize.x
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 5775795342185543713, guid: f75e75365e7286743b5d005bb35ed3bd, type: 3}
       propertyPath: m_AnchorMax.y
