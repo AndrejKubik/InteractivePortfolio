@@ -42,17 +42,17 @@ namespace SnekEditor.EndlessCarousel
             _elementHeightField = new SnekInputField(sp_ElementHeight, "Height", false, 0f);
             _elementSpacingField = new SnekInputField(sp_ElementSpacing, "Spacing", false, 0f);
 
-            Undo.undoRedoPerformed += SyncAllData;
+            Undo.undoRedoPerformed += TrySyncAllData;
 
             InitializeDependencies();
 
             if (_elementContainer)
-                SyncAllData();
+                TrySyncAllData();
         }
 
         private void OnDisable()
         {
-            Undo.undoRedoPerformed -= SyncAllData;
+            Undo.undoRedoPerformed -= TrySyncAllData;
         }
 
         protected override void DrawContent()
@@ -68,6 +68,12 @@ namespace SnekEditor.EndlessCarousel
                 return;
             }
 
+            using (new EditorGUI.DisabledScope(Application.isPlaying))
+                DrawLayoutSettings();
+        }
+
+        private void DrawLayoutSettings()
+        {
             using (new SnekGUISectionScope("Layout Settings", _sectionHeaderStyle, _sectionStyle))
             {
                 using (new SnekGUIHorizontalScope())
@@ -170,8 +176,11 @@ namespace SnekEditor.EndlessCarousel
             return SnekGUIUtility.IsRectOffsetEqual(_gridLayoutGroup.padding, correctPadding);
         }
 
-        private void SyncAllData()
+        private void TrySyncAllData()
         {
+            if (Application.isPlaying)
+                return;
+
             if (!IsContentSizeFitterDataSynced())
                 SyncContentSizeFitterData();
 
