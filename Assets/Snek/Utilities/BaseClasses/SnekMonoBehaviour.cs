@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Snek.Utilities
@@ -22,6 +23,22 @@ namespace Snek.Utilities
 
         private Coroutine _initializationProcess = null;
         private bool _isValidating = false;
+
+        private class ValidationScope : IDisposable
+        {
+            private readonly SnekMonoBehaviour _component;
+
+            public ValidationScope(SnekMonoBehaviour component)
+            {
+                _component = component;
+                _component._isValidating = true;
+            }
+
+            public void Dispose()
+            {
+                _component._isValidating = false;
+            }
+        }
 
         protected virtual void Awake()
         {
@@ -109,14 +126,15 @@ namespace Snek.Utilities
                 yield break;
             }
 
-            _isValidating = true;
             _isValid = true;
 
             OnInitialize();
-            ValidateEssentialComponents();
 
-            if (_isValid)
+            using (new ValidationScope(this))
+            {
+                ValidateEssentialComponents();
                 Validate();
+            }
 
             if (_isValid)
             {
@@ -129,12 +147,11 @@ namespace Snek.Utilities
                     while (!IsEverySubdependencyInitialized())
                         yield return null;
 
-                    if (!IsEverySubdependencyValid())
-                        FailValidation("Not all subdependencies were initialized successfully.");
+                    using (new ValidationScope(this))
+                        if (!IsEverySubdependencyValid())
+                            FailValidation("Not all subdependencies were initialized successfully.");
                 }
             }
-
-            _isValidating = false;
 
             if (_isValid)
             {
@@ -260,11 +277,11 @@ namespace Snek.Utilities
         /// </summary>
         protected void FailValidation(string message)
         {
-            if(!_isValidating)
+            if (!_isValidating)
             {
                 Debug.Log(
-                    "Validation process is not running, cannot fail validation.\n" +
-                    "FailValidation() works only when called within Validate().");
+                    $"{nameof(FailValidation)} works only when called within {nameof(Validate)}.",
+                    gameObject);
 
                 return;
             }
