@@ -2480,6 +2480,7 @@ GameObject:
   - component: {fileID: 990974718}
   - component: {fileID: 990974717}
   - component: {fileID: 990974716}
+  - component: {fileID: 990974720}
   - component: {fileID: 990974719}
   m_Layer: 5
   m_Name: AllProjectsMenu
@@ -2591,6 +2592,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ab96bd247fbb54499d7266f682d979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Snek.GameUI::Snek.GameUI.SnekUIPointerInputDispatcher
+--- !u!114 &990974720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990974714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9579990323c0043be6eb0ae636e24e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AllProjectsMenu
 --- !u!1 &1040744202
 GameObject:
   m_ObjectHideFlags: 0

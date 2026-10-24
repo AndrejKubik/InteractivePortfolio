@@ -6,8 +6,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [UseSnekInspector]
-public class PortfolioCategory : SnekMonoBehaviour
+public class PortfolioCategory : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioCategory.Data>
 {
+    public readonly struct Data
+    {
+        public readonly ScrollRect ParentScrollRect;
+        public readonly SnekUIPointerInputDispatcher PointerInputDispatcher;
+
+        public Data(ScrollRect parentScrollRect, SnekUIPointerInputDispatcher pointerInputDispatcher)
+        {
+            ParentScrollRect = parentScrollRect;
+            PointerInputDispatcher = pointerInputDispatcher;
+        }
+    }
+
     [SerializeField] private PortfolioCategoryCarouselController _projectButtonsCarouselController;
     [SerializeField] private TextMeshProUGUI _categoryTitle;
 
@@ -15,18 +27,17 @@ public class PortfolioCategory : SnekMonoBehaviour
     [SerializeField] private PortfolioProjectButton _projectButtonPrefab;
 
     [Space(10f)]
-    [SerializeField] private bool _usedInScrollRect;
-    [SerializeField] private ScrollRect _parentScrollRect;
-    [SerializeField] private SnekUIPointerInputDispatcher _pointerInputDispatcher;
-
-    [Space(10f)]
     [SerializeField] private List<PortfolioProjectData> _projects = new();
 
+    private ScrollRect _parentScrollRect;
+    private SnekUIPointerInputDispatcher _pointerInputDispatcher;
+    
     private float _parentScrollRectVelocityY;
 
-    protected override bool IsInitializedInStart()
+    public void PrepareInitializationData(Data data)
     {
-        return true;
+        _parentScrollRect = data.ParentScrollRect;
+        _pointerInputDispatcher = data.PointerInputDispatcher;
     }
 
     protected override void Validate()
@@ -38,9 +49,6 @@ public class PortfolioCategory : SnekMonoBehaviour
 
         if (_projects.Count < 1)
             FailValidation("No projects assigned to the category.");
-
-        if (!_usedInScrollRect)
-            return;
         
         ValidateEssentialComponent(_parentScrollRect, nameof(_parentScrollRect));
         ValidateEssentialComponent(_pointerInputDispatcher, nameof(_pointerInputDispatcher));
@@ -76,7 +84,7 @@ public class PortfolioCategory : SnekMonoBehaviour
 
     protected void OnEndlessCarouselVerticalDrag(float deltaY)
     {
-        if (_usedInScrollRect && !_pointerInputDispatcher.IsDragging)
+        if (!_pointerInputDispatcher.IsDragging)
             MoveParentScrollViewVertically(deltaY);
     }
 
