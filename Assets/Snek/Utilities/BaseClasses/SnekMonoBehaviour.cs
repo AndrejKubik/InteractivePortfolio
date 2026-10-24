@@ -21,6 +21,7 @@ namespace Snek.Utilities
         private SnekMonoBehaviour[] _subdependencies = null;
 
         private Coroutine _initializationProcess = null;
+        private bool _isValidating = false;
 
         protected virtual void Awake()
         {
@@ -108,6 +109,7 @@ namespace Snek.Utilities
                 yield break;
             }
 
+            _isValidating = true;
             _isValid = true;
 
             OnInitialize();
@@ -116,7 +118,7 @@ namespace Snek.Utilities
             if (_isValid)
                 Validate();
 
-            if(_isValid)
+            if (_isValid)
             {
                 _subdependencies = GetSubdependencies();
 
@@ -132,20 +134,22 @@ namespace Snek.Utilities
                 }
             }
 
-            if (!_isValid)
+            _isValidating = false;
+
+            if (_isValid)
+            {
+                OnInitializationSuccess();
+
+                _isInitializedOnce = true;
+            }
+            else
             {
                 Debug.LogError(GetInvalidSetupMessage(), gameObject);
 
                 OnFailValidation();
 
                 gameObject.SetActive(false);
-
-                yield break;
             }
-
-            OnInitializationSuccess();
-
-            _isInitializedOnce = true;
         }
 
         private bool IsDataRequiredForInitialization()
@@ -256,6 +260,15 @@ namespace Snek.Utilities
         /// </summary>
         protected void FailValidation(string message)
         {
+            if(!_isValidating)
+            {
+                Debug.Log(
+                    "Validation process is not running, cannot fail validation.\n" +
+                    "FailValidation() works only when called within Validate().");
+
+                return;
+            }
+
             _isValid = false;
 
             Debug.LogError($"[{GetType().Name}] {message}", gameObject);
