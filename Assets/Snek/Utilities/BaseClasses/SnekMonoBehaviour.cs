@@ -34,6 +34,24 @@ namespace Snek.Utilities
                 StartCoroutine(Initialize(false, false));
         }
 
+        private void FixedUpdate()
+        {
+            if (_isValid)
+                OnFixedUpdate();
+        }
+
+        private void Update()
+        {
+            if (_isValid)
+                OnUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            if (_isValid)
+                OnLateUpdate();
+        }
+
         private void OnDestroy()
         {
             OnDispose();
@@ -272,6 +290,21 @@ namespace Snek.Utilities
         /// Use as the logic entry point instead of Start() or Awake() methods
         /// </summary>
         protected virtual void OnInitializationSuccess() { }
+
+        /// <summary>
+        /// Same as built-in FixedUpdate(), just ignored if component is not yet initialized.
+        /// </summary>
+        protected virtual void OnFixedUpdate() { }
+
+        /// <summary>
+        /// Same as built-in Update(), just ignored if component is not yet initialized.
+        /// </summary>
+        protected virtual void OnUpdate() { }
+
+        /// <summary>
+        /// Same as built-in LateUpdate(), just ignored if component is not yet initialized.
+        /// </summary>
+        protected virtual void OnLateUpdate() { }
 
         /// <summary>
         /// Called when the component instance(or its game object) is destroyed
