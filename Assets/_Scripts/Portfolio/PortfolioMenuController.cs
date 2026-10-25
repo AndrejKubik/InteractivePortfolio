@@ -1,10 +1,8 @@
-using System;
 using DG.Tweening;
 using Snek.AudioManager;
 using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [UseSnekInspector]
 public class PortfolioMenuController : SnekMonoBehaviour

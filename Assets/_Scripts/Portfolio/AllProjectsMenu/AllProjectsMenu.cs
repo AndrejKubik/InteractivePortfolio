@@ -1,4 +1,6 @@
+using System;
 using Snek.GameUI;
+using Snek.SingletonManager;
 using Snek.Utilities;
 using UnityEngine;
 using UnityEngine.UI;

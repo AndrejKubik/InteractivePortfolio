@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
       propertyPath: SingletonPrefabs.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
       propertyPath: 'SingletonPrefabs.Array.data[0]'
@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: 'SingletonPrefabs.Array.data[3]'
       value: 
       objectReference: {fileID: 5678493237760466754, guid: 43a2b175fa7337d45a10296b6ad6b55a, type: 3}
+    - target: {fileID: 7747974846831451451, guid: 8644ffd8bb07d9848a963c263ac86650, type: 3}
+      propertyPath: 'SingletonPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8416211070767885308, guid: a4468c35e837fc24ca41c938ba3d2994, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

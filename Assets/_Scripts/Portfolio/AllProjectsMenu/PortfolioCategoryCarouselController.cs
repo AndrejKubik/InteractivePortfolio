@@ -25,11 +25,16 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
     }
 
     private EventManager _eventManager;
+    private ScreenManager _screenManager;
+
     private PortfolioCategoryCarousel _projectButtonsCarousel;
 
     private List<PortfolioProjectData> _projects = new();
     private OnVerticalDragEvent _onVerticalDrag;
     private PortfolioProjectButton _buttonPrefab;
+
+    private float _elementWidth = 0f;
+    private float _elementHeight = 0f;
 
     public void PrepareInitializationData(Data data)
     {
@@ -41,6 +46,7 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
     protected override void OnInitialize()
     {
         SnekSingletonManager.GetSingleton(out _eventManager);
+        SnekSingletonManager.GetSingleton(out _screenManager);
 
         GetEssentialComponent(out _projectButtonsCarousel);
     }
@@ -50,6 +56,7 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
         ValidateEssentialComponent(_buttonPrefab, nameof(_buttonPrefab));
 
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
+        ValidateEssentialComponent(_screenManager, nameof(_screenManager));
 
         if (_projects.Count < 1)
             FailValidation("No projects assigned.");
@@ -62,21 +69,28 @@ public class PortfolioCategoryCarouselController : SnekMonoBehaviour, ISnekIniti
 
     protected override void OnInitializationSuccess()
     {
-        _projectButtonsCarousel.OnVerticalDrag += _onVerticalDrag;
-
         foreach (PortfolioProjectData project in _projects)
             CreateProjectButton(project);
 
-        RectTransform buttonPrefabRectTransform = _buttonPrefab.GetComponent<RectTransform>();
-        float elementWidth = buttonPrefabRectTransform.rect.width;
-        float elementHeight = buttonPrefabRectTransform.rect.height;
+        var buttonPrefabRectTransform = _buttonPrefab.GetComponent<RectTransform>();
+        _elementWidth = buttonPrefabRectTransform.rect.width;
+        _elementHeight = buttonPrefabRectTransform.rect.height;
 
-        _projectButtonsCarousel.Initialize(new PortfolioCategoryCarousel.Data(elementWidth, elementHeight));
+        _projectButtonsCarousel.Initialize(new PortfolioCategoryCarousel.Data(_elementWidth, _elementHeight));
+
+        _projectButtonsCarousel.OnVerticalDrag += _onVerticalDrag;
+        _screenManager.OnScreenSizeChanged += OnScreenSizeChange;
     }
 
-    private void OnDestroy()
+    private void OnScreenSizeChange()
+    {
+        _projectButtonsCarousel.Initialize(new PortfolioCategoryCarousel.Data(_elementWidth, _elementHeight));
+    }
+
+    protected override void OnDispose()
     {
         _projectButtonsCarousel.OnVerticalDrag -= _onVerticalDrag;
+        _screenManager.OnScreenSizeChanged += OnScreenSizeChange;
     }
 
     private void CreateProjectButton(PortfolioProjectData project)

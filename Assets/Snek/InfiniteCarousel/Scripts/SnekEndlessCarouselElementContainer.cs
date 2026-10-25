@@ -47,17 +47,11 @@ namespace Snek.EndlessCarousel
             GetEssentialComponent(out _contentSizeFitter);
         }
 
-        protected override void Validate()
-        {
-            if (_gridLayoutGroup.enabled == false)
-                FailValidation("Grid Layout Group is disabled, it must be enabled by default for correct item distribution.");
-
-            if (_contentSizeFitter.enabled == false)
-                FailValidation("Content size fitter is disabled, it must be enabled by default for correct item distribution.");
-        }
-
         protected override void OnInitializationSuccess()
         {
+            _gridLayoutGroup.enabled = true;
+            _contentSizeFitter.enabled = true;
+
             _gridLayoutGroup.cellSize = new Vector2(_elementWidth, _elementHeight);
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); //enforces element position distribution before disabling the layout group

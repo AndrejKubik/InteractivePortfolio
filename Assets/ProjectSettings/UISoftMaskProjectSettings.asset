@@ -33,7 +33,7 @@ MonoBehaviour:
   m_PreLoadSettingsInBuild: 1
   m_SoftMaskEnabled: 1
   m_StereoEnabled: 1
-  m_TransformSensitivity: 1
+  m_TransformSensitivity: 2
   m_SoftMaskable: 0
   m_HideGeneratedComponents: 1
   m_ShaderVariantRegistry:

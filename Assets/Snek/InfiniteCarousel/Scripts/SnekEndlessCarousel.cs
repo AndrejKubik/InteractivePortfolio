@@ -60,7 +60,7 @@ namespace Snek.EndlessCarousel
                 ElementHeight));
         }
 
-        private void Update()
+        protected override void OnUpdate()
         {
             if (!IsDragging)
             {
