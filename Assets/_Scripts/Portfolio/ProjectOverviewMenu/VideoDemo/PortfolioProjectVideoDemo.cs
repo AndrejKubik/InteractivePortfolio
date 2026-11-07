@@ -16,9 +16,9 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     {
         public readonly string VideoUrl;
         public readonly float SlideDuration;
-        public readonly Action<VideoAspectForm> OnVideoPrepared;
+        public readonly Action OnVideoPrepared;
 
-        public Data(string videoUrl, float slideDuration, Action<VideoAspectForm> onVideoPrepared)
+        public Data(string videoUrl, float slideDuration, Action onVideoPrepared)
         {
             VideoUrl = videoUrl;
             SlideDuration = slideDuration;
@@ -43,7 +43,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     private string _videoURL = string.Empty;
     private float _slideDuration = 0f;
-    private Action<VideoAspectForm> _onVideoPrepared = null;
+    private Action _onVideoPrepared = null;
 
     private PortfolioProjectVideoPlayerController _videoPlayerController;
     private PortfolioProjectVideoPreviewController _videoPreviewController;
@@ -195,7 +195,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
         _videoPreviewController.SetRenderTexture(renderTexture);
         _videoPreviewController.FitVideoPreviewToScreen();
 
-        _onVideoPrepared?.Invoke(_videoPreviewController.GetVideoAspectForm());
+        _onVideoPrepared?.Invoke();
 
         StartFadeVolumeTween(0f, _savedVolume);
 

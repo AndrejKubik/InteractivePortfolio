@@ -119,29 +119,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
             _eventManager.RequestShowAllProjects();
     }
 
-    private void OnVideoDemoPrepared(VideoAspectForm videoAspectForm)
+    private void OnVideoDemoPrepared()
     {
-        //switch (videoAspectForm)
-        //{
-        //    case VideoAspectForm.Landscape:
-
-        //        _headerTransform.SetParent(_scrollViewContentTransform);
-        //        break;
-
-        //    case VideoAspectForm.Portrait:
-
-        //        _headerTransform.SetParent(_infoSectionTransform);
-        //        break;
-
-        //    default:
-        //    case VideoAspectForm.Unsupported:
-
-        //        Debug.LogError("Invalid video aspect form provided, cannot prepare video demo.");
-        //        return;
-        //}
-
-        //_headerTransform.SetAsFirstSibling();
-
         _descriptionTextBox.SetText(_project.GetDescriptionText());
 
         UpdateDevelopmentHighlights();

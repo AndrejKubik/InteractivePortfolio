@@ -181,7 +181,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private void FitVideoPreviewToScreenLandscape()
     {
-        float targetWidth = _horizontalLayoutGroupTransform.rect.size.x / 2f;
+        float targetWidth = _horizontalLayoutGroupTransform.rect.size.x * 0.6f;
         targetWidth -= 2f * VideoTopPadding;
 
         _layoutElement.preferredWidth = targetWidth;
