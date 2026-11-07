@@ -2737,6 +2737,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2253525754988258284, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: _scrollRectTransform
+      value: 
+      objectReference: {fileID: 4043903479081815406}
+    - target: {fileID: 2253525754988258284, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
       propertyPath: _aspectRatioFitterFullscreen
       value: 
       objectReference: {fileID: 4933476370039941838}

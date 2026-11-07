@@ -8,6 +8,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 {
     [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
     [SerializeField] private RectTransform _horizontalLayoutGroupTransform;
+    [SerializeField] private RectTransform _scrollRectTransform;
 
     [Space(10f)]
     [SerializeField] private RawImage _videoPreview;
@@ -29,8 +30,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private RectTransform _videoPreviewTransform;
 
-    private const float VideoTopPadding = 15f;
-
     private float _headerHeight = 0f;
     private float _controlsPanelHeight = 0f;
     private float _videoVerticalPadding = 0f;
@@ -46,6 +45,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     {
         ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
         ValidateEssentialComponent(_horizontalLayoutGroupTransform, nameof(_horizontalLayoutGroupTransform));
+        ValidateEssentialComponent(_scrollRectTransform, nameof(_scrollRectTransform));
 
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
 
@@ -181,8 +181,8 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private void FitVideoPreviewToScreenLandscape()
     {
-        float targetWidth = _horizontalLayoutGroupTransform.rect.size.x * 0.6f;
-        targetWidth -= 2f * VideoTopPadding;
+        float targetWidth = _scrollRectTransform.rect.size.x * 0.6f;
+        targetWidth -= _scrollRectContentLayoutGroup.spacing + _scrollRectContentLayoutGroup.padding.right;
 
         _layoutElement.preferredWidth = targetWidth;
 
@@ -191,8 +191,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        float screenHeight = (float)Screen.height / _canvas.scaleFactor;
-        float targetHeight = screenHeight - 2f * _videoVerticalPadding;
+        float targetHeight = _scrollRectTransform.rect.size.y - 2f * _videoVerticalPadding;
 
         _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
