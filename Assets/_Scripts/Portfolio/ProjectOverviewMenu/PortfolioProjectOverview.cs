@@ -121,26 +121,26 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     private void OnVideoDemoPrepared(VideoAspectForm videoAspectForm)
     {
-        switch (videoAspectForm)
-        {
-            case VideoAspectForm.Landscape:
+        //switch (videoAspectForm)
+        //{
+        //    case VideoAspectForm.Landscape:
 
-                _headerTransform.SetParent(_scrollViewContentTransform);
-                break;
+        //        _headerTransform.SetParent(_scrollViewContentTransform);
+        //        break;
 
-            case VideoAspectForm.Portrait:
+        //    case VideoAspectForm.Portrait:
 
-                _headerTransform.SetParent(_infoSectionTransform);
-                break;
+        //        _headerTransform.SetParent(_infoSectionTransform);
+        //        break;
 
-            default:
-            case VideoAspectForm.Unsupported:
+        //    default:
+        //    case VideoAspectForm.Unsupported:
 
-                Debug.LogError("Invalid video aspect form provided, cannot prepare video demo.");
-                return;
-        }
+        //        Debug.LogError("Invalid video aspect form provided, cannot prepare video demo.");
+        //        return;
+        //}
 
-        _headerTransform.SetAsFirstSibling();
+        //_headerTransform.SetAsFirstSibling();
 
         _descriptionTextBox.SetText(_project.GetDescriptionText());
 
