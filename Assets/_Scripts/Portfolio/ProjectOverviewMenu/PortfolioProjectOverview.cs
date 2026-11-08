@@ -134,7 +134,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         UpdateDevelopmentHighlights();
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
-        _infoSectionTransform.ExpandHeightToFitChildren(SnekRectTransformUtility.FitToChildrenMode.Default, _scrollRect.content);
+        _infoSectionTransform.FitChildrenByHeight(SnekRectTransformUtility.FitToChildrenMode.Default);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
     }
 
     private void UpdateDescription()
@@ -162,7 +163,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         _scrollRect.content.ResetAnchorOffset();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
 
-        _scrollRect.content.ExpandHeightToFitChildren(SnekRectTransformUtility.FitToChildrenMode.ExpandOnly);
+        _scrollRect.content.FitChildrenByHeight(SnekRectTransformUtility.FitToChildrenMode.ExpandOnly);
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
 
         _scrollRect.verticalNormalizedPosition = 1f;

@@ -77,7 +77,7 @@ namespace Snek.Utilities
                 parentCanvas.worldCamera);
         }
 
-        public static void ExpandHeightToFitChildren(this RectTransform rectTransform, SnekRectTransformUtility.FitToChildrenMode mode)
+        public static void FitChildrenByHeight(this RectTransform rectTransform, SnekRectTransformUtility.FitToChildrenMode mode)
         {
             float preferredHeight = LayoutUtility.GetPreferredHeight(rectTransform);
 
