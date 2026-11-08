@@ -6,8 +6,7 @@ using UnityEngine.UI;
 [UseSnekInspector]
 public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekInitializableManual
 {
-    [SerializeField] private VerticalLayoutGroup _scrollRectContentLayoutGroup;
-    [SerializeField] private RectTransform _horizontalLayoutGroupTransform;
+    [SerializeField] private HorizontalLayoutGroup _horizontalLayoutGroup;
     [SerializeField] private RectTransform _scrollRectTransform;
 
     [Space(10f)]
@@ -24,7 +23,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     [SerializeField] private RectTransform _videoPlayerContainerFullscreenBackground;
     [SerializeField] private AspectRatioFitter _aspectRatioFitterFullscreen;
 
-    private Canvas _canvas;
+    private RectTransform _horizontalLayoutGroupTransform;
     private LayoutElement _layoutElement;
     private PortfolioProjectVideoPreviewAnimator _videoPreviewAnimator;
 
@@ -32,19 +31,16 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private float _headerHeight = 0f;
     private float _controlsPanelHeight = 0f;
-    private float _videoVerticalPadding = 0f;
 
     protected override void OnInitialize()
     {
-        GetEssentialComponent(out _canvas, SnekGetComponentContext.Parents);
         GetEssentialComponent(out _layoutElement);
         GetEssentialComponent(out _videoPreviewAnimator);
     }
 
     protected override void Validate()
     {
-        ValidateEssentialComponent(_scrollRectContentLayoutGroup, nameof(_scrollRectContentLayoutGroup));
-        ValidateEssentialComponent(_horizontalLayoutGroupTransform, nameof(_horizontalLayoutGroupTransform));
+        ValidateEssentialComponent(_horizontalLayoutGroup, nameof(_horizontalLayoutGroup));
         ValidateEssentialComponent(_scrollRectTransform, nameof(_scrollRectTransform));
 
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
@@ -62,10 +58,10 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     protected override void OnInitializationSuccess()
     {
         _videoPreviewTransform = _videoPreview.transform as RectTransform;
+        _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
 
         _headerHeight = _videoPreviewHeader.rect.size.y;
         _controlsPanelHeight = _controlsPanelTransform.rect.size.y;
-        _videoVerticalPadding = _scrollRectContentLayoutGroup.padding.bottom;
 
         _aspectRatioFitterMini.enabled = false;
 
@@ -141,8 +137,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     public void FitVideoPreviewToScreen()
     {
-        ResetHorizontalLayoutGroupHeight();
-
         switch (GetVideoAspectForm())
         {
             case VideoAspectForm.Landscape:
@@ -162,13 +156,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         }
     }
 
-    private void ResetHorizontalLayoutGroupHeight()
-    {
-        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-    }
-
     public VideoAspectForm GetVideoAspectForm()
     {
         return _aspectRatioFitterMini.aspectMode switch
@@ -182,7 +169,7 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     private void FitVideoPreviewToScreenLandscape()
     {
         float targetWidth = _scrollRectTransform.rect.size.x * 0.6f;
-        targetWidth -= _scrollRectContentLayoutGroup.spacing + _scrollRectContentLayoutGroup.padding.right;
+        targetWidth -= _horizontalLayoutGroup.spacing + _horizontalLayoutGroup.padding.right;
 
         _layoutElement.preferredWidth = targetWidth;
 
@@ -191,11 +178,13 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private void FitVideoPreviewToScreenPortrait()
     {
-        float targetHeight = _scrollRectTransform.rect.size.y - 2f * _videoVerticalPadding;
+        float targetHeight = _scrollRectTransform.rect.size.y;
+        targetHeight -= _horizontalLayoutGroup.padding.top + _horizontalLayoutGroup.padding.bottom;
 
-        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+        var rectTransform = transform as RectTransform;
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
+        rectTransform.SetRectHeight(targetHeight);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
 
         _layoutElement.preferredWidth = _videoPlayerContainerMini.rect.size.x;
 

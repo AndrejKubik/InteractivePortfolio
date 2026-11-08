@@ -73,6 +73,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         ValidateEssentialComponent(_videoPlayerContainerMini, nameof(_videoPlayerContainerMini));
         ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
 
+        ValidateEssentialComponent(_infoSectionTransform, nameof(_infoSectionTransform));
         ValidateEssentialComponent(_descriptionTextBox, nameof(_descriptionTextBox));
         ValidateEssentialComponent(_developmentHighlightsTextBox, nameof(_developmentHighlightsTextBox));
         ValidateEssentialComponent(_scrollRect, nameof(_scrollRect));
@@ -121,23 +122,25 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     private void OnVideoDemoPrepared()
     {
-        _descriptionTextBox.SetText(_project.GetDescriptionText());
-
-        UpdateDevelopmentHighlights();
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollViewContentTransform);
-
-        float targetHeight = Mathf.Max(
-            _infoSectionTransform.rect.height,
-            _videoDemo.GetRectTransform().rect.height);
-
-        _horizontalLayoutGroupTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_horizontalLayoutGroupTransform);
-
-        _scrollRect.verticalNormalizedPosition = 1f;
+        UpdateInfoSection();
+        UpdateScrollRectContentLayout();
 
         _onPrepareDemoVideo.Invoke();
+    }
+
+    private void UpdateInfoSection()
+    {
+        UpdateDescription();
+        UpdateDevelopmentHighlights();
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+        _infoSectionTransform.ExpandHeightToFitChildren(SnekRectTransformUtility.FitToChildrenMode.Default, _scrollRect.content);
+    }
+
+    private void UpdateDescription()
+    {
+        _descriptionTextBox.SetText(_project.GetDescriptionText());
+        _descriptionTextBox.AutoAdjustHeight();
     }
 
     private void UpdateDevelopmentHighlights()
@@ -148,7 +151,21 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         _developmentHighlightsTextBox.gameObject.SetActive(isTextBoxRequired);
 
         if (isTextBoxRequired)
+        {
             _developmentHighlightsTextBox.SetText(developmentHighlights);
+            _developmentHighlightsTextBox.AutoAdjustHeight();
+        }
+    }
+
+    private void UpdateScrollRectContentLayout()
+    {
+        _scrollRect.content.ResetAnchorOffset();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+
+        _scrollRect.content.ExpandHeightToFitChildren(SnekRectTransformUtility.FitToChildrenMode.ExpandOnly);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+
+        _scrollRect.verticalNormalizedPosition = 1f;
     }
 
     public void FadeVideoVolume()

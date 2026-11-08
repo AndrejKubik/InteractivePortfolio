@@ -1,5 +1,6 @@
 using System.Collections;
 using Snek.Utilities;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -31,6 +32,9 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     private float? _videoSeekTargetTime = null;
     private bool _isForcingChange = false;
 
+    public bool TestVideoOnly = true;
+    public VideoClip TestVideo;
+
     public void PrepareInitializationData(Data data)
     {
         _videoURL = data.VideoURL;
@@ -57,7 +61,18 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
             _videoPlayer.seekCompleted += OnVideoSeekCompleted;
         }
 
-        _videoPlayer.url = _videoURL;
+        if (TestVideoOnly)
+        {
+            _videoPlayer.source = VideoSource.VideoClip;
+            _videoPlayer.clip = TestVideo;
+            EditorGUIUtility.PingObject(gameObject);
+            Selection.SetActiveObjectWithContext(gameObject, gameObject);
+        }
+        else
+        {
+            _videoPlayer.source = VideoSource.Url;
+            _videoPlayer.url = _videoURL;
+        }
 
         _videoPlayer.Prepare();
     }

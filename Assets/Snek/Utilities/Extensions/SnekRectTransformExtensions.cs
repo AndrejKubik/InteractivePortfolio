@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Snek.Utilities
 {
@@ -74,6 +75,29 @@ namespace Snek.Utilities
                 rectTransform,
                 Input.mousePosition,
                 parentCanvas.worldCamera);
+        }
+
+        public static void ExpandHeightToFitChildren(this RectTransform rectTransform, SnekRectTransformUtility.FitToChildrenMode mode)
+        {
+            float preferredHeight = LayoutUtility.GetPreferredHeight(rectTransform);
+
+            bool isAdjustingRequired =
+                mode == SnekRectTransformUtility.FitToChildrenMode.Default
+                || mode == SnekRectTransformUtility.FitToChildrenMode.ExpandOnly && rectTransform.rect.height < preferredHeight
+                || mode == SnekRectTransformUtility.FitToChildrenMode.ShrinkOnly && rectTransform.rect.height > preferredHeight;
+
+            if (isAdjustingRequired)
+                SetRectHeight(rectTransform, preferredHeight);
+        }
+
+        public static void SetRectHeight(this RectTransform rectTransform, float newHeight)
+        {
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
+        }
+
+        public static void SetRectWidth(this RectTransform rectTransform, float newWidth)
+        {
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newWidth);
         }
     }
 }

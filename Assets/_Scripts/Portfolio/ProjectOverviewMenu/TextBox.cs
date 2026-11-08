@@ -29,12 +29,13 @@ public class TextBox : SnekMonoBehaviour
     {
         _textMesh.SetText(text);
         _textMesh.ForceMeshUpdate();
+    }
 
+    public void AutoAdjustHeight()
+    {
         float targetHeight = _textMesh.preferredHeight + _header.rect.height;
 
-        _rectTransform.SetSizeWithCurrentAnchors(
-            RectTransform.Axis.Vertical,
-            targetHeight);
+        _rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
     }
