@@ -24,6 +24,10 @@ public class PortfolioProjectData : SnekScriptableObject
 
     [Space(10f)]
     [TextArea(1, 10)]
+    public string ShortDescription = string.Empty;
+
+    [Space(10f)]
+    [TextArea(1, 10)]
     public string Description = string.Empty;
 
     [Space(10f)]

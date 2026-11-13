@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Sausage Escape
   Thumbnail: {fileID: 21300000, guid: 0b133bbaa48670b4a848f82153c3f574, type: 3}
-  IsPublished: 0
+  DevelopmentState: 0
   SmallButtonTags:
   - Unity
   - 3D
@@ -26,10 +26,8 @@ MonoBehaviour:
   - Hyper-Casual
   - Runner
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Sausage.Escape.mp4
-  Description: 'Runner game about escorting raw sausages towards the fired-up grill
-    right outside the kitchen window.
-
-
-    - Collect dancing sausages and navigate
-    them through a messy kitchen counter so that the barbeque party can begin!'
+  ShortDescription: Runner game about escorting raw sausages towards the fired-up
+    grill right outside the kitchen window.
+  Description: Collect dancing sausages and navigate them through a messy kitchen
+    counter so that the barbeque party can begin!
   DevelopmentHighlights: []

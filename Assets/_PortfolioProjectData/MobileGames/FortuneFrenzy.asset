@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Fortune Frenzy
   Thumbnail: {fileID: 21300000, guid: d373c66ba70600f4a839587f1c9eaf08, type: 3}
-  IsPublished: 0
+  DevelopmentState: 0
   SmallButtonTags:
   - Unity
   - 3D
@@ -26,13 +26,11 @@ MonoBehaviour:
   - Shooter
   - Trajectory
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Fortune.Frenzy.mp4
-  Description: 'Fast-paced shooter PvP-like game with a wheel of fortune element
+  ShortDescription: Fast-paced shooter Fake-PvP game with a wheel of fortune element
     to spice things up.
-
-
-    - Control your auto-firing soldier cannon to send your
-    army to demolish the enemy walls and slay their king while occasionally spinning
-    your wheel of fortune to get random power-ups.'
+  Description: Control your auto-firing soldier cannon to send your army to demolish
+    the enemy walls and slay their king while occasionally spinning your wheel of
+    fortune to get random power-ups.
   DevelopmentHighlights:
   - Name: 
     Text: Wheel of fortune system for getting random bonus effects

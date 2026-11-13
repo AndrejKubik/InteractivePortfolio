@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Tasty Rush
   Thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
-  IsPublished: 0
+  DevelopmentState: 0
   SmallButtonTags:
   - Unity
   - 3D
@@ -27,13 +27,10 @@ MonoBehaviour:
   - Merge
   - Drag & Drop
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
-  Description: 'Clicker-Idle game in which you are an owner of a fast food restaurant.
-
-
-    -
-    Attract customers by clicking, hire new employees, buy upgrades for automated
-    actions, and merge employees of the same level to upgrade them and unlock new
-    recipes.'
+  ShortDescription: Clicker-Idle game in which you are an owner of a fast food restaurant.
+  Description: Attract customers by clicking, hire new employees, buy upgrades for
+    automated actions, and merge employees of the same level to upgrade them and
+    unlock new recipes.
   DevelopmentHighlights:
   - Name: 
     Text: "Customer-Employee system, which creates an easy setup for automated store

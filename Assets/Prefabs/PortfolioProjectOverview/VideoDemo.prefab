@@ -273,6 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoPlayerControllerMono
   _videoPlayer: {fileID: 179511740938479375}
+  TestVideoOnly: 0
+  TestVideo: {fileID: 32900000, guid: b200c994340011640bfc448b0931bebb, type: 3}
 --- !u!114 &2253525754988258284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,8 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa0257861500664dafe40cadfa106ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoPreviewController
-  _scrollRectContentLayoutGroup: {fileID: 0}
-  _horizontalLayoutGroupTransform: {fileID: 0}
+  _horizontalLayoutGroup: {fileID: 0}
+  _scrollRectTransform: {fileID: 0}
   _videoPreview: {fileID: 1713233322463601211}
   _videoPreviewHeader: {fileID: 6166773008592682523}
   _videoPlayerContainerMini: {fileID: 3696471186925387911}

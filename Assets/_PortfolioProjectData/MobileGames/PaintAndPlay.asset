@@ -26,13 +26,10 @@ MonoBehaviour:
   - Painting
   - For Children
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/PaintAndPlay.mp4
-  Description: 'Playful painting game for children with childish characters and multiple
-    game modes to choose from.
-
-
-    - Pick a childish character, paint it however
-    you like and place it alongside others to make an empty ambient painting come
-    to life.'
+  ShortDescription: Painting game for children featuring funny characters and multiple
+    game modes.
+  Description: Choose a character, paint it however you like, and place it alongside
+    others to bring a lively scene to life.
   DevelopmentHighlights:
   - Name: 
     Text: 'Complex UI functionality: Multiple image gallery menus, carousels, infinite
@@ -43,17 +40,5 @@ MonoBehaviour:
   - Name: 
     Text: In-Editor tools for playable element setup for each individual game mode
       which increased iteration speed by far
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
-  - Name: 
-    Text: Utilized addressables package for memory load optimization
   - Name: 
     Text: Utilized addressables package for memory load optimization

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Time Warper
   Thumbnail: {fileID: 21300000, guid: b283885b53a73a843a2de3e4770c075a, type: 3}
-  IsPublished: 0
+  DevelopmentState: 0
   SmallButtonTags:
   - Unity
   - 3D
@@ -25,9 +25,7 @@ MonoBehaviour:
   - Hyper-Casual
   - Runner
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
-  Description: 'Runner game about controling time.
-
-
-    - Tap and hold to briefly
-    slow down the time to safely pass obstacles and reach the finish line.'
+  ShortDescription: Runner game about controling time.
+  Description: Tap and hold to briefly slow down the time to safely pass obstacles
+    and reach the finish line.
   DevelopmentHighlights: []

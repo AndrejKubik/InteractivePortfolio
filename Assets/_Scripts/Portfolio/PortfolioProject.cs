@@ -12,7 +12,8 @@ public class PortfolioProject
     private readonly List<string> _smallButtonTags = new();
     private readonly List<string> _bigButtonTags = new();
     private readonly string _videoDemoUrl = string.Empty;
-    private readonly string _descriptionText = string.Empty;
+    private readonly string _shortDescription = string.Empty;
+    private readonly string _description = string.Empty;
     private readonly List<PortfolioProjectDevelopmentHighlight> _developmentHighlights;
 
     public PortfolioProject(PortfolioProjectData data)
@@ -23,7 +24,8 @@ public class PortfolioProject
         _smallButtonTags = data.SmallButtonTags;
         _bigButtonTags = data.BigButtonTags;
         _videoDemoUrl = data.VideoDemoUrl;
-        _descriptionText = data.Description;
+        _shortDescription = data.ShortDescription;
+        _description = data.Description;
         _developmentHighlights = data.DevelopmentHighlights;
     }
 
@@ -42,7 +44,7 @@ public class PortfolioProject
         else if (!_videoDemoUrl.StartsWith(DemoVideosBaseUrl))
             FailValidation("Project data video demo link is invalid.", out isDataValid);
 
-        if (string.IsNullOrEmpty(_descriptionText))
+        if (string.IsNullOrEmpty(_description))
             FailValidation("Project data description text not assigned.", out isDataValid);
 
         if (!IsEveryDevelopmentHighlightValid())
@@ -99,9 +101,14 @@ public class PortfolioProject
         return ProxyDemoVideosBaseUrl + fileName;
     }
 
+    public string GetShortDescriptionText()
+    {
+        return _shortDescription;
+    }
+
     public string GetDescriptionText()
     {
-        return _descriptionText;
+        return _description;
     }
 
     public string GetDevelopmentHighlights()

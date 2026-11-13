@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Grid Level Editor
   Thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
-  IsPublished: 0
   DevelopmentState: 3
   SmallButtonTags:
   - In-Editor
@@ -25,7 +24,10 @@ MonoBehaviour:
   - JSON files
   - Editor Windows
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
-  Description: Level editor tool for a mobile game project.
+  ShortDescription: Editor tool for creating game levels.
+  Description: Editor tool with various features, intended to allow a game designer
+    to create and prototype game content quickly, while also allowing developers
+    to test new features and debug edge cases more easily.
   DevelopmentHighlights:
   - Name: 
     Text: Object placement, grid size and level data controls

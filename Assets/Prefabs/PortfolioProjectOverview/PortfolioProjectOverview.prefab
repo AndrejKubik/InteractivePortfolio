@@ -1843,6 +1843,7 @@ MonoBehaviour:
   _videoPlayer: {fileID: 1293829633465675624}
   _videoPlayerContainerMini: {fileID: 3836539854985369377}
   _videoPlayerContainerFullscreen: {fileID: 1757136517279535836}
+  _shortDescription: {fileID: 5391380238881030558}
   _descriptionTextBox: {fileID: 1872195396166068231}
   _developmentHighlightsTextBox: {fileID: 8370706452017805173}
   _scrollRect: {fileID: 8776589846541650826}
@@ -2803,10 +2804,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7034795860249873091, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
-      propertyPath: TestVideo
-      value: 
-      objectReference: {fileID: 32900000, guid: b200c994340011640bfc448b0931bebb, type: 3}
-    - target: {fileID: 7034795860249873091, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -3302,6 +3299,17 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5391380238881030558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 93440049405260317, guid: 10c5de231ce5d014db74bfc2ce12f4f2, type: 3}
+  m_PrefabInstance: {fileID: 5447650180462080899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &8607482856747569639 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4389352621890921060, guid: 10c5de231ce5d014db74bfc2ce12f4f2, type: 3}

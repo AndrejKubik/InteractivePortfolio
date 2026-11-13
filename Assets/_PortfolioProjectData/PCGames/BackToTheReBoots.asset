@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectData
   ProjectName: Back to the R(eb)oots
   Thumbnail: {fileID: 21300000, guid: 80464591e02b16b45b62e031a4f4c7bb, type: 3}
-  IsPublished: 0
+  DevelopmentState: 0
   SmallButtonTags:
   - Unity
   - Dungeon Crawler
@@ -25,11 +25,12 @@ MonoBehaviour:
   - Shooter
   - Top-Down
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Back.to.the.R.eb.oots.mp4
-  Description: "Top-down dungeon crawler game about a computer virus trying to corrupt
-    the system.\n\n- You play as the virus which is trying to find the windows root
-    folder while the minions of the Malware-bites antivirus constantly try to keep
-    you away. \n\n- You have a limited time period to complete your mission, and
-    instead of health, you lose time whenever you get hit. "
+  ShortDescription: Top-down dungeon crawler game about a computer virus trying to
+    corrupt the system.
+  Description: "You play as the virus which is trying to find the windows root folder
+    while the minions of the Malware-bites antivirus constantly try to keep you away.
+    \n\nYou also have a limited time period to complete your mission, and instead
+    of health, you lose time whenever you get hit. "
   DevelopmentHighlights:
   - Name: 
     Text: Neon shader using shader graph

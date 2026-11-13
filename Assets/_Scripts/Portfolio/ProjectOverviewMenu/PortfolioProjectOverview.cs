@@ -36,6 +36,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     [SerializeField] private RectTransform _videoPlayerContainerFullscreen;
 
     [Space(10f)]
+    [SerializeField] private TextMeshProUGUI _shortDescription;
     [SerializeField] private TextBox _descriptionTextBox;
     [SerializeField] private TextBox _developmentHighlightsTextBox;
     [SerializeField] private ScrollRect _scrollRect;
@@ -74,6 +75,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         ValidateEssentialComponent(_videoPlayerContainerFullscreen, nameof(_videoPlayerContainerFullscreen));
 
         ValidateEssentialComponent(_infoSectionTransform, nameof(_infoSectionTransform));
+
+        ValidateEssentialComponent(_shortDescription, nameof(_shortDescription));
         ValidateEssentialComponent(_descriptionTextBox, nameof(_descriptionTextBox));
         ValidateEssentialComponent(_developmentHighlightsTextBox, nameof(_developmentHighlightsTextBox));
         ValidateEssentialComponent(_scrollRect, nameof(_scrollRect));
@@ -130,11 +133,15 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     private void UpdateInfoSection()
     {
+        _shortDescription.SetText(_project.GetShortDescriptionText());
+
         UpdateDescription();
         UpdateDevelopmentHighlights();
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+
         _infoSectionTransform.FitChildrenByHeight(SnekRectTransformUtility.FitToChildrenMode.Default);
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
     }
 
