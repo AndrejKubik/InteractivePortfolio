@@ -15,6 +15,9 @@ public class PortfolioProjectData : SnekScriptableObject
     public PortfolioProjectDevelopmentState DevelopmentState = PortfolioProjectDevelopmentState.Prototype;
 
     [Space(10f)]
+    public List<PortfolioProjectStorePageLink> StorePageLinks = new();
+
+    [Space(10f)]
     public List<string> SmallButtonTags = new();
     public List<string> BigButtonTags = new();
     public List<string> OverviewTags = new();

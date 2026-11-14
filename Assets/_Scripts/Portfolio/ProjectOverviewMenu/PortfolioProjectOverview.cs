@@ -30,9 +30,10 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _thumbnail;
-    
+
     [Space(10f)]
     [SerializeField] private PortfolioProjectDevelopmentStateTag _developmentStateTag;
+    [SerializeField] private PortfolioProjectGoToStoreButton _googlePlayButton;
 
     [Space(10f)]
     [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
@@ -77,6 +78,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         ValidateEssentialComponent(_thumbnail, nameof(_thumbnail));
 
         ValidateEssentialComponent(_developmentStateTag, nameof(_developmentStateTag));
+        ValidateEssentialComponent(_googlePlayButton, nameof(_googlePlayButton));
 
         ValidateEssentialComponent(_videoDemo, nameof(_videoDemo));
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
@@ -111,6 +113,14 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
         _projectName.SetText(_project.GetProjectName());
 
+        if (_project.IsPublishedOnStore(PublishingStore.GooglePlay, out string googlePlayURL))
+        {
+            _googlePlayButton.gameObject.SetActive(true);
+            _googlePlayButton.Initialize(new PortfolioProjectGoToStoreButton.Data(googlePlayURL));
+        }
+        else
+            _googlePlayButton.gameObject.SetActive(false);
+
         _videoDemo.Initialize(new PortfolioProjectVideoDemo.Data(
             _project.GetVideoDemoUrl(),
             _slideDuration,
@@ -135,7 +145,6 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     private void OnVideoDemoPrepared()
     {
         UpdateInfoSection();
-        
         UpdateScrollRectContentLayout();
 
         _onPrepareDemoVideo.Invoke();

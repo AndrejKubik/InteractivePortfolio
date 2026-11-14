@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Snek.Utilities;
 using UnityEngine;
 
 public class PortfolioProject
@@ -8,20 +9,22 @@ public class PortfolioProject
 
     private readonly string _projectName = string.Empty;
     private readonly Sprite _thumbnail;
-    private readonly PortfolioProjectDevelopmentState _developmentState;
+    private readonly PortfolioProjectDevelopmentState _developmentState = PortfolioProjectDevelopmentState.Prototype;
+    private readonly List<PortfolioProjectStorePageLink> _storePageLinks = new();
     private readonly List<string> _smallButtonTags = new();
     private readonly List<string> _bigButtonTags = new();
     private readonly List<string> _overviewTags = new();
     private readonly string _videoDemoUrl = string.Empty;
     private readonly string _shortDescription = string.Empty;
     private readonly string _description = string.Empty;
-    private readonly List<PortfolioProjectDevelopmentHighlight> _developmentHighlights;
+    private readonly List<PortfolioProjectDevelopmentHighlight> _developmentHighlights = new();
 
     public PortfolioProject(PortfolioProjectData data)
     {
         _projectName = data.ProjectName;
         _thumbnail = data.Thumbnail;
         _developmentState = data.DevelopmentState;
+        _storePageLinks = data.StorePageLinks;
         _smallButtonTags = data.SmallButtonTags;
         _bigButtonTags = data.BigButtonTags;
         _overviewTags = data.OverviewTags;
@@ -49,10 +52,22 @@ public class PortfolioProject
         if (string.IsNullOrEmpty(_description))
             FailValidation("Project data description text not assigned.", out isDataValid);
 
+        if (!IsEveryStorePageLinkValid())
+            FailValidation("Invalid store page links found inside project data.", out isDataValid);
+
         if (!IsEveryDevelopmentHighlightValid())
             FailValidation("Empty development highlights found inside project data.", out isDataValid);
 
         return isDataValid;
+    }
+
+    private bool IsEveryStorePageLinkValid()
+    {
+        foreach (PortfolioProjectStorePageLink storeData in _storePageLinks)
+            if (string.IsNullOrWhiteSpace(storeData.URL))
+                return false;
+
+        return true;
     }
 
     private bool IsEveryDevelopmentHighlightValid()
@@ -131,5 +146,22 @@ public class PortfolioProject
         }
 
         return finalText + "\n";
+    }
+
+    public bool IsPublishedOnStore(PublishingStore targetStore, out string storePageURL)
+    {
+        storePageURL = string.Empty;
+
+        int elementIndex = _storePageLinks.FindIndex(isLinkForTargetStore);
+
+        storePageURL = elementIndex != -1 ?
+            _storePageLinks[elementIndex].URL : string.Empty;
+
+        return elementIndex != -1;
+
+        bool isLinkForTargetStore(PortfolioProjectStorePageLink link)
+        {
+            return link.Store == targetStore;
+        }
     }
 }

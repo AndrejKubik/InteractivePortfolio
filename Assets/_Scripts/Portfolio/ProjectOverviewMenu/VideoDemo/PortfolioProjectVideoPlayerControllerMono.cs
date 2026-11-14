@@ -1,6 +1,5 @@
 using System.Collections;
 using Snek.Utilities;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -65,8 +64,6 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
         {
             _videoPlayer.source = VideoSource.VideoClip;
             _videoPlayer.clip = TestVideo;
-            EditorGUIUtility.PingObject(gameObject);
-            Selection.SetActiveObjectWithContext(gameObject, gameObject);
         }
         else
         {
