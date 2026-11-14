@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Snek.EndlessCarousel;
 using Snek.GameUI;
 using Snek.Utilities;
@@ -7,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PortfolioProjectButtonTagController))]
+[RequireComponent(typeof(PortfolioProjectTagController))]
 [UseSnekInspector]
 public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement, ISnekInitializableWithData<PortfolioProjectButton.Data>
 {
@@ -23,14 +21,6 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         }
     }
 
-    [Serializable]
-    private struct DevelopmentStateTagData
-    {
-        public PortfolioProjectDevelopmentState DevelopmentState;
-        public Color Color;
-        public string Text;
-    }
-
     private enum ButtonType
     {
         SmallButton,
@@ -39,17 +29,14 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _contentImage;
-    [SerializeField] private PortfolioProjectButtonTag _developmentStateTag;
+    [SerializeField] private PortfolioProjectDevelopmentStateTag _developmentStateTag;
     [SerializeField] private GameObject _loadingOverlay;
 
     [Space(10f)]
     [SerializeField] private ButtonType _buttonType = ButtonType.SmallButton;
 
-    [Space(10f)]
-    [SerializeField] private List<DevelopmentStateTagData> _developmentStateTagDataCombinations = new();
-
     private EventManager _eventManager;
-    private PortfolioProjectButtonTagController _tagController;
+    private PortfolioProjectTagController _tagController;
     private PortfolioProject _project;
 
     public void PrepareInitializationData(Data data)
@@ -80,13 +67,6 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         ValidateEssentialComponent(_eventManager, nameof(_eventManager));
         ValidateEssentialComponent(_tagController, nameof(_tagController));
 
-        if (!IsEveryDevelopmentStatePopulatedWithTagData())
-            FailValidation(
-                $"{nameof(_developmentStateTagDataCombinations)} list is missing development states or has duplicates.\n" +
-                $"Make sure every development state tag data has a unique development state value.");
-        else if (!IsEveryDevelopmentStateTagDataValid())
-            FailValidation("Some development state tag data has completely transparent color or empty text.");
-
         base.Validate();
     }
 
@@ -97,7 +77,8 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         _projectName.SetText(_project.GetProjectName());
 
         CreateProjectTags();
-        UpdateDevelopmentStateTag();
+
+        _developmentStateTag.SetDevelopmentState(_project.GetDevelopmentState());
 
         base.OnInitializationSuccess();
     }
@@ -118,54 +99,6 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
         _eventManager.RequestProjectOverview(_project);
     }
 
-    private bool IsEveryDevelopmentStatePopulatedWithTagData()
-    {
-        Array developmentStateValues = Enum.GetValues(typeof(PortfolioProjectDevelopmentState));
-
-        if (_developmentStateTagDataCombinations.Count != developmentStateValues.Length)
-            return false;
-
-        foreach (PortfolioProjectDevelopmentState state in developmentStateValues)
-        {
-            int foundElements = 0;
-
-            foreach (DevelopmentStateTagData tagData in _developmentStateTagDataCombinations)
-                if (tagData.DevelopmentState == state)
-                    foundElements++;
-
-            if (foundElements != 1)
-                return false;
-        }
-
-        return true;
-    }
-
-    private bool IsAnyDevelopmentStateTagDataWithState(PortfolioProjectDevelopmentState state, out int elementIndex)
-    {
-        elementIndex = _developmentStateTagDataCombinations.FindIndex(IsDevelopmentStateTagDataWithState);
-
-        return elementIndex != -1;
-
-        bool IsDevelopmentStateTagDataWithState(DevelopmentStateTagData tagData)
-        {
-            return tagData.DevelopmentState == state;
-        }
-    }
-
-    private bool IsEveryDevelopmentStateTagDataValid()
-    {
-        foreach (DevelopmentStateTagData tagData in _developmentStateTagDataCombinations)
-            if (!IsDevelopmentStateTagDataValid(tagData))
-                return false;
-
-        return true;
-    }
-
-    private bool IsDevelopmentStateTagDataValid(DevelopmentStateTagData data)
-    {
-        return data.Color != default && !string.IsNullOrWhiteSpace(data.Text);
-    }
-
     private void CreateProjectTags()
     {
         var tagsList = _buttonType switch
@@ -184,25 +117,6 @@ public class PortfolioProjectButton : SnekUIButton, ISnekEndlessCarouselElement,
 
         foreach (string tag in tagsList)
             _tagController.CreateTag(tag);
-    }
-
-    private void UpdateDevelopmentStateTag()
-    {
-        PortfolioProjectDevelopmentState developmentState = _project.GetDevelopmentState();
-
-        if (!IsAnyDevelopmentStateTagDataWithState(developmentState, out int elementIndex))
-        {
-            Debug.LogError(
-                $"No development state tag data found with state: {developmentState}\n" +
-                $"Cannot update development state tag.");
-
-            return;
-        }
-
-        DevelopmentStateTagData tagData = _developmentStateTagDataCombinations[elementIndex];
-
-        _developmentStateTag.SetColor(tagData.Color);
-        _developmentStateTag.SetText(tagData.Text);
     }
 
     private void OnRequestShowAllProjects()

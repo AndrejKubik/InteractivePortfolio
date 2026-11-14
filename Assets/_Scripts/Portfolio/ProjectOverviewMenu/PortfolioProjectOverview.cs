@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PortfolioProjectTagController))]
 [UseSnekInspector]
 public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWithData<PortfolioProjectOverview.Data>
 {
@@ -25,9 +26,13 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     }
 
     private EventManager _eventManager;
+    private PortfolioProjectTagController _tagController;
 
     [SerializeField] private TextMeshProUGUI _projectName;
     [SerializeField] private Image _thumbnail;
+    
+    [Space(10f)]
+    [SerializeField] private PortfolioProjectDevelopmentStateTag _developmentStateTag;
 
     [Space(10f)]
     [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
@@ -59,7 +64,9 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     protected override void OnInitialize()
     {
-        _eventManager = SnekSingletonManager.GetSingleton<EventManager>();
+        SnekSingletonManager.GetSingleton(out _eventManager);
+
+        GetEssentialComponent(out _tagController);
     }
 
     protected override void Validate()
@@ -68,6 +75,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
         ValidateEssentialComponent(_projectName, nameof(_projectName));
         ValidateEssentialComponent(_thumbnail, nameof(_thumbnail));
+
+        ValidateEssentialComponent(_developmentStateTag, nameof(_developmentStateTag));
 
         ValidateEssentialComponent(_videoDemo, nameof(_videoDemo));
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
@@ -126,6 +135,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     private void OnVideoDemoPrepared()
     {
         UpdateInfoSection();
+        
         UpdateScrollRectContentLayout();
 
         _onPrepareDemoVideo.Invoke();
@@ -135,14 +145,25 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
     {
         _shortDescription.SetText(_project.GetShortDescriptionText());
 
+        UpdateTags();
         UpdateDescription();
         UpdateDevelopmentHighlights();
+
+        _developmentStateTag.SetDevelopmentState(_project.GetDevelopmentState());
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
 
         _infoSectionTransform.FitChildrenByHeight(SnekRectTransformUtility.FitToChildrenMode.Default);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+    }
+
+    private void UpdateTags()
+    {
+        _tagController.ClearTags();
+
+        foreach (string tagText in _project.GetOverviewTags())
+            _tagController.CreateTag(tagText);
     }
 
     private void UpdateDescription()

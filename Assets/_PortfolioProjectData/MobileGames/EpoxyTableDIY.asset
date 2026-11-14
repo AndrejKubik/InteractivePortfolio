@@ -25,6 +25,12 @@ MonoBehaviour:
   - Prototype
   - Hyper-Casual
   - Simulation
+  OverviewTags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Simulation
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Epoxy.Table.DIY.mp4
   ShortDescription: Simulation game where you create your very own epoxy table.
   Description: Choose a table type, place hard-wood segments, drop in smaller details,

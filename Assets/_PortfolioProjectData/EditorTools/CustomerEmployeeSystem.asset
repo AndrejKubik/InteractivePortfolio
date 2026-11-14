@@ -21,6 +21,10 @@ MonoBehaviour:
   BigButtonTags:
   - Game System
   - Plug & Play
+  OverviewTags:
+  - Unity
+  - Game System
+  - Plug & Play
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/SnekProduction.Customer-Employee.System.Tutorial.mp4
   ShortDescription: Game functionality for idle tycoon games.
   Description: 'Plug & play system for spawning customers and employees, customer

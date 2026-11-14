@@ -25,6 +25,12 @@ MonoBehaviour:
   - Prototype
   - Hyper-Casual
   - Simulation
+  OverviewTags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Simulation
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Neon.Lights.DIY.mp4
   ShortDescription: Simulation game about creating LED signs.
   Description: Choose a shape and cut it out, place the LED tape, braze the connection

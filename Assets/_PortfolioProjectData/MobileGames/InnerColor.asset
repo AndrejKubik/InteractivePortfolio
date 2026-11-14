@@ -25,6 +25,12 @@ MonoBehaviour:
   - Casual
   - Painting
   - Zen
+  OverviewTags:
+  - Unity
+  - 2D
+  - Casual
+  - Painting
+  - Zen
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/InnerColor.mp4
   ShortDescription: Zen painting game with smooth animations, calming music, different
     painting tools, and various visual filters.

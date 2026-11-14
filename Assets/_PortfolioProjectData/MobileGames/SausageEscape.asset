@@ -25,6 +25,12 @@ MonoBehaviour:
   - Prototype
   - Hyper-Casual
   - Runner
+  OverviewTags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Runner
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Sausage.Escape.mp4
   ShortDescription: Runner game about escorting raw sausages towards the fired-up
     grill right outside the kitchen window.

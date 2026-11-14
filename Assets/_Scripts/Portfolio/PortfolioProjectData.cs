@@ -17,6 +17,7 @@ public class PortfolioProjectData : SnekScriptableObject
     [Space(10f)]
     public List<string> SmallButtonTags = new();
     public List<string> BigButtonTags = new();
+    public List<string> OverviewTags = new();
 
     [Space(10f)]
     [TextArea]

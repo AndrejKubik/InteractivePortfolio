@@ -25,6 +25,12 @@ MonoBehaviour:
   - Horror
   - Exploration
   - Top-Down
+  OverviewTags:
+  - Unity
+  - 3D
+  - Horror
+  - Exploration
+  - Top-Down
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Flash.of.Light.mp4
   ShortDescription: Top-down exploration horror game where you wake up in a dark
     and quiet forest with no memory, a flashlight, and a rather talkative ghost companion.

@@ -25,6 +25,12 @@ MonoBehaviour:
   - Prototype
   - Hyper-Casual
   - Puzzle
+  OverviewTags:
+  - Unity
+  - 3D
+  - Prototype
+  - Hyper-Casual
+  - Puzzle
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Power.Chord.mp4
   ShortDescription: Puzzle game about mixing colors.
   Description: You control a panicked stickman electrician to help him supply the

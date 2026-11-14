@@ -3,7 +3,7 @@ using Snek.Utilities;
 using UnityEngine;
 
 [UseSnekInspector]
-public class PortfolioProjectButtonTagController : SnekMonoBehaviour
+public class PortfolioProjectTagController : SnekMonoBehaviour
 {
     [SerializeField] private PortfolioProjectButtonTag _tagPrefab;
 
@@ -28,6 +28,13 @@ public class PortfolioProjectButtonTagController : SnekMonoBehaviour
 
         if (_tagContainers.Count > 1)
             SwitchActiveContainer();
+    }
+
+    public void ClearTags()
+    {
+        foreach (RectTransform tagContainer in _tagContainers)
+            for (int i = tagContainer.childCount - 1; i >= 0; i--)
+                Destroy(tagContainer.GetChild(i).gameObject);
     }
 
     private RectTransform GetActiveContainer()

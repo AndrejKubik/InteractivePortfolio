@@ -25,6 +25,12 @@ MonoBehaviour:
   - Action
   - 3rd Person
   - Shooter
+  OverviewTags:
+  - Unity
+  - 3D
+  - Action
+  - 3rd Person
+  - Shooter
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
   ShortDescription: Prototype for a rogue-lite 3rd person shooter game about a magician
     fighting masked demons.

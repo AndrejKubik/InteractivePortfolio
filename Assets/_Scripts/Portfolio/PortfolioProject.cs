@@ -11,6 +11,7 @@ public class PortfolioProject
     private readonly PortfolioProjectDevelopmentState _developmentState;
     private readonly List<string> _smallButtonTags = new();
     private readonly List<string> _bigButtonTags = new();
+    private readonly List<string> _overviewTags = new();
     private readonly string _videoDemoUrl = string.Empty;
     private readonly string _shortDescription = string.Empty;
     private readonly string _description = string.Empty;
@@ -23,6 +24,7 @@ public class PortfolioProject
         _developmentState = data.DevelopmentState;
         _smallButtonTags = data.SmallButtonTags;
         _bigButtonTags = data.BigButtonTags;
+        _overviewTags = data.OverviewTags;
         _videoDemoUrl = data.VideoDemoUrl;
         _shortDescription = data.ShortDescription;
         _description = data.Description;
@@ -92,6 +94,11 @@ public class PortfolioProject
     public List<string> GetBigButtonTags()
     {
         return _bigButtonTags;
+    }
+
+    public List<string> GetOverviewTags()
+    {
+        return _overviewTags;
     }
 
     public string GetVideoDemoUrl()

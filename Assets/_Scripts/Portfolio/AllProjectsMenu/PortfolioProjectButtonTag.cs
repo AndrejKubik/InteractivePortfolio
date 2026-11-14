@@ -46,7 +46,7 @@ public class PortfolioProjectButtonTag : SnekMonoBehaviour
         AdjustWidthToFitText();
     }
 
-    private void AdjustWidthToFitText()
+    protected void AdjustWidthToFitText()
     {
         float requiredWidth = _textMesh.GetPreferredValues(_textMesh.text, Mathf.Infinity, Mathf.Infinity).x;
         requiredWidth += _paddingLeft + _paddingRight;

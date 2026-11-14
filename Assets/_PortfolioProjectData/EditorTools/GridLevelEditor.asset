@@ -23,6 +23,12 @@ MonoBehaviour:
   - Prefab Placement
   - JSON files
   - Editor Windows
+  OverviewTags:
+  - Unity
+  - Level Creation
+  - Prefab Placement
+  - JSON files
+  - Editor Windows
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
   ShortDescription: Editor tool for creating game levels.
   Description: Editor tool with various features, intended to allow a game designer

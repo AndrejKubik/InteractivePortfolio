@@ -25,6 +25,12 @@ MonoBehaviour:
   - Casual
   - Painting
   - For Children
+  OverviewTags:
+  - Unity
+  - 2D
+  - Casual
+  - Painting
+  - For Children
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/PaintAndPlay.mp4
   ShortDescription: Painting game for children featuring funny characters and multiple
     game modes.

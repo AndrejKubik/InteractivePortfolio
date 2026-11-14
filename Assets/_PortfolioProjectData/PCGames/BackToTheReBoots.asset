@@ -24,6 +24,12 @@ MonoBehaviour:
   - Dungeon Crawler
   - Shooter
   - Top-Down
+  OverviewTags:
+  - Unity
+  - 3D
+  - Dungeon Crawler
+  - Shooter
+  - Top-Down
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Back.to.the.R.eb.oots.mp4
   ShortDescription: Top-down dungeon crawler game about a computer virus trying to
     corrupt the system.
