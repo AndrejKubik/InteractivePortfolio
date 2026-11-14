@@ -13,7 +13,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     [SerializeField] private RawImage _videoPreview;
 
     [Space(10f)]
-    [SerializeField] private RectTransform _videoPreviewHeader;
     [SerializeField] private RectTransform _videoPlayerContainerMini;
     [SerializeField] private AspectRatioFitter _aspectRatioFitterMini;
     [SerializeField] private RectTransform _controlsPanelTransform;
@@ -29,7 +28,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
     private RectTransform _videoPreviewTransform;
 
-    private float _headerHeight = 0f;
     private float _controlsPanelHeight = 0f;
 
     protected override void OnInitialize()
@@ -45,7 +43,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
 
         ValidateEssentialComponent(_videoPreview, nameof(_videoPreview));
 
-        ValidateEssentialComponent(_videoPreviewHeader, nameof(_videoPreviewHeader));
         ValidateEssentialComponent(_videoPlayerContainerMini, nameof(_videoPlayerContainerMini));
         ValidateEssentialComponent(_aspectRatioFitterMini, nameof(_aspectRatioFitterMini));
         ValidateEssentialComponent(_controlsPanelTransform, nameof(_controlsPanelTransform));
@@ -60,7 +57,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
         _videoPreviewTransform = _videoPreview.transform as RectTransform;
         _horizontalLayoutGroupTransform = _horizontalLayoutGroup.transform as RectTransform;
 
-        _headerHeight = _videoPreviewHeader.rect.size.y;
         _controlsPanelHeight = _controlsPanelTransform.rect.size.y;
 
         _aspectRatioFitterMini.enabled = false;
@@ -77,7 +73,6 @@ public class PortfolioProjectVideoPreviewController : SnekMonoBehaviour, ISnekIn
     private void SetMiniPlayerTransformAnchors()
     {
         _videoPlayerContainerMini.ResetAnchorOffset();
-        _videoPlayerContainerMini.SetAnchorOffset(_headerHeight, AnchorOffsetSide.Top);
         _videoPlayerContainerMini.SetAnchorOffset(_controlsPanelHeight, AnchorOffsetSide.Bottom);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(_videoPlayerContainerMini);
