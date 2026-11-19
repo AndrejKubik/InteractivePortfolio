@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoPlayerControllerMono
   _videoPlayer: {fileID: 179511740938479375}
   TestVideoOnly: 0
-  TestVideo: {fileID: 32900000, guid: b200c994340011640bfc448b0931bebb, type: 3}
+  TestVideo: {fileID: 0}
 --- !u!114 &2253525754988258284
 MonoBehaviour:
   m_ObjectHideFlags: 0
