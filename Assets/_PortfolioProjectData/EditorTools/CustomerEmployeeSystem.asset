@@ -29,6 +29,7 @@ MonoBehaviour:
   - Game System
   - Plug & Play
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/SnekProduction.Customer-Employee.System.Tutorial.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=A7KgGtrtVuM
   ShortDescription: Game functionality for idle tycoon games.
   Description: 'Plug & play system for spawning customers and employees, customer
     movement with waiting in line, customer serving over time and customer despawning. '

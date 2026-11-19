@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Fortune Frenzy
   Thumbnail: {fileID: 21300000, guid: d373c66ba70600f4a839587f1c9eaf08, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -32,6 +33,7 @@ MonoBehaviour:
   - Shooter
   - Trajectory
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Fortune.Frenzy.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=ba4NFAz5Hdo
   ShortDescription: Fast-paced shooter Fake-PvP game with a wheel of fortune element
     to spice things up.
   Description: Control your auto-firing soldier cannon to send your army to demolish

@@ -23,6 +23,7 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     [SerializeField] private VideoPlayer _videoPlayer;
 
     private string _videoURL = string.Empty;
+    
     private OnVideoPreparedCallback _onVideoPrepared;
 
     private float _videoTotalTime = 0f;
@@ -44,7 +45,7 @@ public class PortfolioProjectVideoPlayerController : SnekMonoBehaviour, ISnekIni
     {
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
 
-        if (string.IsNullOrEmpty(_videoURL))
+        if (string.IsNullOrWhiteSpace(_videoURL))
             FailValidation("Invalid video URL provided.");
 
         if (_onVideoPrepared == null)

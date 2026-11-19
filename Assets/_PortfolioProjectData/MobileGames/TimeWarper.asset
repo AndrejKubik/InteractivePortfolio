@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Time Warper
   Thumbnail: {fileID: 21300000, guid: b283885b53a73a843a2de3e4770c075a, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -30,6 +31,7 @@ MonoBehaviour:
   - Hyper-Casual
   - Runner
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Time.Warper.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=tvI0NQBUebQ
   ShortDescription: Runner game about controling time.
   Description: Tap and hold to briefly slow down the time to safely pass obstacles
     and reach the finish line.

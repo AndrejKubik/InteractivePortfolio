@@ -15,12 +15,14 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     public readonly struct Data
     {
         public readonly string VideoUrl;
+        public readonly string YouTubeUrl;
         public readonly float SlideDuration;
         public readonly Action OnVideoPrepared;
 
-        public Data(string videoUrl, float slideDuration, Action onVideoPrepared)
+        public Data(string videoUrl, string youtubeUrl, float slideDuration, Action onVideoPrepared)
         {
             VideoUrl = videoUrl;
+            YouTubeUrl = youtubeUrl;
             SlideDuration = slideDuration;
             OnVideoPrepared = onVideoPrepared;
         }
@@ -28,6 +30,7 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     [Space(10f)]
     [SerializeField] private VideoPlayer _videoPlayer;
+    [SerializeField] private OpenURLButton _watchOnYouTubeButton;
 
     [Space(10f)]
     [SerializeField] private Sprite _mutedSymbol;
@@ -41,7 +44,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     [SerializeField] private Sprite _fullscreenOnSymbol;
     [SerializeField] private Sprite _fullscreenOffSymbol;
 
-    private string _videoURL = string.Empty;
+    private string _videoUrl = string.Empty;
+    private string _youTubeUrl = string.Empty;
     private float _slideDuration = 0f;
     private Action _onVideoPrepared = null;
 
@@ -72,7 +76,8 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     public void PrepareInitializationData(Data data)
     {
-        _videoURL = data.VideoUrl;
+        _videoUrl = data.VideoUrl;
+        _youTubeUrl = data.YouTubeUrl;
         _slideDuration = data.SlideDuration;
         _onVideoPrepared = data.OnVideoPrepared;
     }
@@ -87,13 +92,17 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
 
     protected override void Validate()
     {
-        if (string.IsNullOrEmpty(_videoURL))
+        if (string.IsNullOrEmpty(_videoUrl))
             FailValidation("Invalid video URL provided.");
+
+        if (string.IsNullOrWhiteSpace(_youTubeUrl))
+            FailValidation("Invalid youitube URL provided.");
 
         if (_onVideoPrepared == null)
             FailValidation("Video prepared callback not assigned.");
 
         ValidateEssentialComponent(_videoPlayer, nameof(_videoPlayer));
+        ValidateEssentialComponent(_watchOnYouTubeButton, nameof(_watchOnYouTubeButton));
 
         ValidateEssentialComponent(_mutedSymbol, nameof(_mutedSymbol));
         ValidateEssentialComponent(_unmutedSymbol, nameof(_unmutedSymbol));
@@ -106,8 +115,10 @@ public class PortfolioProjectVideoDemo : SnekMonoBehaviour, ISnekInitializableWi
     protected override void OnInitializeSubdependencies()
     {
         _videoPlayerController.Initialize(new PortfolioProjectVideoPlayerController.Data(
-            _videoURL,
+            _videoUrl,
             OnVideoPrepared));
+
+        _watchOnYouTubeButton.Initialize(new OpenURLButton.Data(_youTubeUrl));
 
         _videoPreviewController.Initialize();
 

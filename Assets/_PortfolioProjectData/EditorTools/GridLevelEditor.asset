@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Grid Level Editor
   Thumbnail: {fileID: 21300000, guid: 3bbe6dacdddf892469ef87322e8db290, type: 3}
   DevelopmentState: 3
+  StorePageLinks: []
   SmallButtonTags:
   - In-Editor
   - Level Creation
@@ -30,6 +31,7 @@ MonoBehaviour:
   - JSON files
   - Editor Windows
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Level.editor.-.Short.Demo.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=oYkcTq7jZ9c
   ShortDescription: Editor tool for creating game levels.
   Description: Editor tool with various features, intended to allow a game designer
     to create and prototype game content quickly, while also allowing developers

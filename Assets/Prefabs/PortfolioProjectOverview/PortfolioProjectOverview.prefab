@@ -816,6 +816,7 @@ MonoBehaviour:
   _developmentStateTag: {fileID: 2431251165493738721}
   _googlePlayButton: {fileID: 1477215713222842072}
   _unityAssetStoreButton: {fileID: 4670748952804137288}
+  _watchOnYouTubeButton: {fileID: 9000098564489670097}
   _videoDemo: {fileID: 5930670346519786289}
   _videoPlayer: {fileID: 1293829633465675624}
   _videoPlayerContainerMini: {fileID: 3836539854985369377}
@@ -1403,6 +1404,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 178712631255592573, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 926108323715015112, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1623,6 +1648,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150e2f332ba39214799b6ccee6476087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoDemo
+--- !u!114 &9000098564489670097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8832796557847263863, guid: fa9c8519b191e2847bc733c9f040f07d, type: 3}
+  m_PrefabInstance: {fileID: 464610038840792998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a68624561465ba4bb4e13d566493b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenURLButton
 --- !u!1001 &3775578572846318087
 PrefabInstance:
   m_ObjectHideFlags: 0

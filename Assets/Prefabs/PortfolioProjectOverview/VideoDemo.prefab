@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortfolioProjectVideoDemo
   _videoPlayer: {fileID: 179511740938479375}
+  _watchOnYouTubeButton: {fileID: 8832796557847263863}
   _mutedSymbol: {fileID: 21300000, guid: 376774b881777b245afaea4e43c8ddbe, type: 3}
   _unmutedSymbol: {fileID: 21300000, guid: 52ba06715f9eb8244ac14e98e3c79dff, type: 3}
   _playSymbol: {fileID: 21300000, guid: 154cc6f9884cc554ebc6812270d472b5, type: 3}
@@ -503,6 +504,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3696471186925387911}
     m_Modifications:
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 324291733863706087, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 729799953018724946, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -839,3 +864,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad69a06d4de2d9499a71ebcdce95b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioMuteButton
+--- !u!114 &8832796557847263863 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8966264462702066157, guid: 9a9747d6af2ea5545b306e774eb2a130, type: 3}
+  m_PrefabInstance: {fileID: 502986634402710426}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a68624561465ba4bb4e13d566493b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenURLButton

@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Masks, end me!
   Thumbnail: {fileID: 21300000, guid: 9ffabfae31121bf4fbf85ea0c2224ef5, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -32,6 +33,7 @@ MonoBehaviour:
   - 3rd Person
   - Shooter
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Masks.end.me.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=q1if25M9UE4
   ShortDescription: Prototype for a rogue-lite 3rd person shooter game about a magician
     fighting masked demons.
   Description: The demons attack you in waves and their numbers increase over time.

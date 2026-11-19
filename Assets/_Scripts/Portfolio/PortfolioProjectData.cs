@@ -26,6 +26,9 @@ public class PortfolioProjectData : SnekScriptableObject
     [TextArea]
     public string VideoDemoUrl = string.Empty;
 
+    [TextArea]
+    public string YoutubeDemoUrl = string.Empty;
+
     [Space(10f)]
     [TextArea(1, 10)]
     public string ShortDescription = string.Empty;

@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Flash of light
   Thumbnail: {fileID: 21300000, guid: 9b687cc607115ab4ea1f31dd04cc09d9, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -32,6 +33,7 @@ MonoBehaviour:
   - Exploration
   - Top-Down
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Flash.of.Light.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=MX-br9M24Tk
   ShortDescription: Top-down exploration horror game where you wake up in a dark
     and quiet forest with no memory, a flashlight, and a rather talkative ghost companion.
   Description: "While you explore your surroundings, you often get chased by terrifying

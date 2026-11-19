@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Neon Lights DIY
   Thumbnail: {fileID: 21300000, guid: 29840edd40df8f24a9d388f7d7ef7999, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -32,6 +33,7 @@ MonoBehaviour:
   - Hyper-Casual
   - Simulation
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Neon.Lights.DIY.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=mosu1t2mMRc
   ShortDescription: Simulation game about creating LED signs.
   Description: Choose a shape and cut it out, place the LED tape, braze the connection
     points, place the neon tube with a color of your choice and place the sign on

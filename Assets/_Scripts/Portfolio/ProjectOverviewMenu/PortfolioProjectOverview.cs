@@ -33,8 +33,8 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
     [Space(10f)]
     [SerializeField] private PortfolioProjectDevelopmentStateTag _developmentStateTag;
-    [SerializeField] private PortfolioProjectGoToStoreButton _googlePlayButton;
-    [SerializeField] private PortfolioProjectGoToStoreButton _unityAssetStoreButton;
+    [SerializeField] private OpenURLButton _googlePlayButton;
+    [SerializeField] private OpenURLButton _unityAssetStoreButton;
 
     [Space(10f)]
     [SerializeField] private PortfolioProjectVideoDemo _videoDemo;
@@ -119,6 +119,7 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
 
         _videoDemo.Initialize(new PortfolioProjectVideoDemo.Data(
             _project.GetVideoDemoUrl(),
+            _project.GetYoutubeDemoUrl(),
             _slideDuration,
             OnVideoDemoPrepared));
 
@@ -132,14 +133,14 @@ public class PortfolioProjectOverview : SnekMonoBehaviour, ISnekInitializableWit
         _googlePlayButton.gameObject.SetActive(isOnGooglePlay);
 
         if (isOnGooglePlay)
-            _googlePlayButton.Initialize(new PortfolioProjectGoToStoreButton.Data(googlePlayURL));
+            _googlePlayButton.Initialize(new OpenURLButton.Data(googlePlayURL));
 
         bool isOnUnityAssetStore = _project.IsPublishedOnStore(PublishingStore.UnityAssetStore, out string unityAssetStoreURL);
 
         _unityAssetStoreButton.gameObject.SetActive(isOnUnityAssetStore);
 
         if (isOnUnityAssetStore)
-            _unityAssetStoreButton.Initialize(new PortfolioProjectGoToStoreButton.Data(unityAssetStoreURL));
+            _unityAssetStoreButton.Initialize(new OpenURLButton.Data(unityAssetStoreURL));
     }
 
     protected override void OnDispose()

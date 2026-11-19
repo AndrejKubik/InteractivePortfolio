@@ -15,6 +15,7 @@ public class PortfolioProject
     private readonly List<string> _bigButtonTags = new();
     private readonly List<string> _overviewTags = new();
     private readonly string _videoDemoUrl = string.Empty;
+    private readonly string _youtubeDemoUrl = string.Empty;
     private readonly string _shortDescription = string.Empty;
     private readonly string _description = string.Empty;
     private readonly List<PortfolioProjectDevelopmentHighlight> _developmentHighlights = new();
@@ -29,6 +30,7 @@ public class PortfolioProject
         _bigButtonTags = data.BigButtonTags;
         _overviewTags = data.OverviewTags;
         _videoDemoUrl = data.VideoDemoUrl;
+        _youtubeDemoUrl = data.YoutubeDemoUrl;
         _shortDescription = data.ShortDescription;
         _description = data.Description;
         _developmentHighlights = data.DevelopmentHighlights;
@@ -44,10 +46,13 @@ public class PortfolioProject
         if (_thumbnail == null)
             FailValidation("Project data thumbnail not assigned.", out isDataValid);
 
-        if (string.IsNullOrEmpty(_videoDemoUrl))
+        if (string.IsNullOrWhiteSpace(_videoDemoUrl))
             FailValidation("Project data video demo link not assigned.", out isDataValid);
         else if (!_videoDemoUrl.StartsWith(DemoVideosBaseUrl))
             FailValidation("Project data video demo link is invalid.", out isDataValid);
+
+        if (string.IsNullOrWhiteSpace(_youtubeDemoUrl))
+            FailValidation("Project data YouTube demo link not assigned.", out isDataValid);
 
         if (string.IsNullOrEmpty(_description))
             FailValidation("Project data description text not assigned.", out isDataValid);
@@ -121,6 +126,11 @@ public class PortfolioProject
         string fileName = _videoDemoUrl.Replace(DemoVideosBaseUrl, string.Empty);
 
         return ProxyDemoVideosBaseUrl + fileName;
+    }
+
+    public string GetYoutubeDemoUrl()
+    {
+        return _youtubeDemoUrl;
     }
 
     public string GetShortDescriptionText()

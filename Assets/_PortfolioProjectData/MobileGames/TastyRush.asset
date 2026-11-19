@@ -15,6 +15,7 @@ MonoBehaviour:
   ProjectName: Tasty Rush
   Thumbnail: {fileID: 21300000, guid: 56db802e3b3fb3f479e4bf2407cdea5f, type: 3}
   DevelopmentState: 0
+  StorePageLinks: []
   SmallButtonTags:
   - Unity
   - 3D
@@ -34,6 +35,7 @@ MonoBehaviour:
   - Merge
   - Drag & Drop
   VideoDemoUrl: https://github.com/AndrejKubik/InteractivePortfolio/releases/download/demo-videos/Tasty.Rush.mp4
+  YoutubeDemoUrl: https://www.youtube.com/watch?v=k9CwpY1n7UQ
   ShortDescription: Clicker-Idle game in which you are an owner of a fast food restaurant.
   Description: Attract customers by clicking, hire new employees, buy upgrades for
     automated actions, and merge employees of the same level to upgrade them and
